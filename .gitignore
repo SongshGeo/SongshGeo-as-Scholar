@@ -11,3 +11,6 @@ go.sum
 
 #MacOS
 .DS_Store
+
+#Obsidian 
+.obsidian/
