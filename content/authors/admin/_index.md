@@ -77,4 +77,4 @@ highlight_name: true
 
 Shuang Song is a PhD candidate in geography, focusing on human-water relationships and complex system modelling. At the same time, he is also a traveller and a writer. Through my research and writing, I hope to call attention to our relationship with nature. 
 
-{{< icon name="download" pack="fas" >}} Download my {{< staticref "uploads/demo_resume.pdf" "newtab" >}}resumé{{< /staticref >}}.
+{{< icon name="download" pack="fas" >}} Download my {{< staticref "uploads/SongshGeo_CV.pdf" "newtab" >}}resumé{{< /staticref >}}.
