@@ -6,28 +6,37 @@
 main:
   - name: Home
     url: '#about'
-    weight: 10
-  - name: Posts
-    url: '#posts'
     weight: 20
+  # - name: Skills
+  #   url: '#skills'
+  #   weight: 40
+  # - name: Experience
+  #   url: '#experience'
+  #   weight: 50
+  # - name: Accomplishments
+  #   url: '#accomplishments'
+  #   weight: 60
   - name: Projects
     url: '#projects'
-    weight: 30
-  - name: Talks
-    url: '#talks'
-    weight: 40
-  - name: Publications
+    weight: 70
+  - name: Featured
     url: '#featured'
-    weight: 50
+    weight: 80
+  - name: Publications
+    url: '#publications'
+    weight: 90
+  - name: Posts
+    url: '#posts'
+    weight: 100
   - name: Contact
     url: '#contact'
-    weight: 60
+    weight: 110
 
 # Link to a PDF of your resume/CV from the menu.
 # To enable, copy your resume/CV to `static/uploads/resume.pdf` and uncomment the lines below.
-  - name: CV
-    url: 'https://cv.songshgeo.com/uploads/SongshGeo_CV.pdf'
-    weight: 70
+  # - name: CV
+  #   url: 'https://cv.songshgeo.com/uploads/SongshGeo_CV.pdf'
+  #   weight: 70
   - name: Blog
-    url: 'https://test.songshgeo.com/'
-    weight: 80
+    url: 'https://blog.songshgeo.com/'
+    weight: 120
