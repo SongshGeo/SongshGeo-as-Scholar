@@ -89,19 +89,18 @@ His current research aims to use the framework of the social-ecological system a
 {{< icon name="download" pack="fas" >}} Download my {{< staticref "uploads/SongshGeo_CV_pdf.pdf" "newtab" >}}resumé{{< /staticref >}}.
 
 # Interests
+
 - [social-ecological system](/tag/social-ecological-system/)
 - [social-hydrology](/tag/social-hydrology/)
 - [complex system modelling](/tag/complex-system-modelling/)
 - agent-based model
-- [water resources management](/tag/water-resources-management/)
-- [human-water relationship](/tag/human-water-relationship/)
 - [environmental governance](/tag/environmental-governance/)
-- institutional fit
 - [system evolution](/tag/system-evolution/)
-- [adaptation](/tag/adapataion/)
 - historical geography
-- [regime shift](/tag/regime-shift/)
 - [network analysis](/tag/network-analysis/)
 - [sustainability](/tag/sustainability/)
-
-
+<!-- - [water resources management](/tag/water-resources-management/) -->
+<!-- - [human-water relationship](/tag/human-water-relationship/) -->
+<!-- - institutional fit -->
+<!-- - [adaptation](/tag/adapataion/) -->
+<!-- - [regime shift](/tag/regime-shift/) -->

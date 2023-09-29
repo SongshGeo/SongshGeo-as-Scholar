@@ -23,7 +23,7 @@ date_format: Jan 2006
 #   Begin multi-line descriptions with YAML's `|2-` multi-line prefix.
 experience:
   - title: Ph.D. Candidate in Geography
-    company: BEIJING NORMAL UNIVERISTY
+    company: Beijing Normal University
     company_url: 'https://english.bnu.edu.cn/'
     company_logo: org-x
     location: Haidian District, Beijing, China
@@ -32,7 +32,7 @@ experience:
     description: 'Dissertation: Evolution of human-water relationship and its mechanism in the Yellow River Basin'
 
   - title: B.S. of History Study(The second major)
-    company: SUN YAT-SEN UNIVERISTY
+    company: Sun Yat-Sen University
     company_url: 'https://www.sysu.edu.cn/sysuen/'
     company_logo: org-x
     location: Guangzhou, Guangdong, China
@@ -41,7 +41,7 @@ experience:
     description: 'Featured thesis: A historical-geographical research in spatial structure of market in the Yellow River flood Plain, Ningxia'
 
   - title: B.S. of Science, Physical Geography & History Study(The second major)
-    company: SUN YAT-SEN UNIVERISTY
+    company: Sun Yat-Sen University
     company_url: 'https://www.sysu.edu.cn/sysuen/'
     company_logo: org-x
     location: Guangzhou, Guangdong, China

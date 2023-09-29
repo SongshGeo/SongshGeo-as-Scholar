@@ -27,7 +27,7 @@ item:
     date_end: ''
     date_start: '2016-11-30'
     description: ''
-    organization: SUN YAR-SEN UNIVERSITY
+    organization: Sun Yat-Sen University
     organization_url: 
     title: Chinese National Scholarship （Top 5%）
     url: ''
@@ -35,7 +35,7 @@ item:
     date_end: ''
     date_start: '2017-11-15'
     description: ''
-    organization: SUN YAR-SEN UNIVERSITY
+    organization: Sun Yat-Sen University
     organization_url: 
     title: First-class Scholarships for Outstanding Students
     url: ''
@@ -43,7 +43,7 @@ item:
     date_end: ''
     date_start: '2018-06-15'
     description: ''
-    organization: SUN YAR-SEN UNIVERSITY
+    organization: Sun Yat-Sen University
     organization_url: 
     title: Guanghua Education Scholarship
     url: ''
@@ -51,7 +51,7 @@ item:
     date_end: ''
     date_start: '2021-06-19'
     description: ''
-    organization: BEIJING NORMAL UNIVERSITY
+    organization: Beijing Normal University
     organization_url: 
     title: Youth Academic Forum 'Graduate Excellent Academic Report Award'
     url: ''
@@ -59,7 +59,7 @@ item:
     date_end: ''
     date_start: '2018-06-19'
     description: ''
-    organization: BEIJING NORMAL UNIVERSITY
+    organization: Beijing Normal University
     organization_url: 
     title: Excellent graduation thesis & excellent graduates
     url: ''
@@ -67,7 +67,7 @@ item:
     date_end: ''
     date_start: '2019-11-15'
     description: ''
-    organization: BEIJING NORMAL UNIVERSITY
+    organization: Beijing Normal University
     organization_url: 
     title: First prize for academic speech contest & best popularity prize
     url: ''
@@ -75,7 +75,7 @@ item:
     date_end: ''
     date_start: '2020-11-15'
     description: ''
-    organization: BEIJING NORMAL UNIVERSITY
+    organization: Beijing Normal University
     organization_url: 
     title: Chinese National Scholarship （Top 5%）
     url: ''
