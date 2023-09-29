@@ -32,12 +32,12 @@ content:
       tag: social-ecological system
     - name: social-hydrology
       tag: social-hydrology
-    - name: water resources management
-      tag: water resources management
+    # - name: water resources management
+    #   tag: water resources management
     - name: environmental governance
       tag: environmental governance
-    - name: regime shift
-      tag: regime shift
+    # - name: regime shift
+    #   tag: regime shift
     - name: evolution
       tag: evolution
 

@@ -58,7 +58,7 @@ subtitle = ""
 
 ### 👋<font face='Arial'>Hi there, this is</font>
 <font color='BlanchedAlmond'><font size=72>**Shuang Song**</font></font><br>
- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=4><font face='Arial'><font color='White'>A scientist who also travels.</font></font></font>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=4><font face='Arial'><font color='White'>A geographer who also travels.</font></font></font>
 
 <!-- ## 👋 Welcome to the Academic Template
 
@@ -75,7 +75,7 @@ The Wowchemy **Academic Resumé Template** for Hugo empowers you to create your 
 <br/> 
 
 #### [>> Academic Page](#about)
-#### [>> Personal Posts Page](https://blog.songshgeo.com/)
+#### [>> Personal Posts Page](https://songshgeo.com/)
 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; <font face='Lucida Handwriting'><font size=3><font color='white'>Independent spirit, free thoughts </font></font></font>
 
 <!-- To help us develop this template and software sustainably under the MIT license, we ask all individuals and businesses that use it to help support its ongoing maintenance and development via sponsorship.

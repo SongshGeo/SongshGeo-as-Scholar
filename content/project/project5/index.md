@@ -25,9 +25,9 @@ url_video: ''
 tags:
   - social-ecological system
   - social-hydrology
-  - water resources management
+  # - water resources management
   - environmental governance
-  - regime shift
+  # - regime shift
   - evolution
 
 # Slides (optional).

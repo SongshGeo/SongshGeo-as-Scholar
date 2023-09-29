@@ -38,5 +38,5 @@ main:
   #   url: 'https://cv.songshgeo.com/uploads/SongshGeo_CV.pdf'
   #   weight: 70
   - name: Blog
-    url: 'https://blog.songshgeo.com/'
+    url: 'https://songshgeo.com/'
     weight: 120
