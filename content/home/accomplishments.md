@@ -4,13 +4,14 @@
 widget: accomplishments
 
 # This file represents a page section.
-headless: true
+headless: false
+active: false
 
 # Order that this section appears on the page.
 weight: 60
 
 # Note: `&shy;` is used to add a 'soft' hyphen in a long heading.
-title: 'Accomplish&shy;ments'
+title: 'Rewards'
 subtitle:
 
 # Date format

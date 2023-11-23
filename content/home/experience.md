@@ -9,7 +9,7 @@ headless: true
 # Order that this section appears on the page.
 weight: 50
 
-title: Experience
+title: Employment History
 subtitle:
 
 # Date format for experience
@@ -22,32 +22,14 @@ date_format: Jan 2006
 #   Leave `date_end` empty if it's your current employer.
 #   Begin multi-line descriptions with YAML's `|2-` multi-line prefix.
 experience:
-  - title: Ph.D. Candidate in Geography
+  - title: Postdoctoral Researcher
     company: Beijing Normal University
     company_url: 'https://english.bnu.edu.cn/'
-    company_logo: org-x
+    company_logo: BNU
     location: Haidian District, Beijing, China
-    date_start: '2018-09-01'
+    date_start: '2023-07-01'
     date_end: ''
-    description: 'Dissertation: Evolution of human-water relationship and its mechanism in the Yellow River Basin'
-
-  - title: B.S. of History Study(The second major)
-    company: Sun Yat-Sen University
-    company_url: 'https://www.sysu.edu.cn/sysuen/'
-    company_logo: org-x
-    location: Guangzhou, Guangdong, China
-    date_start: '2015-09-01'
-    date_end: '2018-07-01'
-    description: 'Featured thesis: A historical-geographical research in spatial structure of market in the Yellow River flood Plain, Ningxia'
-
-  - title: B.S. of Science, Physical Geography & History Study(The second major)
-    company: Sun Yat-Sen University
-    company_url: 'https://www.sysu.edu.cn/sysuen/'
-    company_logo: org-x
-    location: Guangzhou, Guangdong, China
-    date_start: '2014-09-01'
-    date_end: '2018-07-01'
-    description: 'Dissertation: "Testing of Human-Flood Model: Taking floodplain of the Yellow River in Ningxia as an example"'
+    description: 'Working on Yellow River Basin project and ABSESpy project'
 
 design:
   columns: '2'
