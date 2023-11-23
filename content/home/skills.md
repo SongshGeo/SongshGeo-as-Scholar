@@ -16,7 +16,7 @@ subtitle:
 # - Add/remove as many `feature` blocks below as you like.
 # - For available icons, see: https://wowchemy.com/docs/page-builder/#icons
 feature:
-  - description: Full project experience
+  - description: Mastering
     icon: python
     icon_pack: custom
     name: Python
@@ -24,30 +24,30 @@ feature:
   #   icon: netlogo
   #   icon_pack: custom
   #   name: Netlogo
-  - description: Papers compiling
+  - description: Mastering
     icon: latex
     icon_pack: custom
     name: LaTex
-  - description: Workable
-    icon: r-project
-    icon_pack: fab
-    name: R
+  # - description: Workable
+  #   icon: r-project
+  #   icon_pack: fab
+  #   name: R
   - description: Mastering
     icon: gis
     icon_pack: custom
     name: GIS
-  - description: Workable
-    icon: remote_sensing
-    icon_pack: custom
-    name: Remote Sensing
+  # - description: Workable
+  #   icon: remote_sensing
+  #   icon_pack: custom
+  #   name: Remote Sensing
   # - description: 90%
   #   icon: big_data
   #   icon_pack: custom
   #   name: Big Data
-  - description: Mastering
-    icon: data_analysis
-    icon_pack: custom
-    name: Data Analysis
+  # - description: Mastering
+  #   icon: data_analysis
+  #   icon_pack: custom
+  #   name: Data Analysis
   # - description: 90%
   #   icon: questionaire
   #   icon_pack: custom
@@ -78,4 +78,7 @@ feature:
 #  icon_pack: "custom"
 #  name: "Surfing"
 #  description: "90%"
+
+design:
+  columns: '5'
 ---
