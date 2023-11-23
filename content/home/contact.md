@@ -25,7 +25,7 @@ content:
       captcha: false
 
   # Contact details (edit or remove options as required)
-  email:  songshgeo@mail.bnu.edu.cn
+  email:  songshgeo@bnu.edu.cn
   address:
     street: Xinjiekouwai
     city: Beijing
@@ -33,23 +33,23 @@ content:
     postcode: '100875'
     country: China
     country_code: China
-  # coordinates:
-  #   latitude: '37.4275'
-  #   longitude: '-122.1697'
+  coordinates:
+    latitude: '37.4275'
+    longitude: '-122.1697'
   # directions: Enter Building 1 and take the stairs to Office 200 on Floor 2
   # office_hours:
   #   - 'Monday 10:00 to 13:00'
   #   - 'Wednesday 09:00 to 10:00'
-  # appointment_url: 'https://calendly.com'
-  # contact_links:
-  #   - icon: twitter
-  #     icon_pack: fab
-  #     name: DM Me
-  #     link: 'https://twitter.com/Twitter'
-  #   - icon: video
-  #     icon_pack: fas
-  #     name: Zoom Me
-  #     link: 'https://zoom.com'
+  appointment_url: 'https://calendly.com/songshgeo'
+  contact_links:
+    # - icon: twitter
+    #   icon_pack: fab
+    #   name: DM Me
+    #   link: 'https://twitter.com/Twitter'
+    # - icon: video
+    #   icon_pack: fas
+    #   name: Book an academic meeting with me.
+    #   link: 'https://calendly.com/songshgeo'
 
 design:
   columns: '2'
