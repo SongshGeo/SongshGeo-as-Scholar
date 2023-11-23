@@ -6,7 +6,7 @@ title: Shuang Song
 superuser: true
 
 # Role/position/tagline
-role: Postdoctoral researcher at the Faculty of Geographical Science
+role: Postdoctoral Researcher
 
 # Organizations/Affiliations to show in About widget
 organizations:
@@ -14,37 +14,29 @@ organizations:
     url: https://english.bnu.edu.cn/
 
 # Short bio (displayed in user profile at end of posts)
-bio: My research interests include social-ecological system, social-hydrology, complex system modelling, agent-based model, water resources management, human-water relationship, environmental governance, institutional fit, system evolution, adaptation, historical geography, regime shift, network analysis and sustainability.
+bio: My research interests include social-ecological system, social-hydrology, complex system modelling.
 
 # Interests to show in About widget
-# interests:
-#   - social-ecological system 
-#   - social-hydrology
-#   - complex system modelling
-#   - agent-based model
-#   - water resources management
-#   - human-water relationship
-#   - environmental governance
-#   - institutional fit
-#   - system evolution
-#   - adaptation
-#   - historical geography
-#   - regime shift
-#   - network analysis
-#   - sustainability
+interests:
+  - social-ecological system 
+  - social-hydrology
+  - agent-based model
+  - historical geography
+  - humanity geography
+
 
 # Education to show in About widget
 education:
   courses:
-    - course: Ph.D. candidate in the Faculty of Geographical Science
-      institution: BEIJING NORMAL UNIVERISTY
-      year: 2018
-    - course: B.S. of  History Study(The second major)
-      institution: SUN YAT-SEN UNIVERISTY
-      year: 2015
-    - course: B.S. of the Faculty of Geographical Science
-      institution: SUN YAT-SEN UNIVERISTY
-      year: 2014
+    - course: Ph.D. of Physical Geography
+      institution: Beijing Normal University
+      year: 2018-2023
+    - course: 2nd Major of History Study
+      institution: Sun Yat-Sen University
+      year: 2015-2018
+    - course: B.S. of Physical Geography
+      institution: Sun Yat-Sen University
+      year: 2014-2018
 # Social/Academic Networking
 # For available icons, see: https://wowchemy.com/docs/getting-started/page-builder/#icons
 #   For an email link, use "fas" icon pack, "envelope" icon, and a link in the
@@ -83,24 +75,7 @@ email: 'songshgeo@bnu.edu.cn'
 highlight_name: true
 ---
 
-Shuang (Twist) Song is a Postdoctoral researcher in the [Faculty of Geographical Science](http://english.geo.bnu.edu.cn/) at Beijing Normal University. His research focuses on understanding the interactions of human and environmental systems, especially evolution in human-water relationships. 
-His current research aims to use the framework of the social-ecological system and the methodology of complex system modelling (especially the agent-based model) to explore interplays between human and large river basins, taking the [Yellow River Basin](/project/project5/) in China as an example. 
+👋 Shuang Song is a Postdoctoral researcher in the [Faculty of Geographical Science](http://english.geo.bnu.edu.cn/) at Beijing Normal University. His research focuses on understanding the interactions of human and environmental systems, especially evolution in human-water relationships.
+His current research aims to use the framework of the social-ecological system and the methodology of complex system modeling, especially agent-based modeling.
 
 {{< icon name="download" pack="fas" >}} Download my {{< staticref "uploads/SongshGeo_CV_pdf.pdf" "newtab" >}}resumé{{< /staticref >}}.
-
-# Interests
-
-- [social-ecological system](/tag/social-ecological-system/)
-- [social-hydrology](/tag/social-hydrology/)
-- [complex system modelling](/tag/complex-system-modelling/)
-- agent-based model
-- [environmental governance](/tag/environmental-governance/)
-- [system evolution](/tag/system-evolution/)
-- historical geography
-- [network analysis](/tag/network-analysis/)
-- [sustainability](/tag/sustainability/)
-<!-- - [water resources management](/tag/water-resources-management/) -->
-<!-- - [human-water relationship](/tag/human-water-relationship/) -->
-<!-- - institutional fit -->
-<!-- - [adaptation](/tag/adapataion/) -->
-<!-- - [regime shift](/tag/regime-shift/) -->
