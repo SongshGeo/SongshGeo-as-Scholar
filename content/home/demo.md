@@ -4,16 +4,16 @@
 # Add more sections by duplicating this file and customizing to your requirements.
 
 widget = "blank"  # See https://wowchemy.com/docs/page-builder/
-headless = true  # This file represents a page section.
-active = true  # Activate this widget? true/false
+headless = false  # This file represents a page section.
+active = false  # Activate this widget? true/false
 weight = 15  # Order that this section will appear.
 
-title = ""
+title = "Shuang"
 subtitle = ""
 
 [design]
   # Choose how many columns the section has. Valid values: 1 or 2.
-  columns = "1"
+  columns = "2"
 
 [design.background]
   # Apply a background color, gradient, or image.
@@ -49,16 +49,6 @@ subtitle = ""
  # CSS class.
  css_class = ""
 +++
-<br/>
-<br/> 
-<br/>
-<br/> 
-<br/> 
-<br/> 
-
-### 👋<font face='Arial'>Hi there, this is</font>
-<font color='BlanchedAlmond'><font size=72>**Shuang Song**</font></font><br>
- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=4><font face='Arial'><font color='White'>A geographer who also travels.</font></font></font>
 
 <!-- ## 👋 Welcome to the Academic Template
 
@@ -68,15 +58,9 @@ The Wowchemy **Academic Resumé Template** for Hugo empowers you to create your 
 
 [**Wowchemy**](https://wowchemy.com) makes it easy to create a beautiful website for free. Edit your site in Markdown, Jupyter, or RStudio (via Blogdown), generate it with Hugo, and deploy with GitHub or Netlify. Customize anything on your site with widgets, themes, and language packs. -->
 
-<br/> 
-<br/> 
-<br/> 
-<br/> 
-<br/> 
-
 #### [>> Academic Page](#about)
 #### [>> Personal Posts Page](https://songshgeo.com/)
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; <font face='Lucida Handwriting'><font size=3><font color='white'>Independent spirit, free thoughts </font></font></font>
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
 
 <!-- To help us develop this template and software sustainably under the MIT license, we ask all individuals and businesses that use it to help support its ongoing maintenance and development via sponsorship.
 
