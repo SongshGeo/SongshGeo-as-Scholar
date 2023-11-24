@@ -16,7 +16,7 @@ content:
   # Filter on criteria
   filters:
     folders:
-      - Publications
+      - publication
     tag: ''
     category: ''
     publication_type: ''
