@@ -34,10 +34,14 @@ publishDate: '2021-12-07T00:00:00Z'
 # 3 = Preprint / Working Paper; 4 = Report; 5 = Book; 6 = Book section;
 # 7 = Thesis; 8 = Patent
 publication_types: ['2']
+categories:
+  - 'research article'
+  - 'co-author'
+  - 'English'
 
 # Publication name and optional abbreviated publication name.
-publication: In *Ecological Engineering*
-publication_short: In *Ecological Engineering*
+publication: _Ecological Engineering_
+publication_short: _Ecological Engineering_
 
 abstract: 'Afforestation combats desertification and improves the ecological environment but leads to huge consumptionof water resources. Understanding how ecological restoration affects the regional water balance is important for scientific desertification management. Using remote sensing satellite images and meteorological data, we analyzed the impacts of ecological restoration on water resources in the Kubuqi Desert during 1986–2017. Human activities accounted for 60.14% of the desertification reversal: annual average NDVI increased by 94%, the severe desertification area decreased by 30%, and the non-desertification area increased threefold. Vegetation restoration accounted for 70.96% of the evapotranspiration increase of 5.17 mm ⋅yr–1. However, precipitation could not support the increased water demand, which relied on replenishment from groundwater and Yellow River diversion. Therefore, to ensure water security in the Kubuqi, species that use less water should be used in future ecological restoration, and decision-makers should carefully consider the huge water consumption cost of ecological restoration.'
 
@@ -47,11 +51,10 @@ summary: Understanding how ecological restoration affects the regional water bal
 
 tags:
   - system evolution
-  - GIS
-  - Remote sensing
+  - water resources management
 
 # Display this page in the Featured widget?
-featured: true
+featured: false
 
 # Custom links (uncomment lines below)
 # links:
@@ -79,8 +82,7 @@ image:
 #   Simply enter your project's folder or file name without extension.
 #   E.g. `internal-project` references `content/project/internal-project/index.md`.
 #   Otherwise, set `projects: []`.
-projects:
-  - []
+projects: []
 
 # Slides (optional).
 #   Associate this publication with Markdown slides.
@@ -90,12 +92,6 @@ projects:
 # slides: example
 ---
 
-<!-- {{% callout note %}}
-Click the _Cite_ button above to demo the feature to enable visitors to import publication metadata into their reference management software.
-{{% /callout %}}
-
 {{% callout note %}}
-Create your slides in Markdown - click the _Slides_ button to check out the example.
+As a co-author, I participated in the data analysis.
 {{% /callout %}}
-
-Supplementary notes can be added here, including [code, math, and images](https://wowchemy.com/docs/writing-markdown-latex/). -->
