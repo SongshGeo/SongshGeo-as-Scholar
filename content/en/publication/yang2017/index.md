@@ -32,15 +32,19 @@ publishDate: '2017-10-28T00:00:00Z'
 # 3 = Preprint / Working Paper; 4 = Report; 5 = Book; 6 = Book section;
 # 7 = Thesis; 8 = Patent
 publication_types: ['2']
+categories:
+  - 'research article'
+  - 'co-author'
+  - 'Chinese'
 
 # Publication name and optional abbreviated publication name.
-publication: In *Chinese Journal of Applied Ecology*
-publication_short: In *Chinese Journal of Applied Ecology*
+publication: _Chinese Journal of Applied Ecology_
+publication_short: _Chinese Journal of Applied Ecology_
 
 abstract: Diurnal variation and its influencing factors of leaf water potential ( ψl ) of Spinifex littoreus on the nebkhas in two succession periods were measured on the coast of Pingtan Island，Fujian Province． The results showed that the diurnal variation of ψl of S． littoreus mainly demonstrated a ‘W’curve pattern，with a temporary rise at midday． The mean ψl of S． littoreus on the nebkhas at developing stage was higher than that at stabilizing stage，and recovered better during the night． ψl of S． littoreus was positively related to the atmospheric water potential ( ψa ) and relative humidity， negatively related to air temperature，but had no significant correlation with the soil water potential at different depthes． ψl of S． littoreus on the interdune depression at developing stage was higher than that on the windward slope and on the leeward slope from 10:00 to 16:00，and that on the windward slope was lower than that on the leeward slope all day long except at 10:00 and at 12:00． The variation of ψl of S． littoreus on the leeward slope was higher than that on the windward slope， and the minimal variation was found on the interdune depression，without statistical significance． ψl of S． littoreus on the windward slope was positively correlated with ψa and relative humidity，while negatively correlated with air temperature． ψl of S． littoreus on the leeward slope and the interdune depression were correlated with meteorological factors，but they had no significant relationship．
 
 # Summary. An optional shortened abstract.
-summary: Diurnal variation and its influencing factors of leaf water potential ( ψl ) of Spinifex littoreus on the nebkhas in two succession periods were measured on the coast of Pingtan Island, Fujian Province．
+summary: Diurnal variation and its influencing factors of leaf water potential ( ψl ) of _Spinifex littoreus_ on the nebkhas in two succession periods were measured on the coast of Pingtan Island, Fujian Province．
 
 tags:
   - adaptation
@@ -86,12 +90,6 @@ projects:
 # slides: example
 ---
 
-<!-- {{% callout note %}}
-Click the _Cite_ button above to demo the feature to enable visitors to import publication metadata into their reference management software.
-{{% /callout %}}
-
 {{% callout note %}}
-Create your slides in Markdown - click the _Slides_ button to check out the example.
+As a co-author, I participated in the data visualization.
 {{% /callout %}}
-
-Supplementary notes can be added here, including [code, math, and images](https://wowchemy.com/docs/writing-markdown-latex/). -->
