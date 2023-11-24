@@ -30,10 +30,14 @@ publishDate: '2020-09-19T00:00:00Z'
 # 3 = Preprint / Working Paper; 4 = Report; 5 = Book; 6 = Book section;
 # 7 = Thesis; 8 = Patent
 publication_types: ['2']
+categories:
+  - 'research article'
+  - 'co-author'
+  - 'English'
 
 # Publication name and optional abbreviated publication name.
-publication: In *Journal of Arid Environments*
-publication_short: In *Journal of Arid Environments*
+publication: _Journal of Arid Environments_
+publication_short: _Journal of Arid Environments_
 
 abstract: Land degradation is a universal environmental problem around the world, which affects 1.5 billion people’s wellbeing. Therefore, the efforts to monitor where land degradation has happened and to find out the causes are meaningful for land management and restoration. Arid regions such as Southern Africa have attracted many concerns on land degradation assessment. However, previous studies have neglected the impacts of rainfall variation and possible breakpoints. In this study, the Time Series Segment and Residual Trend (TSS-RESTREND) method was used to detect land degradation in southern Africa and to compare with linear regression, RESTREND methods. Using TSS-RESTREND, 73.22% of the study area was found with vegetation controlled by precipitation, and 18.9% of the study area was found with breakpoints detected. Besides, results demonstrated that these increasing, decreasing, unchanged, and indeterminate pixels respectively made up 21.32%, 9.67%, 42.23%, and 26.78% of the study area. By eliminating positive effects from precipitation and including negative effects from breakpoints, TSS-RESTREND highlighted the potential overestimate of improvement by the linear regression method and the underestimate of degradation by the linear regression and RESTREND methods. These results showed that the land degradation detection with TSS-RESTREND method is useful for land conservation and restoration.
 
@@ -42,8 +46,6 @@ summary: By eliminating positive effects from precipitation and including negati
 
 tags: 
   - system evolution
-  - Remote sensing
-  - GIS
 
 # Display this page in the Featured widget?
 featured: true
@@ -74,8 +76,7 @@ image:
 #   Simply enter your project's folder or file name without extension.
 #   E.g. `internal-project` references `content/project/internal-project/index.md`.
 #   Otherwise, set `projects: []`.
-projects:
-  - []
+projects: []
 
 # Slides (optional).
 #   Associate this publication with Markdown slides.
@@ -85,12 +86,6 @@ projects:
 # slides: example
 ---
 
-<!-- {{% callout note %}}
-Click the _Cite_ button above to demo the feature to enable visitors to import publication metadata into their reference management software.
-{{% /callout %}}
-
 {{% callout note %}}
-Create your slides in Markdown - click the _Slides_ button to check out the example.
+As a co-author, I participated in the data analysis and manuscript editing.
 {{% /callout %}}
-
-Supplementary notes can be added here, including [code, math, and images](https://wowchemy.com/docs/writing-markdown-latex/). -->
