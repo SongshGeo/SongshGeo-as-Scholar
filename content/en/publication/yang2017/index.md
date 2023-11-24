@@ -93,3 +93,7 @@ projects:
 {{% callout note %}}
 As a co-author, I participated in the data visualization.
 {{% /callout %}}
+
+{{% callout note %}}
+This original publication is in Chinese and the above information is translated automatically.
+{{% /callout %}}

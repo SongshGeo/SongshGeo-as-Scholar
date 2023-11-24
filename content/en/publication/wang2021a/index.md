@@ -28,10 +28,14 @@ publishDate: '2022-07-21T00:00:00Z'
 # 3 = Preprint / Working Paper; 4 = Report; 5 = Book; 6 = Book section;
 # 7 = Thesis; 8 = Patent
 publication_types: ['2']
+categories:
+  - 'review'
+  - 'co-author'
+  - 'Chinese'
 
 # Publication name and optional abbreviated publication name.
-publication: In *Advances in earth science*
-publication_short: In *Advances in earth science*
+publication: _Advances in earth science_
+publication_short: _Advances in earth science_
 
 abstract: 'Traditional Water-Food-Energy（WFE）nexus lacks consideration of the support and feedback capacity of ecosystems，which makes it difficult to guarantee a coordinated regional water-food-energy security. Based on a review of recent international frameworks for Water-Food-Energy-Ecosystem （WFEE） nexus construction，we found that there was a need to integrate the social governance processes of water，food and energy resource sectors from the perspective of ecosystem services. On the basis of different ecosystem types， the common WFEE nexus can be classified into five ecosystems：agriculture，river，forest，grassland，and urban. There is a relative lack of research on forest and grassland ecosystems. In terms of research methods，the research difficulties are the determination of subsystem boundaries in quantitative assessment，the influence of multiple subjects on the nexus in prediction，and the combination of resource management and ecological restoration in integration and optimization. With the goal of optimizing the WFEE nexus structure and providing an overall decision basis for regional sustainable development，future research can focus on four aspects： grasping the regional characteristics，expanding the index system，integrating the model requirements，and optimizing the national space.'
 
@@ -39,11 +43,10 @@ abstract: 'Traditional Water-Food-Energy（WFE）nexus lacks consideration of th
 summary: Based on a review of recent international frameworks for Water-Food-Energy-Ecosystem （WFEE） nexus construction，we found that there was a need to integrate the social governance processes of water，food and energy resource sectors from the perspective of ecosystem services. 
 
 tags: 
-  - human-water relationship
   - water resources management
 
 # Display this page in the Featured widget?
-featured: true
+featured: false
 
 # Custom links (uncomment lines below)
 # links:
@@ -71,8 +74,7 @@ image:
 #   Simply enter your project's folder or file name without extension.
 #   E.g. `internal-project` references `content/project/internal-project/index.md`.
 #   Otherwise, set `projects: []`.
-projects:
-  - []
+projects: []
 
 # Slides (optional).
 #   Associate this publication with Markdown slides.
@@ -82,12 +84,10 @@ projects:
 # slides: example
 ---
 
-<!-- {{% callout note %}}
-Click the _Cite_ button above to demo the feature to enable visitors to import publication metadata into their reference management software.
+{{% callout note %}}
+As a co-author, I participated in the brainstorming and manuscript editing.
 {{% /callout %}}
 
 {{% callout note %}}
-Create your slides in Markdown - click the _Slides_ button to check out the example.
+This original publication is in Chinese and the above information is translated automatically.
 {{% /callout %}}
-
-Supplementary notes can be added here, including [code, math, and images](https://wowchemy.com/docs/writing-markdown-latex/). -->
