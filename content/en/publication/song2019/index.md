@@ -32,10 +32,14 @@ publishDate: '2019-10-28T00:00:00Z'
 # 3 = Preprint / Working Paper; 4 = Report; 5 = Book; 6 = Book section;
 # 7 = Thesis; 8 = Patent
 publication_types: ['2']
+categories:
+  - 'review'
+  - 'first-author'
+  - 'Chinese'
 
 # Publication name and optional abbreviated publication name.
-publication: In *Acta Geographica Sinica*
-publication_short: In *Acta Geographica Sinica*
+publication: _Acta Geographica Sinica_
+publication_short: _Acta Geographica Sinica_
 
 abstract: Social- Ecological System (SES) is composed of social subsystem, ecological subsystem and the interaction between them; its structure, functions, and characteristics are different from those of social subsystem or ecological subsystem alone. Relying on adaptive social mechanisms of power- sharing and decision making, the adaptive governance of SES aims to guarantee human well- being in a sustainable manner under dynamic conditions. Adaptive governance theory is influenced by "common pool resources management", "resilience" and "governance", and lays a foundation for the construction of transformative governance and collaborative governance. This theory has three main objectives:(1) understanding and coping with the multi- stability, nonlinearity, uncertainty, integrity and complexity of SES; (2) establishing non- confrontational social structure, power- sharing structure and decision- making structure, and match with social subsystem and ecological subsystem; (3) achieving sustainable management of ecosystem services through an integrated approach. Therefore, in the face of the "Anthropocene" of human-behaviour-dominant surface processes, achieving adaptive governance helps to deal with the complexity and uncertainty of SES. Given the rapid changes in China's environment and the increasingly complicated interactions between China and countries all over the world, it will be helpful for future studies to pay close attention to the following fields:(1) understand the multi-interaction processes of a coupled system, and enhance its adaptability; (2) emphasize the significance of a holistic approach of studying SES; (3) improve the ability to understand and predict system dynamics in the context of environmental change.
 
@@ -44,10 +48,9 @@ summary: Adaptive governance theory is influenced by "common pool resources mana
 
 tags:
   - social-ecological system
-  - environmental governance
+  - governance
   - adaptation
   - system evolution
-  - visualization
 
 # Display this page in the Featured widget?
 featured: true
@@ -79,7 +82,7 @@ image:
 #   E.g. `internal-project` references `content/project/internal-project/index.md`.
 #   Otherwise, set `projects: []`.
 projects:
-  - project5
+- "YellowRiver"
 
 # Slides (optional).
 #   Associate this publication with Markdown slides.
@@ -89,12 +92,6 @@ projects:
 # slides: example
 ---
 
-<!-- {{% callout note %}}
-Click the _Cite_ button above to demo the feature to enable visitors to import publication metadata into their reference management software.
-{{% /callout %}}
-
 {{% callout note %}}
-Create your slides in Markdown - click the _Slides_ button to check out the example.
+This original publication is in Chinese and the above information is translated automatically.
 {{% /callout %}}
-
-Supplementary notes can be added here, including [code, math, and images](https://wowchemy.com/docs/writing-markdown-latex/). -->

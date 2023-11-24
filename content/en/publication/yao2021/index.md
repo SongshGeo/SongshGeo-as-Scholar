@@ -30,10 +30,14 @@ publishDate: '2021-08-15T00:00:00Z'
 # 3 = Preprint / Working Paper; 4 = Report; 5 = Book; 6 = Book section;
 # 7 = Thesis; 8 = Patent
 publication_types: ['2']
+categories:
+  - 'review'
+  - 'co-author'
+  - 'English'
 
 # Publication name and optional abbreviated publication name.
-publication: In *Land Degradation & Development*
-publication_short: In *Land Degradation & Development*
+publication: _Land Degradation & Development_
+publication_short: _Land Degradation & Development_
 
 abstract: The multiple effects of ecosystem restoration programs deserve attention. After reviewing the social-ecological effects of 23 ecosystem restoration programs in Asia's drylands, we find that these programs mainly contribute to SDGs synergistically, but the tradeoffs between social-ecological effects still exists. Among the five goals of SDG15 (Life on Land), SDG13 (Climate Action), SDG6 (Clean Water and Sanitation), SDG1 (No poverty) and SDG2 (Zero Hunger), 11 programs can synergistically achieve no less than three goals, especially grassland restoration and water diversion in China, as well as water management programs in Israel. However, the contribution of ecosystem restoration programs to SDG15 easily weakens SDG6, SDG1 and SDG2, indicating the competition of land and water between ecosystem restoration and agriculture. To reduce the trade-offs among SGDs caused by ecosystem restoration, we propose the social-ecological system research framework of “Dryland Boundary – Water, Food, Energy and Ecosystem Nexus - Meta-coupling – Nature-based Solutions” to guide the implementation of ecosystem restoration programs from four aspects:supply–demand matching, element matching, regional matching and local adaptation.
 
@@ -42,10 +46,10 @@ summary: After reviewing the social-ecological effects of 23 ecosystem restorati
 
 tags:
   - sustainability
-  - environmental governance
+  - governance
 
 # Display this page in the Featured widget?
-featured: true
+featured: False
 
 # Custom links (uncomment lines below)
 # links:
@@ -83,13 +87,6 @@ projects:
 #   Otherwise, set `slides: ""`.
 # slides: example
 ---
-
-<!-- {{% callout note %}}
-Click the _Cite_ button above to demo the feature to enable visitors to import publication metadata into their reference management software.
-{{% /callout %}}
-
 {{% callout note %}}
-Create your slides in Markdown - click the _Slides_ button to check out the example.
+As a co-author, I participated in the visualization.
 {{% /callout %}}
-
-Supplementary notes can be added here, including [code, math, and images](https://wowchemy.com/docs/writing-markdown-latex/). -->
