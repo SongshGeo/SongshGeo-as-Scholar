@@ -34,10 +34,14 @@ publishDate: '2019-11-20T00:00:00Z'
 # 3 = Preprint / Working Paper; 4 = Report; 5 = Book; 6 = Book section;
 # 7 = Thesis; 8 = Patent
 publication_types: ['2']
+categories:
+  - 'research article'
+  - 'co-author'
+  - 'English'
 
 # Publication name and optional abbreviated publication name.
-publication: In *Sustainability*
-publication_short: In *Sustainability*
+publication: _Sustainability_
+publication_short: _Sustainability_
 
 abstract: 'Riverscapes are coupled social-ecological systems (SESs), in which the differences between the scales and functioning of interacting social and ecological components ( “mismatch”) impose challenges for global arid basin sustainability. Here, we defined riverscape SESs as networks of connected ecological and social components (nodes) to disentangle the structure and effects of SESs in Heihe River Basin (HRB) in arid regions of northwest China. Results showed the ecological network in HRB has low network density and high vertex strength. Heihe River Basin Bureau, as an emerging bridging organization, changed the SES structure and increased the matching degree of SES from 0.33 to 0.53, which has caused an obvious improvement in the downstream ecology. However, the characteristics of the ecological network demonstrated that cross-boundary management actions restricted to only the river would exacerbate local environmental pressures, such as the continued decline of groundwater in midstream regions and the potential appropriation of water for ecology by the expanding farmland in the downstream region. Our study demonstrated that network analysis could be one promising direction to untangle the complex SES and understand the relationship between SES structure and outcomes. We suggest comanaging the cross-boundary river and lands to further match the SES for basin sustainability.'
 
@@ -48,10 +52,10 @@ tags:
   - network analysis
   - social-ecological system
   - social-hydrology
-  - environmental governance
+  - governance
 
 # Display this page in the Featured widget?
-featured: true
+featured: false
 
 # Custom links (uncomment lines below)
 # links:
@@ -79,8 +83,7 @@ image:
 #   Simply enter your project's folder or file name without extension.
 #   E.g. `internal-project` references `content/project/internal-project/index.md`.
 #   Otherwise, set `projects: []`.
-projects:
-  - project5
+projects: []
 
 # Slides (optional).
 #   Associate this publication with Markdown slides.
@@ -90,12 +93,6 @@ projects:
 # slides: example
 ---
 
-<!-- {{% callout note %}}
-Click the _Cite_ button above to demo the feature to enable visitors to import publication metadata into their reference management software.
-{{% /callout %}}
-
 {{% callout note %}}
-Create your slides in Markdown - click the _Slides_ button to check out the example.
+As a co-author, I participated in the data analysis and brainstorming.
 {{% /callout %}}
-
-Supplementary notes can be added here, including [code, math, and images](https://wowchemy.com/docs/writing-markdown-latex/). -->
