@@ -38,14 +38,14 @@ categories:
 publication: _Progress in Geography_
 publication_short: _Progress in Geography_
 
-abstract: In the context of global change, the community, as the basic unit of a social-ecological system, is facing both potential or existing shocks and trends in the structure and function of the system. Community-based adaptation (CBA) provides an effective way for communities to mitigate change and even seize the opportunity for transformation. In order to understand the mechanisms of current CBA adaptation pathways, a review of research on CBA over the past 20 years is presented. In the CBA process, funding agencies, rights agencies, research institutions and implementers are the agents engaged in action. The objects to which the adaptation agents adapt have shocking first-order impacts as well as concomitant second-order impacts. The adaptation pathway has a hierarchy, which corresponds to the eight steps of clarifying adaptation objects, liquidating adaptation assets, assessing adaptation capabilities, clarifying adaptation needs, setting adaptation purposes, dividing adaptation stages, designing adaptation measures, and implementing adaptation measures. The negative effects of physical, resource and social barriers can induce maladaptation. Thus, we propose a prospective direction for optimizing community-based adaptation, including improving monitoring and evaluation systems to build an indicator framework for long-term community adaptation, using social-ecological networks as a tool to strengthen multiple-agent decision making, and promoting nature-based solutions to enhance social-ecological system adaptation.
+abstract: In the context of global change, the community, as the basic unit of a social-ecological system, is facing both potential or existing shocks and trends in the structure and function of the system. Community-based adaptation (CBA) effectively allows communities to mitigate change and seize the opportunity for transformation. To understand the mechanisms of current CBA adaptation pathways, a review of research on CBA over the past 20 years is presented. In the CBA process, funding agencies, rights agencies, research institutions, and implementers are the agents engaged in action. The objects to which the adaptation agents adapt have shocking first-order and simultaneous second-order impacts. The adaptation pathway has a hierarchy, corresponding to the eight steps of clarifying adaptation objects, liquidating adaptation assets, assessing adaptation capabilities, clarifying adaptation needs, setting adaptation purposes, dividing adaptation stages, designing adaptation measures, and implementing adaptation measures. The negative effects of physical, resource, and social barriers can induce maladaptation. Thus, we propose a prospective direction for optimizing community-based adaptation, including improving monitoring and evaluation systems to build an indicator framework for long-term community adaptation, using social-ecological networks as a tool to strengthen multiple-agent decision-making, and promoting nature-based solutions to enhance social-ecological system adaptation.
 
 # Summary. An optional shortened abstract.
 summary: In the context of global change, the community, as the basic unit of a social-ecological system, is facing both potential or existing shocks and trends in the structure and function of the system. Community-based adaptation (CBA) provides an effective way for communities to mitigate change and even seize the opportunity for transformation. 
 
 tags: 
-  - social-ecological system
-  - environmental governance
+  - social-ecological system (SES)
+  - governance
   - adaptation
 
 
@@ -78,8 +78,7 @@ image:
 #   Simply enter your project's folder or file name without extension.
 #   E.g. `internal-project` references `content/project/internal-project/index.md`.
 #   Otherwise, set `projects: []`.
-projects:
-  - project5
+projects: []
 
 # Slides (optional).
 #   Associate this publication with Markdown slides.
@@ -93,3 +92,6 @@ projects:
 This original publication is in Chinese and the above information is translated automatically.
 {{% /callout %}}
 
+{{% callout note %}}
+As a co-author, I participated in brainstorming and manuscript editing.
+{{% /callout %}}
