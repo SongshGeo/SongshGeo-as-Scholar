@@ -14,7 +14,7 @@ organizations:
     url: https://english.bnu.edu.cn/
 
 # Short bio (displayed in user profile at end of posts)
-bio: My research interests include social-ecological system, social-hydrology, complex system modelling.
+bio: A geographer who also travels.
 
 # Interests to show in About widget
 interests:

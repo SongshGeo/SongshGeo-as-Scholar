@@ -18,9 +18,9 @@ content:
     folders:
       - publication
     tag: ''
-    category: ''
-    publication_type: ''
-    author: ''
+    category: 'first-author'
+    publication_type: '2'
+    author: 'admin'
     exclude_featured: false
     exclude_future: false
     exclude_past: false
