@@ -38,10 +38,14 @@ publishDate: '2021-05-10T00:00:00Z'
 # 3 = Preprint / Working Paper; 4 = Report; 5 = Book; 6 = Book section;
 # 7 = Thesis; 8 = Patent
 publication_types: ['2']
+categories:
+  - 'research article'
+  - 'co-author'
+  - 'English'
 
 # Publication name and optional abbreviated publication name.
-publication: In *Ecohydrology*
-publication_short: In *Ecohydrology*
+publication: _Ecohydrology_
+publication_short: _Ecohydrology_
 
 abstract: 'Understanding the constraints on light-use efficiency (LUE) induced by high evaporative water demand (vapour–pressure deficit; VPD) and soil water stress (soil moisture content; SMC) is crucial for understanding and simulating vegetation productivity, particularly in the arid and semi-arid regions. However, the relative impacts of VPD and SMC on LUE are unclear, as we lack a mechanistic understanding of impacts and their interactions. In this study, we quantified the relative roles of VPD and SMC in limiting LUE and analysed the interactions among VPD, SMC and LUE using data from CO2 and water flux stations and weather stations along a climatic gradient in the Heihe River Basin, China. We found a threshold of VPD constraint on LUE; above the threshold, LUE decreased at only 3.6% to 23.1% of the rate below the threshold. As SMC decreased, however, the VPD threshold increased, and the reduction of LUE caused by VPD decreased significantly, which is more than half of that in moister regions. Therefore, both VPD and SMC played essential roles in LUE limitation caused by water stress. A threshold also existed for heat flux and the correlation between SMC and LUE; the strength of the correlation first decreased and then increased with increasing VPD. Our results clarified the relative impacts of VPD and SMC on LUE, and can improve simulation and prediction of plant productivity.'
 
@@ -49,11 +53,11 @@ abstract: 'Understanding the constraints on light-use efficiency (LUE) induced b
 summary:  We quantified the relative roles of VPD and SMC in limiting LUE and analysed the interactions among VPD, SMC and LUE using data from CO2 and water flux stations and weather stations along a climatic gradient in the Heihe River Basin, China. 
 
 tags:
-  - regime shift
-  - Python
+  - ecology
+  - adaptation
 
 # Display this page in the Featured widget?
-featured: true
+featured: false
 
 # Custom links (uncomment lines below)
 # links:
@@ -92,12 +96,6 @@ projects:
 # slides: example
 ---
 
-<!-- {{% callout note %}}
-Click the _Cite_ button above to demo the feature to enable visitors to import publication metadata into their reference management software.
-{{% /callout %}}
-
 {{% callout note %}}
-Create your slides in Markdown - click the _Slides_ button to check out the example.
+As a co-author, I participated in the data analysis and manuscript editing.
 {{% /callout %}}
-
-Supplementary notes can be added here, including [code, math, and images](https://wowchemy.com/docs/writing-markdown-latex/). -->
