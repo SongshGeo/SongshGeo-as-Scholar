@@ -7,7 +7,7 @@ widget: pages
 headless: true
 
 # Order that this section appears on the page.
-weight: 90
+weight: 80
 
 title: Publications
 subtitle: ''
@@ -37,5 +37,5 @@ design:
 ---
 
 {{% callout note %}}
-Quickly discover relevant content by [filtering publications](./publication/).
+Only 5 featured publications are showed below. Quickly discover all relevant content by [filtering publications](./publication/).
 {{% /callout %}}

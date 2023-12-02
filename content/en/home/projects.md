@@ -25,21 +25,11 @@ content:
   # To show all items, set `tag` to "*".
   # To filter by a specific tag, set `tag` to an existing tag name.
   # To remove the toolbar, delete the entire `filter_button` block.
-  filter_button:
-    - name: All
-      tag: '*'
-    - name: social-ecological system
-      tag: social-ecological system
-    - name: social-hydrology
-      tag: social-hydrology
-    # - name: water resources management
-    #   tag: water resources management
-    - name: environmental governance
-      tag: environmental governance
-    # - name: regime shift
-    #   tag: regime shift
-    - name: evolution
-      tag: evolution
+  # filter_button:
+  #   - name: All
+  #     tag: '*'
+  #   - name: social-ecological system
+  #     tag: social-ecological system
 
 
 

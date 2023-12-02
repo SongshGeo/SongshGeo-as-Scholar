@@ -23,6 +23,7 @@ interests:
   - agent-based model
   - historical geography
   - humanity geography
+  - environmental anthropology
 
 
 # Education to show in About widget
@@ -54,12 +55,12 @@ social:
   - icon: github
     icon_pack: fab
     link: https://github.com/SongshGeo
-  - icon: linkedin
-    icon_pack: fab
-    link: https://www.linkedin.com/in/s-huang-211489193/
+  # - icon: linkedin
+  #   icon_pack: fab
+  #   link: https://www.linkedin.com/in/s-huang-211489193/
   - icon: cv
     icon_pack: ai
-    link: https://cv.songshgeo.com/uploads/SongshGeo_CV_pdf.pdf
+    link: https://cv.songshgeo.com/uploads/Song_CV_full.pdf
 
 # Link to a PDF of your resume/CV.
 # To use: copy your resume to `static/uploads/resume.pdf`, enable `ai` icons in `params.toml`,
@@ -78,4 +79,8 @@ highlight_name: true
 👋 Shuang Song is a Postdoctoral researcher in the [Faculty of Geographical Science](http://english.geo.bnu.edu.cn/) at Beijing Normal University. His research focuses on understanding the interactions of human and environmental systems, especially evolution in human-water relationships.
 His current research aims to use the framework of the social-ecological system and the methodology of complex system modeling, especially agent-based modeling.
 
-{{< icon name="download" pack="fas" >}} Download my {{< staticref "uploads/SongshGeo_CV_pdf.pdf" "newtab" >}}resumé{{< /staticref >}}.
+{{< icon name="download" pack="fas" >}} Learn more about me through the below materials:
+
+<!-- - 📄 {{< staticref "uploads/SongshGeo_CV_pdf.pdf" "newtab" >}}Short resumé{{< /staticref >}}: Get to know me in two pages. -->
+- 📚 {{< staticref "uploads/Song_CV_full.pdf" "newtab" >}}Academic CV{{< /staticref >}}: With full publications.
+<!-- - 🌍 {{< staticref "uploads/SongshGeo_CV_pdf.pdf" "newtab" >}}My adventures{{< /staticref >}}: Life is an adventure. -->

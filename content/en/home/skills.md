@@ -5,26 +5,23 @@ widget: featurette
 
 # This file represents a page section.
 headless: true
+active: true
 
 # Order that this section appears on the page.
-weight: 40
+weight: 90
 
-title: Skills
+title: Coding Skills
 subtitle:
 
 # Showcase personal skills or business features.
 # - Add/remove as many `feature` blocks below as you like.
 # - For available icons, see: https://wowchemy.com/docs/page-builder/#icons
 feature:
-  - description: Mastering
+  - description: I master programming in Python for years. Recently, I work on an open-sourced package `ABSESpy`.
     icon: python
     icon_pack: custom
     name: Python
-  # - description: 90%
-  #   icon: netlogo
-  #   icon_pack: custom
-  #   name: Netlogo
-  - description: Mastering
+  - description: I am proficient in using LaTeX for papers.
     icon: latex
     icon_pack: custom
     name: LaTex
@@ -32,14 +29,18 @@ feature:
   #   icon: r-project
   #   icon_pack: fab
   #   name: R
-  - description: Mastering
+  - description: Proficient in geographic information tools `QGIS` and `ArcGIS`.
     icon: gis
     icon_pack: custom
     name: GIS
-  # - description: Workable
-  #   icon: remote_sensing
-  #   icon_pack: custom
-  #   name: Remote Sensing
+  - description: The most classic agent-based modeling software, but I now think `mesa` and `ABSESpy` are better.
+    icon: netlogo
+    icon_pack: custom
+    name: Netlogo
+  - description: I can analyze raster datasets with popular packages like `xarray`, `rasterio`, `gdal`.
+    icon: remote_sensing
+    icon_pack: custom
+    name: Remote Sensing
   # - description: 90%
   #   icon: big_data
   #   icon_pack: custom
@@ -56,10 +57,10 @@ feature:
   #   icon: field_experiment
   #   icon_pack: custom
   #   name: Field experiment
-  # - description: 90%
-  #   icon: visualization
-  #   icon_pack: custom
-  #   name: Visualization
+  - description: I'm passionate about making beautiful charts.
+    icon: visualization
+    icon_pack: custom
+    name: DataViz
   # - description: 90%
   #   icon: collaboration
   #   icon_pack: custom
@@ -80,5 +81,33 @@ feature:
 #  description: "90%"
 
 design:
-  columns: '5'
+  columns: '2'
 ---
+
+<div style="text-align:center;">
+    <table>
+        <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+        <tr>
+            <td>
+                <a href="https://github.com/SongshGeo">
+                    <img src="https://github-readme-stats.vercel.app/api?username=SongshGeo&show_icons=true&include_all_commits=true&theme=buefy&hide_border=true" width="600" height="Y" alt="SongshGeo's github stats" />
+                </a>
+            </td>
+            <td>
+                <a href="https://github.com/SongshGeo">
+                    <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=SongshGeo&layout=compact&theme=buefy&hide_border=true" width="460" height="Y" />
+                </a>
+            </td>
+            <!-- <td>
+                🇨🇳 Mandarin (Native) <br>
+                🇬🇧 English (Fluent) <br>
+                🇪🇸 Spanish (Beginner) <br>
+                🇩🇪 German (Beginner)
+            </td> -->
+        </tr>
+    </table>
+</div>
