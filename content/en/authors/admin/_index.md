@@ -23,7 +23,7 @@ interests:
   - agent-based model
   - historical geography
   - humanity geography
-  - environmental anthropology
+  - environmental governance
 
 
 # Education to show in About widget
@@ -76,9 +76,9 @@ email: 'songshgeo@bnu.edu.cn'
 highlight_name: true
 ---
 
-👋 Hello! I'm Shuang Song, currently delving into [postdoctoral research at Beijing Normal University](https://zkgyy.bnu.edu.cn/yjjg/lyhjstgcyfzx/rcdw4/c468f5e085f1420c871fa312ff7ce385.htm).
+👋 Hello! I'm Shuang Song, a [postdoctoral researcher at Beijing Normal University](https://zkgyy.bnu.edu.cn/yjjg/lyhjstgcyfzx/rcdw4/c468f5e085f1420c871fa312ff7ce385.htm).
 My research ambit primarily revolves around deciphering the intricate dynamics between human and environmental systems, with a keen focus on the evolving interplay of human-water relationships.
-At the heart of my current investigations is the utilization of the social-ecological system (SES) framework, complemented by advanced methodologies in complex system modeling, particularly agent-based modeling.
+At the heart of my current investigations is the utilization of the social-ecological system (SES) framework for environmental governance, complemented by advanced methodologies in complex system modeling, particularly agent-based modeling.
 Beyond research, I'm an adept Python developer and have crafted [the open-source package `ABSESpy`](https://github.com/ABSESpy/ABSESpy), a tool designed to enhance the simulation capabilities for real-world SES scenarios.
 
 {{< icon name="download" pack="fas" >}} Learn more about me through the below materials:
