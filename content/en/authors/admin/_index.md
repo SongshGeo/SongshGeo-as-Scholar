@@ -12,6 +12,8 @@ role: Postdoctoral Researcher
 organizations:
   - name: Beijing Normal University
     url: https://english.bnu.edu.cn/
+  - name: Max Planck Institute of Geoanthropology
+    url: https://www.gea.mpg.de/
 
 # Short bio (displayed in user profile at end of posts)
 bio: A geographer who also travels.
@@ -32,9 +34,9 @@ education:
     - course: Ph.D. of Physical Geography
       institution: Beijing Normal University
       year: 2018-2023
-    - course: 2nd Major of History Study
+    - course: Study of History (2nd Major)
       institution: Sun Yat-Sen University
-      year: 2015-2018
+      year: 2014-2018
     - course: B.S. of Physical Geography
       institution: Sun Yat-Sen University
       year: 2014-2018
@@ -60,7 +62,7 @@ social:
   #   link: https://www.linkedin.com/in/s-huang-211489193/
   - icon: cv
     icon_pack: ai
-    link: https://cv.songshgeo.com/uploads/Song_CV_full.pdf
+    link: https://cv.songshgeo.com/uploads/Song_CV_2pages.pdf
 
 # Link to a PDF of your resume/CV.
 # To use: copy your resume to `static/uploads/resume.pdf`, enable `ai` icons in `params.toml`,
@@ -76,13 +78,15 @@ email: 'songshgeo@bnu.edu.cn'
 highlight_name: true
 ---
 
-👋 Hello! I'm Shuang Song, a [postdoctoral researcher at Beijing Normal University](https://zkgyy.bnu.edu.cn/yjjg/lyhjstgcyfzx/rcdw4/c468f5e085f1420c871fa312ff7ce385.htm).
-My research ambit primarily revolves around deciphering the intricate dynamics between human and environmental systems, with a keen focus on the evolving interplay of human-water relationships.
-At the heart of my current investigations is the utilization of the social-ecological system (SES) framework for environmental governance, complemented by advanced methodologies in complex system modeling, particularly agent-based modeling.
-Beyond research, I'm an adept Python developer and have crafted [the open-source package `ABSESpy`](https://github.com/ABSESpy/ABSESpy), a tool designed to enhance the simulation capabilities for real-world SES scenarios.
+👋 Hello! I'm Shuang Song, a postdoctoral researcher at Beijing Normal University and Max Planck Institute of Geoanthropology.
+My research primarily uses on water as a link, modeling as an approach to study the interaction between human society and the landscape & environment, as a intertwined social-ecological system (SES).
+Based on my unique interdisciplinary background in history, geography, and archaeology, I construct agent-based models (ABMs) for different water-related issues, simulating agents' interaction within existing institutional and environmental settings across different temporal and spatial scales.
+Furthermore, it examines how institutions can become powerful tools influencing this interaction by enhancing human society's adaptability and resilience to environmental changes, thereby contributing to sustainable development.
+
+Beyond research, I'm an adept Python developer and have crafted [the open-source package `ABSESpy`](https://github.com/ABSESpy/ABSESpy), a package designed to enhance the application of ABMs for real-world SES scenarios.
 
 {{< icon name="download" pack="fas" >}} Learn more about me through the below materials:
 
 <!-- - 📄 {{< staticref "uploads/SongshGeo_CV_pdf.pdf" "newtab" >}}Short resumé{{< /staticref >}}: Get to know me in two pages. -->
-- 📚 {{< staticref "uploads/Song_CV_full.pdf" "newtab" >}}Academic CV{{< /staticref >}}: With full publications.
+- 📚 {{< staticref "uploads/Song_CV_2pages.pdf" "newtab" >}}Academic CV{{< /staticref >}}: With full publications.
 <!-- - 🌍 {{< staticref "uploads/SongshGeo_CV_pdf.pdf" "newtab" >}}My adventures{{< /staticref >}}: Life is an adventure. -->

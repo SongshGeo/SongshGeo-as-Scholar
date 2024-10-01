@@ -60,7 +60,7 @@ social:
   #   link: https://www.linkedin.com/in/s-huang-211489193/
   - icon: cv
     icon_pack: ai
-    link: https://cv.songshgeo.com/uploads/Song_CV_full.pdf
+    link: https://cv.songshgeo.com/uploads/Song_CV_2pages.pdf
 
 # Link to a PDF of your resume/CV.
 # To use: copy your resume to `static/uploads/resume.pdf`, enable `ai` icons in `params.toml`,
@@ -83,5 +83,5 @@ highlight_name: true
 {{< icon name="download" pack="fas" >}} Learn more about me through the below materials:
 
 <!-- - 📄 {{< staticref "uploads/SongshGeo_CV_pdf.pdf" "newtab" >}}Short resumé{{< /staticref >}}: Get to know me in two pages. -->
-- 📚 {{< staticref "uploads/Song_CV_full.pdf" "newtab" >}}Academic CV{{< /staticref >}}: With full publications.
+- 📚 {{< staticref "uploads/Song_CV_2pages.pdf" "newtab" >}}Academic CV{{< /staticref >}}: With full publications.
 <!-- - 🌍 {{< staticref "uploads/SongshGeo_CV_pdf.pdf" "newtab" >}}My adventures{{< /staticref >}}: Life is an adventure. -->

@@ -22,11 +22,21 @@ date_format: Jan 2006
 #   Leave `date_end` empty if it's your current employer.
 #   Begin multi-line descriptions with YAML's `|2-` multi-line prefix.
 experience:
+
+  - title: Postdoc Scholarship
+    company: Max Planck Institute of Geoanthropology
+    company_url: 'https://www.gea.mpg.de/'
+    company_logo: MPI
+    location: Kahlaische Strasse 10, 07745 Jena.
+    date_start: '2024-10-01'
+    date_end: ''
+    description: 'Working on Hydrosphere and urbanism interaction project'
+
   - title: Postdoctoral Researcher
     company: Beijing Normal University
     company_url: 'https://english.bnu.edu.cn/'
     company_logo: BNU
-    location: Haidian District, Beijing, China
+    location: Zhuhai City, Guangdong Province.
     date_start: '2023-07-01'
     date_end: ''
     description: 'Working on Yellow River Basin project and ABSESpy project'
