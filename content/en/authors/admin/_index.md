@@ -6,7 +6,7 @@ title: Shuang Song
 superuser: true
 
 # Role/position/tagline
-role: Postdoctoral Researcher
+role: Postdoc
 
 # Organizations/Affiliations to show in About widget
 organizations:
@@ -25,7 +25,7 @@ interests:
   - agent-based model
   - historical geography
   - humanity geography
-  - environmental governance
+  - institutional analysis
 
 
 # Education to show in About widget
@@ -79,11 +79,9 @@ highlight_name: true
 ---
 
 👋 Hello! I'm Shuang Song, a postdoctoral researcher at Beijing Normal University and Max Planck Institute of Geoanthropology.
-My research primarily uses on water as a link, modeling as an approach to study the interaction between human society and the landscape & environment, as a intertwined social-ecological system (SES).
-Based on my unique interdisciplinary background in history, geography, and archaeology, I construct agent-based models (ABMs) for different water-related issues, simulating agents' interaction within existing institutional and environmental settings across different temporal and spatial scales.
-Furthermore, it examines how institutions can become powerful tools influencing this interaction by enhancing human society's adaptability and resilience to environmental changes, thereby contributing to sustainable development.
+My research primarily uses water as a link and modeling as an approach to studying the interaction between human society and the landscape and environment as an intertwined social-ecological system (SES). Based on my interdisciplinary background in history and geography, I construct agent-based models (ABMs) for water-related issues, simulating agents' interaction within given institutional and environmental settings across different temporal (e.g., centuries and millennia) and spatial scales (regional and global). I also examine how institutions can influence this interaction by changing human society's adaptation and resilience to environmental changes, thereby contributing to sustainable development.
 
-Beyond research, I'm an adept Python developer and have crafted [the open-source package `ABSESpy`](https://github.com/ABSESpy/ABSESpy), a package designed to enhance the application of ABMs for real-world SES scenarios.
+Beyond research, I'm an adept Python developer and led open-source projects [`ABSESpy`](https://github.com/ABSESpy/ABSESpy), a ABM package for real-world SES simulation; and [`PaperBell`](https://github.com/SongshGeo/Obsidian-PaperBell), a note taking system for academic research based on [Obsidian](https://obsidian.md/).
 
 {{< icon name="download" pack="fas" >}} Learn more about me through the below materials:
 
