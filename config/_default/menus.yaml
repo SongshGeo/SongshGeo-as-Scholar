@@ -19,24 +19,27 @@ main:
   - name: Projects
     url: '#projects'
     weight: 70
-  - name: Featured
-    url: '#featured'
-    weight: 80
+  # - name: Featured
+  #   url: '#featured'
+  #   weight: 80
   - name: Publications
     url: '#publications'
     weight: 90
-  - name: Posts
-    url: '#posts'
-    weight: 100
+  # - name: Posts
+  #   url: '#posts'
+    # weight: 100
   - name: Contact
     url: '#contact'
-    weight: 110
+    weight: 140
 
 # Link to a PDF of your resume/CV from the menu.
 # To enable, copy your resume/CV to `static/uploads/resume.pdf` and uncomment the lines below.
   # - name: CV
   #   url: 'https://cv.songshgeo.com/uploads/SongshGeo_CV.pdf'
   #   weight: 70
-  - name: Blog
-    url: 'https://songshgeo.com/'
+  - name: GitHub
+    url: '#skills'
     weight: 120
+  - name: Blog (non-academic)
+    url: 'https://songshgeo.com/'
+    weight: 130
