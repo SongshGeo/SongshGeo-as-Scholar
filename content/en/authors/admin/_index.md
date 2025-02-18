@@ -72,16 +72,20 @@ social:
 #   link: uploads/resume.pdf
 
 # Enter email to display Gravatar (if Gravatar enabled in Config)
-email: 'songshgeo@bnu.edu.cn'
+email: 'song@gea.mpg'
 
 # Highlight the author in author lists? (true/false)
 highlight_name: true
 ---
 
-👋 Hello! I'm Shuang Song, a postdoctoral researcher at Beijing Normal University and Max Planck Institute of Geoanthropology.
-My research primarily uses water as a link and modeling as an approach to studying the interaction between human society and the landscape and environment as an intertwined social-ecological system (SES). Based on my interdisciplinary background in history and geography, I construct agent-based models (ABMs) for water-related issues, simulating agents' interaction within given institutional and environmental settings across different temporal (e.g., centuries and millennia) and spatial scales (regional and global). I also examine how institutions can influence this interaction by changing human society's adaptation and resilience to environmental changes, thereby contributing to sustainable development.
+👋 Hello! I'm Shuang Song, a postdoctoral researcher at the Department of Co-evolution of Land Use and Urbanisation, Max Planck Institute of Geoanthropology.
 
-Beyond research, I'm an adept Python developer and led open-source projects [`ABSESpy`](https://github.com/ABSESpy/ABSESpy), a ABM package for real-world SES simulation; and [`PaperBell`](https://github.com/SongshGeo/Obsidian-PaperBell), a note taking system for academic research based on [Obsidian](https://obsidian.md/).
+My research primarily uses water as a link to study the interaction and co-evolution between human society and the natural environment. Based on my interdisciplinary background in Physical Geography and the Study of History, I currently focus on the long-term evolution of water management and its impact on human society in major river basins.
+I also examine how institutions can influence human-water interaction by changing human society's adaptation and resilience to environmental changes, thereby contributing to sustainable development.
+
+My approach mainly involves modeling, simulation, and data analysis. I developed the open-source Agent-based Modeling framework for real-world SES simulation [`ABSESpy`](https://github.com/SongshGeoLab/ABSESpy) and led [`PaperBell`](https://paperbell.songshgeo.com/), an academic note-taking workflow for researchers based on [Obsidian](https://obsidian.md/).
+
+My research is highly interdisciplinary; I welcome scholars and students from Geography, Archaeology, History, Sociology, Computer Science, and Psychology to collaborate. Please contact me by email or [online meeting](https://cal.com/s-huang-song-sodoej/get-in-touch).
 
 {{< icon name="download" pack="fas" >}} Learn more about me through the below materials:
 
