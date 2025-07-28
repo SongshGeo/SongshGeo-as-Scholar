@@ -6,14 +6,14 @@ title: Shuang Song
 superuser: true
 
 # Role/position/tagline
-role: Postdoc
+role: Postdoctoral Researcher
 
 # Organizations/Affiliations to show in About widget
 organizations:
-  - name: Beijing Normal University
-    url: https://english.bnu.edu.cn/
+  # - name: Beijing Normal University
+  #   url: https://english.bnu.edu.cn/
   - name: Max Planck Institute of Geoanthropology
-    url: https://www.gea.mpg.de/
+    url: https://www.gea.mpg.de/person/137764
 
 # Short bio (displayed in user profile at end of posts)
 bio: A geographer who also travels.
@@ -51,7 +51,10 @@ social:
   - icon: twitter
     icon_pack: fab
     link: https://twitter.com/ShuangSong11
-  - icon: graduation-cap # Alternatively, use `google-scholar` icon from `ai` icon pack
+  - icon: file-pdf  # Alternatively, use `google-scholar` icon from `ai` icon pack
+    icon_pack: fas
+    link: https://cv.songshgeo.com/uploads/pubs.pdf
+  - icon: google-scholar
     icon_pack: fas
     link: https://scholar.google.com.hk/citations?hl=zh-CN&user=fNZkCsUAAAAJ
   - icon: github
@@ -78,17 +81,18 @@ email: 'song@gea.mpg'
 highlight_name: true
 ---
 
-👋 Hello! I'm Shuang Song, a postdoctoral researcher at the Department of Co-evolution of Land Use and Urbanisation, Max Planck Institute of Geoanthropology.
+👋 Hello! I'm Shuang Song, a postdoctoral researcher at [Max Planck Institute of Geoanthropology](https://www.gea.mpg.de). I currently serve for two departments: [the Department Structural Changes of the Technosphere](https://www.gea.mpg.de/7775/dt) and the [Department of Co-evolution of Land Use and Urbanisation](https://www.gea.mpg.de/114175/dlu).
 
-My research primarily uses water as a link to study the interaction and co-evolution between human society and the natural environment. Based on my interdisciplinary background in Physical Geography and the Study of History, I currently focus on the long-term evolution of water management and its impact on human society in major river basins.
-I also examine how institutions can influence human-water interaction by changing human society's adaptation and resilience to environmental changes, thereby contributing to sustainable development.
+My research primarily uses water as a link to study the co-evolution between human society and the natural environment. Based on my interdisciplinary background in Physical Geography and the Study of History, I currently focus on the long-term evolution of water management (e.g., irrigation, flood control, and water supply) and its impact on human society, currently focusing on the Yellow River Basin, China.
 
-My approach mainly involves modeling, simulation, and data analysis. I developed the open-source Agent-based Modeling framework for real-world SES simulation [`ABSESpy`](https://github.com/SongshGeoLab/ABSESpy) and led [`PaperBell`](https://paperbell.songshgeo.com/), an academic note-taking workflow for researchers based on [Obsidian](https://obsidian.md/).
+My approach mainly involves modeling and data analysis. I developed the open-source Agent-based Modeling framework for real-world SES simulation [`ABSESpy`](https://github.com/SongshGeoLab/ABSESpy) and led [`PaperBell` team](https://paperbell.cn/), an academic note-taking workflow for researchers based on [Obsidian](https://obsidian.md/).
 
-My research is highly interdisciplinary; I welcome scholars and students from Geography, Archaeology, History, Sociology, Computer Science, and Psychology to collaborate. Please contact me by email or [online meeting](https://cal.com/s-huang-song-sodoej/get-in-touch).
+My research is highly interdisciplinary; I welcome scholars and students from Geography, Archaeology, History, Sociology, Computer Science, and Psychology to collaborate. The team offers fully remote positions, feel free to get in touch by [email](mailto:song@gea.mpg.de) or [online meeting](https://cal.com/s-huang-song-sodoej/get-in-touch).
 
 {{< icon name="download" pack="fas" >}} Learn more about me through the below materials:
 
 <!-- - 📄 {{< staticref "uploads/SongshGeo_CV_pdf.pdf" "newtab" >}}Short resumé{{< /staticref >}}: Get to know me in two pages. -->
-- 📚 {{< staticref "uploads/Song_CV_2pages.pdf" "newtab" >}}Academic CV{{< /staticref >}}: With full publications.
+<!-- - 📚 {{< staticref "uploads/Song_CV_2pages.pdf" "newtab" >}}Academic CV{{< /staticref >}}: 2-pages CV. -->
+- 📚 {{< staticref "uploads/SongshGeo_fullCV.pdf" "newtab" >}}Academic CV{{< /staticref >}}: Detailed academic CV.
+- 📚 {{< staticref "uploads/pubs.pdf" "newtab" >}}Publications{{< /staticref >}}: Full publications.
 <!-- - 🌍 {{< staticref "uploads/SongshGeo_CV_pdf.pdf" "newtab" >}}My adventures{{< /staticref >}}: Life is an adventure. -->
