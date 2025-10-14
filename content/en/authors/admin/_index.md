@@ -55,7 +55,7 @@ social:
     icon_pack: fas
     link: https://cv.songshgeo.com/uploads/pubs.pdf
   - icon: google-scholar
-    icon_pack: fas
+    icon_pack: ai
     link: https://scholar.google.com.hk/citations?hl=zh-CN&user=fNZkCsUAAAAJ
   - icon: github
     icon_pack: fab
@@ -89,10 +89,10 @@ My approach mainly involves modeling and data analysis. I developed the open-sou
 
 My research is highly interdisciplinary; I welcome scholars and students from Geography, Archaeology, History, Sociology, Computer Science, and Psychology to collaborate. The team offers fully remote positions, feel free to get in touch by [email](mailto:song@gea.mpg.de) or [online meeting](https://cal.com/s-huang-song-sodoej/get-in-touch).
 
-{{< icon name="download" pack="fas" >}} Learn more about me through the below materials:
+Learn more about me through the below materials:
 
-<!-- - 📄 {{< staticref "uploads/SongshGeo_CV_pdf.pdf" "newtab" >}}Short resumé{{< /staticref >}}: Get to know me in two pages. -->
-<!-- - 📚 {{< staticref "uploads/Song_CV_2pages.pdf" "newtab" >}}Academic CV{{< /staticref >}}: 2-pages CV. -->
-- 📚 {{< staticref "uploads/SongshGeo_fullCV.pdf" "newtab" >}}Academic CV{{< /staticref >}}: Detailed academic CV.
-- 📚 {{< staticref "uploads/pubs.pdf" "newtab" >}}Publications{{< /staticref >}}: Full publications.
-<!-- - 🌍 {{< staticref "uploads/SongshGeo_CV_pdf.pdf" "newtab" >}}My adventures{{< /staticref >}}: Life is an adventure. -->
+<!-- - 📄 <a href="/uploads/SongshGeo_CV_pdf.pdf" target="_blank">Short resumé</a>: Get to know me in two pages. -->
+<!-- - 📚 <a href="/uploads/Song_CV_2pages.pdf" target="_blank">Academic CV</a>: 2-pages CV. -->
+- 📚 <a href="/uploads/SongshGeo_fullCV.pdf" target="_blank">Academic CV</a>: Detailed academic CV.
+- 📚 <a href="/uploads/pubs.pdf" target="_blank">Publications</a>: Full publications.
+<!-- - 🌍 <a href="/uploads/SongshGeo_CV_pdf.pdf" target="_blank">My adventures</a>: Life is an adventure. -->

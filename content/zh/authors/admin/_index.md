@@ -49,8 +49,8 @@ social:
   - icon: twitter
     icon_pack: fab
     link: https://twitter.com/ShuangSong11
-  - icon: graduation-cap # Alternatively, use `google-scholar` icon from `ai` icon pack
-    icon_pack: fas
+  - icon: google-scholar
+    icon_pack: ai
     link: https://scholar.google.com.hk/citations?hl=zh-CN&user=fNZkCsUAAAAJ
   - icon: github
     icon_pack: fab
@@ -87,10 +87,10 @@ highlight_name: true
 我的研究高度跨学科，欢迎来自地理、考古、历史、社会学、计算机科学和心理学等领域的师生合作。团队提供完全远程职位，如有兴趣，请通过[电子邮件](mailto:song@gea.mpg.de)或[线上会议预约](https://cal.com/s-huang-song-sodoej/get-in-touch)联系我。
 
 
-{{< icon name="download" pack="fas" >}} Learn more about me through the below materials:
+Learn more about me through the below materials:
 
-<!-- - 📄 {{< staticref "uploads/SongshGeo_CV_pdf.pdf" "newtab" >}}Short resumé{{< /staticref >}}: Get to know me in two pages. -->
-<!-- - 📚 {{< staticref "uploads/Song_CV_2pages.pdf" "newtab" >}}Academic CV{{< /staticref >}}: 2-pages CV. -->
-- 📚 {{< staticref "uploads/SongshGeo_fullCV.pdf" "newtab" >}}Academic CV{{< /staticref >}}: 详细学术简历
-- 📚 {{< staticref "uploads/pubs.pdf" "newtab" >}}Publications{{< /staticref >}}: 全部出版物列表
-<!-- - 🌍 {{< staticref "uploads/SongshGeo_CV_pdf.pdf" "newtab" >}}My adventures{{< /staticref >}}: Life is an adventure. -->
+<!-- - 📄 <a href="/uploads/SongshGeo_CV_pdf.pdf" target="_blank">Short resumé</a>: Get to know me in two pages. -->
+<!-- - 📚 <a href="/uploads/Song_CV_2pages.pdf" target="_blank">Academic CV</a>: 2-pages CV. -->
+- 📚 <a href="/uploads/SongshGeo_fullCV.pdf" target="_blank">Academic CV</a>: 详细学术简历
+- 📚 <a href="/uploads/pubs.pdf" target="_blank">Publications</a>: 全部出版物列表
+<!-- - 🌍 <a href="/uploads/SongshGeo_CV_pdf.pdf" target="_blank">My adventures</a>: Life is an adventure. -->

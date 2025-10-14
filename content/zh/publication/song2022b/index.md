@@ -19,7 +19,7 @@ author_notes:
   - []
   - []
 
-date: '*2022-03-29T00:00:00Z'
+date: '2022-03-29T00:00:00Z'
 doi: '10.5194/hess-26-2035-2022'
 
 # Schedule page publish date (NOT publication's date).
