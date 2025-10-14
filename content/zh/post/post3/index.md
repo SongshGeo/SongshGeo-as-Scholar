@@ -1,25 +1,18 @@
 ---
 title: SES structures and outcomes
 subtitle: SES structures and outcomes
-
 # Summary for listings and search engines
 summary: Ostrom, (née Awan; August 7, 1933 – June 12, 2012) an American political economist, proposed perhaps the most popular framework for understanding coupled human and natural systems:Social-ecological System (SES). However, decades ago, a lot of works still should be addresssed in building causal association between its strucutures and outcomes.
-
 # Link this post with a project
 projects: []
-
 # Date published
 date: '2020-12-13T00:00:00Z'
-
 # Date updated
 lastmod: '2020-12-13T00:00:00Z'
-
 # Is this an unpublished draft?
 draft: false
-
 # Show this page in the Featured widget?
 featured: false
-
 # Featured image
 # Place an image named `featured.jpg/png` in this page's folder and customize its options here.
 image:
@@ -27,14 +20,10 @@ image:
   focal_point: ''
   placement: 1
   preview_only: false
-
 authors:
   - admin
-
 tags:
-
 categories:
-
 ---
 
 ## Linking social-ecological systems' structure and outcome
