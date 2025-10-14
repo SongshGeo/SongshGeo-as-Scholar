@@ -168,14 +168,14 @@ hugoblox:
 publication_types: [{pub_type}]
 
 # Publication name
-publication: _{publication}_
-publication_short: _{publication}_
+publication: '{publication}'
+publication_short: ''
 """
     
     # Add abstract if available
     if abstract:
         template += f"""
-abstract: {abstract}
+abstract: '{abstract}'
 """
     
     # Add links section
