@@ -20,7 +20,7 @@ GREEN := \033[0;32m
 YELLOW := \033[0;33m
 NC := \033[0m # No Color
 
-.PHONY: help check create create-all clean server build install-deps
+.PHONY: help check create create-all clean server build install-deps deploy status commit push
 
 # Default target
 help:
@@ -35,6 +35,12 @@ help:
 	@echo "  $(GREEN)make build$(NC)         - Build the site"
 	@echo "  $(GREEN)make clean$(NC)         - Clean generated files"
 	@echo "  $(GREEN)make install-deps$(NC)  - Install Python dependencies"
+	@echo ""
+	@echo "Git & Deployment:"
+	@echo "  $(GREEN)make status$(NC)        - Show git status"
+	@echo "  $(GREEN)make commit$(NC)        - Commit all changes with message"
+	@echo "  $(GREEN)make push$(NC)          - Push to GitHub (triggers deployment)"
+	@echo "  $(GREEN)make deploy$(NC)        - Quick deploy (commit + push)"
 	@echo ""
 	@echo "Configuration:"
 	@echo "  BibTeX file: $(YELLOW)$(BIB_FILE)$(NC)"
@@ -92,4 +98,26 @@ workflow: check preview
 	@echo "$(YELLOW)Review the output above. If everything looks good, run:$(NC)"
 	@echo "  $(GREEN)make create$(NC)     - to create only truly missing publications"
 	@echo "  $(GREEN)make create-all$(NC) - to create all missing publications"
+
+# Git operations
+status:
+	@echo "$(BLUE)📊 Git Status:$(NC)"
+	@git status
+
+commit:
+	@echo "$(BLUE)💾 Committing changes...$(NC)"
+	@git add -A
+	@git status --short
+	@read -p "Enter commit message: " msg; \
+	git commit -m "$$msg"
+	@echo "$(GREEN)✅ Committed!$(NC)"
+
+push:
+	@echo "$(BLUE)🚀 Pushing to GitHub...$(NC)"
+	@git push github $(shell git branch --show-current)
+	@echo "$(GREEN)✅ Pushed! GitHub Actions will deploy automatically.$(NC)"
+	@echo "$(YELLOW)Check deployment status at: https://github.com/SongshGeo/SongshGeo-as-Scholar/actions$(NC)"
+
+deploy: commit push
+	@echo "$(GREEN)✅ Deployment triggered!$(NC)"
 

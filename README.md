@@ -24,6 +24,22 @@ make build
 hugo --gc --minify --logLevel error
 ```
 
+### Deploy to GitHub Pages
+
+```bash
+# Check current status
+make status
+
+# Commit and push (triggers automatic deployment)
+make deploy
+
+# Or step by step
+make commit  # Commit changes
+make push    # Push to GitHub (auto-deploys via GitHub Actions)
+```
+
+The site will be automatically deployed to GitHub Pages when you push to the `main` or `dev` branch. Check deployment status at: https://github.com/SongshGeo/SongshGeo-as-Scholar/actions
+
 ## 📚 Publication Management
 
 ### Check for missing publications
@@ -83,6 +99,10 @@ make server
 | `make build` | Build the site |
 | `make clean` | Clean generated files |
 | `make install-deps` | Install Python dependencies |
+| `make status` | Show git status |
+| `make commit` | Commit all changes with message |
+| `make push` | Push to GitHub (triggers deployment) |
+| `make deploy` | Quick deploy (commit + push) |
 
 ## 📁 Project Structure
 
