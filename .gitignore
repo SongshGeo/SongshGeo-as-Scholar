@@ -18,3 +18,7 @@ go.sum
 __pycache__/
 .env
 publist
+
+# Logs
+logs/
+*.log

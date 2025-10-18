@@ -16,6 +16,7 @@ import re
 from pathlib import Path
 from typing import Dict, Set, List, Tuple
 from difflib import SequenceMatcher
+from logger_config import setup_logger, log_section, log_success, log_warning, log_error, log_info
 
 
 def similarity(a: str, b: str) -> float:
@@ -316,22 +317,27 @@ def main():
     
     args = parser.parse_args()
     
+    # Setup logging
+    log = setup_logger("check_missing_publications", verbose=True)
+    
     # Parse BibTeX file
-    print(f"📖 Parsing BibTeX file: {args.bib_file}")
+    log_section(log, "Parsing BibTeX file")
+    log_info(log, f"File: {args.bib_file}")
     try:
         bib_entries = parse_bibtex_keys(args.bib_file)
-        print(f"   Found {len(bib_entries)} entries in BibTeX file\n")
+        log_success(log, f"Found {len(bib_entries)} entries in BibTeX file")
     except FileNotFoundError:
-        print(f"❌ Error: File not found: {args.bib_file}")
+        log_error(log, f"File not found: {args.bib_file}")
         return 1
     except Exception as e:
-        print(f"❌ Error parsing BibTeX file: {e}")
+        log_error(log, f"Error parsing BibTeX file: {e}")
         return 1
     
     # Get existing publications
-    print(f"📁 Checking existing publications in {args.content_dir}/{args.lang}/publication/")
+    log_section(log, "Checking existing publications")
+    log_info(log, f"Directory: {args.content_dir}/{args.lang}/publication/")
     existing = get_existing_publications(args.content_dir, args.lang)
-    print(f"   Found {len(existing)} existing publication folders\n")
+    log_success(log, f"Found {len(existing)} existing publication folders")
     
     # Find matches
     exact_matches, title_matches, truly_missing = find_matches(
@@ -339,11 +345,9 @@ def main():
     )
     
     # Report results
-    print("=" * 80)
-    print("📊 ANALYSIS RESULTS")
-    print("=" * 80)
+    log_section(log, "ANALYSIS RESULTS")
     
-    print(f"\n✅ EXACT MATCHES ({len(exact_matches)}):")
+    log_section(log, f"EXACT MATCHES ({len(exact_matches)})")
     if exact_matches:
         for key in sorted(exact_matches):
             entry = bib_entries[key]
