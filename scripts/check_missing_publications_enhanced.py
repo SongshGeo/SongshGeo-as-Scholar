@@ -101,6 +101,10 @@ def get_existing_publications(content_dir: str, lang: str = 'en') -> Dict[str, d
     existing = {}
     for item in pub_dir.iterdir():
         if item.is_dir() and (item / 'index.md').exists():
+            # Check for PDF files in the folder
+            has_pdf = bool(list(item.glob('*.pdf')))
+            pdf_files = [f.name for f in item.glob('*.pdf')]
+            
             # Try to read metadata from index.md
             try:
                 with open(item / 'index.md', 'r', encoding='utf-8') as f:
@@ -122,7 +126,9 @@ def get_existing_publications(content_dir: str, lang: str = 'en') -> Dict[str, d
                     'title': title,
                     'normalized_title': normalize_title(title),
                     'year': year,
-                    'doi': doi
+                    'doi': doi,
+                    'has_pdf': has_pdf,
+                    'pdf_files': pdf_files
                 }
             except Exception:
                 # If we can't read the file, just use the folder name
@@ -130,10 +136,78 @@ def get_existing_publications(content_dir: str, lang: str = 'en') -> Dict[str, d
                     'title': '',
                     'normalized_title': '',
                     'year': '',
-                    'doi': ''
+                    'doi': '',
+                    'has_pdf': has_pdf,
+                    'pdf_files': pdf_files
                 }
     
     return existing
+
+
+def rename_files_in_folder(folder_path: Path, target_key: str, dry_run: bool = False) -> dict:
+    """
+    Rename cite.bib key and PDF files in a publication folder.
+    
+    Args:
+        folder_path: Path to publication folder
+        target_key: Target citation key (folder name)
+        dry_run: If True, only preview changes
+    
+    Returns:
+        Dict with rename results
+    """
+    results = {
+        'cite_bib_renamed': False,
+        'pdfs_renamed': [],
+        'errors': []
+    }
+    
+    # Rename cite.bib key
+    cite_bib_path = folder_path / 'cite.bib'
+    if cite_bib_path.exists():
+        try:
+            with open(cite_bib_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+            
+            # Find and replace the citation key in cite.bib
+            # Match pattern: @article{oldkey, or @book{oldkey, etc.
+            pattern = r'(@\w+\s*\{\s*)([^,\s]+)(\s*,)'
+            match = re.search(pattern, content)
+            
+            if match:
+                old_key = match.group(2)
+                if old_key != target_key:
+                    new_content = re.sub(pattern, rf'\1{target_key}\3', content, count=1)
+                    
+                    if dry_run:
+                        results['cite_bib_renamed'] = f"Would rename: {old_key} -> {target_key}"
+                    else:
+                        with open(cite_bib_path, 'w', encoding='utf-8') as f:
+                            f.write(new_content)
+                        results['cite_bib_renamed'] = f"Renamed: {old_key} -> {target_key}"
+        except Exception as e:
+            results['errors'].append(f"Error renaming cite.bib: {e}")
+    
+    # Rename PDF files
+    pdf_files = list(folder_path.glob('*.pdf'))
+    for pdf_file in pdf_files:
+        old_name = pdf_file.name
+        # Keep the extension, replace the name
+        new_name = f"{target_key}.pdf"
+        
+        if old_name != new_name:
+            new_path = folder_path / new_name
+            
+            if dry_run:
+                results['pdfs_renamed'].append(f"Would rename: {old_name} -> {new_name}")
+            else:
+                try:
+                    pdf_file.rename(new_path)
+                    results['pdfs_renamed'].append(f"Renamed: {old_name} -> {new_name}")
+                except Exception as e:
+                    results['errors'].append(f"Error renaming {old_name}: {e}")
+    
+    return results
 
 
 def find_matches(bib_entries: Dict[str, dict], existing: Dict[str, dict], 
@@ -224,6 +298,21 @@ def main():
         action='store_true',
         help='Show details for all entries'
     )
+    parser.add_argument(
+        '--check-pdf',
+        action='store_true',
+        help='Also check which publications are missing PDF files'
+    )
+    parser.add_argument(
+        '--renaming',
+        action='store_true',
+        help='Rename cite.bib keys and PDF files to match folder names (citation keys)'
+    )
+    parser.add_argument(
+        '--dry-run',
+        action='store_true',
+        help='Preview renaming without actually changing files (use with --renaming)'
+    )
     
     args = parser.parse_args()
     
@@ -304,6 +393,93 @@ def main():
     else:
         print("   None")
     
+    # Check for missing PDFs if requested
+    if args.check_pdf:
+        print(f"\n" + "=" * 80)
+        print(f"📄 PDF CHECK")
+        print("=" * 80)
+        
+        publications_without_pdf = []
+        for key, entry in existing.items():
+            if not entry['has_pdf']:
+                publications_without_pdf.append({
+                    'key': key,
+                    'title': entry['title'],
+                    'year': entry['year']
+                })
+        
+        print(f"\n⚠️  PUBLICATIONS WITHOUT PDF ({len(publications_without_pdf)}):")
+        if publications_without_pdf:
+            for i, pub in enumerate(publications_without_pdf, 1):
+                print(f"\n   {i}. [{pub['key']}]")
+                if pub['year']:
+                    print(f"      Year:  {pub['year']}")
+                if pub['title']:
+                    title = pub['title'].replace('\n', ' ').strip()
+                    if len(title) > 70:
+                        title = title[:67] + '...'
+                    print(f"      Title: {title}")
+        else:
+            print("   None - all publications have PDF files! 🎉")
+        
+        # Summary for PDFs
+        publications_with_pdf = len(existing) - len(publications_without_pdf)
+        print(f"\n   Publications with PDF:    {publications_with_pdf}")
+        print(f"   Publications without PDF: {len(publications_without_pdf)}")
+        
+        if publications_without_pdf:
+            print(f"\n💡 To extract abstracts from PDFs:")
+            print(f"   python scripts/extract_abstract_from_pdf.py")
+    
+    # Rename files if requested
+    if args.renaming:
+        print(f"\n" + "=" * 80)
+        print(f"📝 FILE RENAMING")
+        print("=" * 80)
+        
+        if args.dry_run:
+            print("\n⚠️  DRY RUN MODE - No files will be changed\n")
+        
+        pub_dir = Path(args.content_dir) / args.lang / 'publication'
+        renamed_count = 0
+        error_count = 0
+        
+        for key in sorted(exact_matches):
+            folder_path = pub_dir / key
+            if not folder_path.exists():
+                continue
+            
+            results = rename_files_in_folder(folder_path, key, args.dry_run)
+            
+            # Only show output if something was renamed or errors occurred
+            if results['cite_bib_renamed'] or results['pdfs_renamed'] or results['errors']:
+                print(f"\n📁 [{key}]")
+                
+                if results['cite_bib_renamed']:
+                    print(f"   📄 cite.bib: {results['cite_bib_renamed']}")
+                    if not args.dry_run:
+                        renamed_count += 1
+                
+                for pdf_rename in results['pdfs_renamed']:
+                    print(f"   📄 PDF: {pdf_rename}")
+                    if not args.dry_run:
+                        renamed_count += 1
+                
+                for error in results['errors']:
+                    print(f"   ❌ Error: {error}")
+                    error_count += 1
+        
+        # Summary for renaming
+        print(f"\n📊 Renaming Summary:")
+        if args.dry_run:
+            print(f"   Would rename items (dry run)")
+        else:
+            print(f"   Files renamed:  {renamed_count}")
+            print(f"   Errors:         {error_count}")
+        
+        if args.dry_run:
+            print(f"\n💡 Remove --dry-run to actually rename files")
+    
     # Summary
     print("\n" + "=" * 80)
     print(f"\n📊 SUMMARY:")
@@ -323,6 +499,10 @@ def main():
         print(f"   - Renaming folders to match BibTeX keys")
         print(f"   - Updating BibTeX keys to match folder names")
         print(f"   - Keeping both if they are different publications")
+    
+    if exact_matches and not args.renaming:
+        print(f"\n🔧 To standardize file names:")
+        print(f"   python scripts/check_missing_publications_enhanced.py {args.bib_file} --renaming --dry-run")
     
     return 0
 

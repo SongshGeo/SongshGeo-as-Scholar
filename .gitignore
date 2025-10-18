@@ -16,3 +16,4 @@ go.sum
 .obsidian/
 .vercel
 __pycache__/
+.env
