@@ -17,3 +17,4 @@ go.sum
 .vercel
 __pycache__/
 .env
+publist
