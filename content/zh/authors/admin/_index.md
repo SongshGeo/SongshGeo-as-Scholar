@@ -70,7 +70,7 @@ social:
 #   link: uploads/resume.pdf
 
 # Enter email to display Gravatar (if Gravatar enabled in Config)
-email: 'songshgeo@bnu.edu.cn'
+email: 'song@gea.mpg.de'
 
 # Highlight the author in author lists? (true/false)
 highlight_name: true
