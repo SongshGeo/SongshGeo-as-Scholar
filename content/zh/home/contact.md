@@ -25,7 +25,7 @@ content:
       captcha: false
 
   # Contact details (edit or remove options as required)
-  email:  songshgeo@bnu.edu.cn
+  email:  song@gea.mpg.de
   address:
     street: Xinjiekouwai
     city: Beijing

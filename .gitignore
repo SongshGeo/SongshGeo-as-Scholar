@@ -15,3 +15,10 @@ go.sum
 #Obsidian 
 .obsidian/
 .vercel
+__pycache__/
+.env
+publist
+
+# Logs
+logs/
+*.log

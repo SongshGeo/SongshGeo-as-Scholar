@@ -1,25 +1,18 @@
 ---
 title: Soft skills:Visualization
 subtitle: Soft skills:Visualization
-
 # Summary for listings and search engines
 summary: I'm a big fan of data visualisation; in this post, I will show some of my featured workpieces and some of my projects for fun in data viz. 
-
 # Link this post with a project
 projects: []
-
 # Date published
 date: '2020-12-13T00:00:00Z'
-
 # Date updated
 lastmod: '2020-12-13T00:00:00Z'
-
 # Is this an unpublished draft?
 draft: false
-
 # Show this page in the Featured widget?
 featured: false
-
 # Featured image
 # Place an image named `featured.jpg/png` in this page's folder and customize its options here.
 image:
@@ -27,16 +20,11 @@ image:
   focal_point: ''
   placement: 1
   preview_only: false
-
 authors:
   - admin
-
 tags:
   - visualization
-
-
 categories:
-
 ---
 
 ## Some of my featured workpieces

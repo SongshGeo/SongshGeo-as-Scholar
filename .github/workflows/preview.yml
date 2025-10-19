@@ -1,0 +1,65 @@
+# Workflow for building and previewing Pull Requests
+name: Preview PR
+
+on:
+  pull_request:
+    branches: ["main", "dev"]
+
+# Default to bash
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  # Build job
+  build-preview:
+    runs-on: ubuntu-latest
+    env:
+      HUGO_VERSION: 0.148.2
+    steps:
+      - name: Install Hugo CLI
+        run: |
+          wget -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb \
+          && sudo dpkg -i ${{ runner.temp }}/hugo.deb
+      
+      - name: Install Dart Sass
+        run: sudo snap install dart-sass
+      
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+      
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.21'
+      
+      - name: Install Node.js dependencies
+        run: "[[ -f package-lock.json || -f npm-shrinkwrap.json ]] && npm ci || true"
+      
+      - name: Build with Hugo (Preview)
+        env:
+          HUGO_ENVIRONMENT: development
+          HUGO_ENV: development
+          GOTOOLCHAIN: local
+        run: |
+          hugo \
+            --gc \
+            --minify \
+            --logLevel error \
+            --buildDrafts \
+            --buildFuture
+      
+      - name: Comment PR with build status
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '✅ Hugo build completed successfully! Ready for review.'
+            })
+

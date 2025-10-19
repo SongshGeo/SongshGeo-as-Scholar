@@ -49,8 +49,8 @@ social:
   - icon: twitter
     icon_pack: fab
     link: https://twitter.com/ShuangSong11
-  - icon: graduation-cap # Alternatively, use `google-scholar` icon from `ai` icon pack
-    icon_pack: fas
+  - icon: google-scholar
+    icon_pack: ai
     link: https://scholar.google.com.hk/citations?hl=zh-CN&user=fNZkCsUAAAAJ
   - icon: github
     icon_pack: fab
@@ -70,18 +70,27 @@ social:
 #   link: uploads/resume.pdf
 
 # Enter email to display Gravatar (if Gravatar enabled in Config)
-email: 'songshgeo@bnu.edu.cn'
+email: 'song@gea.mpg.de'
 
 # Highlight the author in author lists? (true/false)
 highlight_name: true
 ---
 
-👋 简体中文版简历正在谋划中...
+中文版简历更新中...
 
-我是北京师范大学的博士后研究员。我的研究重点在于理解人类与环境系统之间的相互作用，特别是人水关系的演变。我目前的研究主要使用社会生态系统框架和复杂系统建模方法，尤其是基于代理人的建模。
+👋 你好！我是宋爽，目前在[马克斯·普朗克地球人类学研究所](https://www.gea.mpg.de)担任博士后研究员。我目前隶属于两个部门：[技术圈层结构变迁部](https://www.gea.mpg.de/7775/dt)和[土地利用与城市化协同演化部](https://www.gea.mpg.de/114175/dlu)。
 
-{{< icon name="download" pack="fas" >}} Learn more about me through the below materials:
+我的研究主要以水为纽带，探讨人类社会与自然环境之间的协同演化。基于我在自然地理学和历史学方面的跨学科背景，我目前聚焦于水资源管理（如灌溉、防洪、供水）的长期演变及其对人类社会的影响，当前重点关注中国黄河流域。
 
-<!-- - 📄 {{< staticref "uploads/SongshGeo_CV_pdf.pdf" "newtab" >}}Short resumé{{< /staticref >}}: Get to know me in two pages. -->
-- 📚 {{< staticref "uploads/Song_CV_2pages.pdf" "newtab" >}}Academic CV{{< /staticref >}}: With full publications.
-<!-- - 🌍 {{< staticref "uploads/SongshGeo_CV_pdf.pdf" "newtab" >}}My adventures{{< /staticref >}}: Life is an adventure. -->
+我的方法主要包括建模与数据分析。我开发了用于现实世界社会-生态系统模拟的开源多智能体建模框架 [`ABSESpy`](https://github.com/SongshGeoLab/ABSESpy)，并创建了[`PaperBell` 项目团队](https://paperbell.cn/)，这是一个基于 [Obsidian](https://obsidian.md/) 的科研笔记工作流程。
+
+我的研究高度跨学科，欢迎来自地理、考古、历史、社会学、计算机科学和心理学等领域的师生合作。团队提供完全远程职位，如有兴趣，请通过[电子邮件](mailto:song@gea.mpg.de)或[线上会议预约](https://cal.com/s-huang-song-sodoej/get-in-touch)联系我。
+
+
+Learn more about me through the below materials:
+
+<!-- - 📄 <a href="/uploads/SongshGeo_CV_pdf.pdf" target="_blank">Short resumé</a>: Get to know me in two pages. -->
+<!-- - 📚 <a href="/uploads/Song_CV_2pages.pdf" target="_blank">Academic CV</a>: 2-pages CV. -->
+- 📚 <a href="/uploads/SongshGeo_fullCV.pdf" target="_blank">Academic CV</a>: 详细学术简历
+- 📚 <a href="/uploads/pubs.pdf" target="_blank">Publications</a>: 全部出版物列表
+<!-- - 🌍 <a href="/uploads/SongshGeo_CV_pdf.pdf" target="_blank">My adventures</a>: Life is an adventure. -->

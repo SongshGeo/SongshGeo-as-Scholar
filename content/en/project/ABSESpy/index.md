@@ -5,15 +5,11 @@ tags:
 - agent-based-modelling
 - Python
 date: '2021-10-10T00:00:00Z'
-
 # Optional external URL for project (replaces project detail page).
 external_link: ''
-
 image:
   caption: '[**ABSESpy**](https://camo.githubusercontent.com/5f0417dd15985e3e8d93fb7ae99f4f8608f556da8db1dfa25120a99a45b301f8/68747470733a2f2f736f6e67736867656f2d706963676f2d313330323034333030372e636f732e61702d6265696a696e672e6d7971636c6f75642e636f6d2f755069632f61627365735f6769746875625f7265706f2e706e67)'
   focal_point: Smart
-
-
 links:
   - icon: twitter
     icon_pack: fab
@@ -23,7 +19,6 @@ url_code: ''
 url_pdf: ''
 url_slides: ''
 url_video: ''
-
 # Slides (optional).
 #   Associate this project with Markdown slides.
 #   Simply enter your slide deck's filename without extension.

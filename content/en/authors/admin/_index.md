@@ -6,14 +6,14 @@ title: Shuang Song
 superuser: true
 
 # Role/position/tagline
-role: Postdoc
+role: Postdoctoral Researcher
 
 # Organizations/Affiliations to show in About widget
 organizations:
-  - name: Beijing Normal University
-    url: https://english.bnu.edu.cn/
+  # - name: Beijing Normal University
+  #   url: https://english.bnu.edu.cn/
   - name: Max Planck Institute of Geoanthropology
-    url: https://www.gea.mpg.de/
+    url: https://www.gea.mpg.de/person/137764
 
 # Short bio (displayed in user profile at end of posts)
 bio: A geographer who also travels.
@@ -51,8 +51,11 @@ social:
   - icon: twitter
     icon_pack: fab
     link: https://twitter.com/ShuangSong11
-  - icon: graduation-cap # Alternatively, use `google-scholar` icon from `ai` icon pack
+  - icon: file-pdf  # Alternatively, use `google-scholar` icon from `ai` icon pack
     icon_pack: fas
+    link: https://cv.songshgeo.com/uploads/pubs.pdf
+  - icon: google-scholar
+    icon_pack: ai
     link: https://scholar.google.com.hk/citations?hl=zh-CN&user=fNZkCsUAAAAJ
   - icon: github
     icon_pack: fab
@@ -72,19 +75,24 @@ social:
 #   link: uploads/resume.pdf
 
 # Enter email to display Gravatar (if Gravatar enabled in Config)
-email: 'songshgeo@bnu.edu.cn'
+email: 'song@gea.mpg.de'
 
 # Highlight the author in author lists? (true/false)
 highlight_name: true
 ---
 
-👋 Hello! I'm Shuang Song, a postdoctoral researcher at Beijing Normal University and Max Planck Institute of Geoanthropology.
-My research primarily uses water as a link and modeling as an approach to studying the interaction between human society and the landscape and environment as an intertwined social-ecological system (SES). Based on my interdisciplinary background in history and geography, I construct agent-based models (ABMs) for water-related issues, simulating agents' interaction within given institutional and environmental settings across different temporal (e.g., centuries and millennia) and spatial scales (regional and global). I also examine how institutions can influence this interaction by changing human society's adaptation and resilience to environmental changes, thereby contributing to sustainable development.
+👋 Hello! I'm Shuang Song, a postdoctoral researcher at [Max Planck Institute of Geoanthropology](https://www.gea.mpg.de). I currently serve for two departments: [the Department Structural Changes of the Technosphere](https://www.gea.mpg.de/7775/dt) and the [Department of Co-evolution of Land Use and Urbanisation](https://www.gea.mpg.de/114175/dlu).
 
-Beyond research, I'm an adept Python developer and led open-source projects [`ABSESpy`](https://github.com/ABSESpy/ABSESpy), a ABM package for real-world SES simulation; and [`PaperBell`](https://github.com/SongshGeo/Obsidian-PaperBell), a note taking system for academic research based on [Obsidian](https://obsidian.md/).
+My research primarily uses water as a link to study the co-evolution between human society and the natural environment. Based on my interdisciplinary background in Physical Geography and the Study of History, I currently focus on the long-term evolution of water management (e.g., irrigation, flood control, and water supply) and its impact on human society, currently focusing on the Yellow River Basin, China.
 
-{{< icon name="download" pack="fas" >}} Learn more about me through the below materials:
+My approach mainly involves modeling and data analysis. I developed the open-source Agent-based Modeling framework for real-world SES simulation [`ABSESpy`](https://github.com/SongshGeoLab/ABSESpy) and led [`PaperBell` team](https://paperbell.cn/), an academic note-taking workflow for researchers based on [Obsidian](https://obsidian.md/).
 
-<!-- - 📄 {{< staticref "uploads/SongshGeo_CV_pdf.pdf" "newtab" >}}Short resumé{{< /staticref >}}: Get to know me in two pages. -->
-- 📚 {{< staticref "uploads/Song_CV_2pages.pdf" "newtab" >}}Academic CV{{< /staticref >}}: With full publications.
-<!-- - 🌍 {{< staticref "uploads/SongshGeo_CV_pdf.pdf" "newtab" >}}My adventures{{< /staticref >}}: Life is an adventure. -->
+My research is highly interdisciplinary; I welcome scholars and students from Geography, Archaeology, History, Sociology, Computer Science, and Psychology to collaborate. The team offers fully remote positions, feel free to get in touch by [email](mailto:song@gea.mpg.de) or [online meeting](https://cal.com/s-huang-song-sodoej/get-in-touch).
+
+Learn more about me through the below materials:
+
+<!-- - 📄 <a href="/uploads/SongshGeo_CV_pdf.pdf" target="_blank">Short resumé</a>: Get to know me in two pages. -->
+<!-- - 📚 <a href="/uploads/Song_CV_2pages.pdf" target="_blank">Academic CV</a>: 2-pages CV. -->
+- 📚 <a href="/uploads/SongshGeo_fullCV.pdf" target="_blank">Academic CV</a>: Detailed academic CV.
+- 📚 <a href="/uploads/pubs.pdf" target="_blank">Publications</a>: Full publications.
+<!-- - 🌍 <a href="/uploads/SongshGeo_CV_pdf.pdf" target="_blank">My adventures</a>: Life is an adventure. -->

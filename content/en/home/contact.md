@@ -25,22 +25,22 @@ content:
       captcha: false
 
   # Contact details (edit or remove options as required)
-  email:  songshgeo@bnu.edu.cn
+  email:  song@gea.mpg.de
   address:
-    street: Xinjiekouwai
-    city: Beijing
-    region: Haidian District
-    postcode: '100875'
-    country: China
-    country_code: China
+    street: Kahlaische Strasse 10
+    city: Jena
+    region: Thüringen
+    postcode: '07745'
+    country: Germany
+    country_code: DE
   coordinates:
-    latitude: '37.4275'
-    longitude: '-122.1697'
+    latitude: '50.91778229923765'
+    longitude: '11.578400140037207'
   # directions: Enter Building 1 and take the stairs to Office 200 on Floor 2
   # office_hours:
   #   - 'Monday 10:00 to 13:00'
   #   - 'Wednesday 09:00 to 10:00'
-  appointment_url: 'https://calendly.com/songshgeo'
+  appointment_url: 'https://cal.com/s-huang-song-sodoej'
   contact_links:
     # - icon: twitter
     #   icon_pack: fab
