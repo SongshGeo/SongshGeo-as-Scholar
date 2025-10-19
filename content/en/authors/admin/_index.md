@@ -75,7 +75,7 @@ social:
 #   link: uploads/resume.pdf
 
 # Enter email to display Gravatar (if Gravatar enabled in Config)
-email: 'song@gea.mpg'
+email: 'song@gea.mpg.de'
 
 # Highlight the author in author lists? (true/false)
 highlight_name: true
