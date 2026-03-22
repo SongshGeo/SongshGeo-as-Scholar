@@ -13,6 +13,8 @@ Usage:
 import argparse
 import os
 import re
+import subprocess
+import sys
 from pathlib import Path
 from typing import Dict, Set, List, Tuple
 from difflib import SequenceMatcher
@@ -59,10 +61,14 @@ def parse_bibtex_keys(bib_file: str) -> Dict[str, dict]:
         title_match = re.search(r'title\s*=\s*[{"\'](.*?)[}"\']', fields, re.DOTALL)
         title = title_match.group(1).strip() if title_match else ''
         
-        # Extract year if available
+        # Extract year if available (numeric only; "submitted" etc. are ignored)
         year_match = re.search(r'year\s*=\s*[{"\']*(\d{4})[}"\',]*', fields)
         year = year_match.group(1) if year_match else ''
-        
+
+        # biblatex date (YYYY, YYYY-MM, YYYY-MM-DD, ...)
+        date_match = re.search(r'\bdate\s*=\s*\{([^}]*)\}', fields, re.DOTALL)
+        date_val = date_match.group(1).strip() if date_match else ''
+
         # Extract authors
         author_match = re.search(r'author\s*=\s*[{"\'](.*?)[}"\']', fields, re.DOTALL)
         authors = author_match.group(1).strip() if author_match else ''
@@ -76,11 +82,26 @@ def parse_bibtex_keys(bib_file: str) -> Dict[str, dict]:
             'title': title,
             'normalized_title': normalize_title(title),
             'year': year,
+            'date': date_val,
             'authors': authors,
             'doi': doi
         }
-    
+
     return entries
+
+
+def has_publishable_bib_date(entry: dict) -> bool:
+    """True if BibTeX has a concrete publication date (biblatex date or 4-digit year).
+
+    Entries with only year=submitted / under review / no date are False.
+    """
+    date_raw = (entry.get('date') or '').strip()
+    year_raw = (entry.get('year') or '').strip()
+    if date_raw and re.match(r'^\d{4}', date_raw):
+        return True
+    if year_raw and re.match(r'^\d{4}$', year_raw):
+        return True
+    return False
 
 
 def get_existing_publications(content_dir: str, lang: str = 'en') -> Dict[str, dict]:
@@ -260,6 +281,7 @@ def find_matches(bib_entries: Dict[str, dict], existing: Dict[str, dict],
                 'type': bib_entry['type'],
                 'title': bib_entry['title'],
                 'year': bib_entry['year'],
+                'date': bib_entry.get('date', ''),
                 'authors': bib_entry['authors'],
                 'doi': bib_entry['doi']
             })
@@ -314,7 +336,18 @@ def main():
         action='store_true',
         help='Preview renaming without actually changing files (use with --renaming)'
     )
-    
+    parser.add_argument(
+        '--prompt-create-missing',
+        action='store_true',
+        help='If BibTeX has entries with no site page, prompt to run create_publication_template (TTY only)'
+    )
+    parser.add_argument(
+        '--all',
+        dest='prompt_include_unpublished',
+        action='store_true',
+        help='With --prompt-create-missing: include entries without a calendar date (submitted, under review, …)'
+    )
+
     args = parser.parse_args()
     
     # Setup logging
@@ -345,9 +378,9 @@ def main():
     )
     
     # Report results
-    log_section(log, "ANALYSIS RESULTS")
+    log_section(log, "RESULTS")
     
-    log_section(log, f"EXACT MATCHES ({len(exact_matches)})")
+    log_section(log, f"ON SITE — SAME CITATION KEY ({len(exact_matches)})")
     if exact_matches:
         for key in sorted(exact_matches):
             entry = bib_entries[key]
@@ -355,8 +388,8 @@ def main():
     else:
         print("   None")
     
-    print(f"\n🔍 TITLE-BASED MATCHES ({len(title_matches)}):")
-    print("   (Likely citation key variations of existing publications)")
+    print(f"\n🔍 SAME PAPER, DIFFERENT KEY? ({len(title_matches)})")
+    print("   (Review these — may be duplicates or need a key rename)")
     if title_matches:
         for match in title_matches:
             print(f"\n   BibTeX: {match['bib_key']}")
@@ -374,13 +407,17 @@ def main():
     else:
         print("   None")
     
-    print(f"\n⚠️  TRULY MISSING ({len(truly_missing)}):")
-    print("   (Publications that need to be created)")
+    print(f"\n📭 NOT ON THE SITE YET ({len(truly_missing)})")
+    print("   (In your BibTeX but no folder under content/.../publication/)")
     if truly_missing:
         for i, entry in enumerate(truly_missing, 1):
             print(f"\n   {i}. [{entry['key']}]")
             print(f"      Type:    {entry['type']}")
-            if entry['year']:
+            pub = has_publishable_bib_date(bib_entries[entry['key']])
+            print(f"      Pub date: {'yes (biblatex date or 4-digit year)' if pub else 'no (draft / submitted / under review)'}")
+            if entry.get('date'):
+                print(f"      Date:    {entry['date']}")
+            elif entry.get('year'):
                 print(f"      Year:    {entry['year']}")
             if entry['title']:
                 title = entry['title'].replace('\n', ' ').strip()
@@ -394,14 +431,22 @@ def main():
                 print(f"      Authors: {authors}")
             if entry['doi']:
                 print(f"      DOI:     {entry['doi']}")
+        with_pub_date = sum(
+            1 for e in truly_missing if has_publishable_bib_date(bib_entries[e['key']])
+        )
+        print(
+            f"\n   ── {with_pub_date} with publication date · "
+            f"{len(truly_missing) - with_pub_date} without (not offered for auto-create by default)"
+        )
     else:
         print("   None")
     
     # Check for missing PDFs if requested
     if args.check_pdf:
         print(f"\n" + "=" * 80)
-        print(f"📄 PDF CHECK")
+        print(f"📄 PDF FILES IN EACH FOLDER")
         print("=" * 80)
+        print("   (Add a .pdf next to index.md if you want downloads + abstract extraction.)")
         
         publications_without_pdf = []
         for key, entry in existing.items():
@@ -412,7 +457,7 @@ def main():
                     'year': entry['year']
                 })
         
-        print(f"\n⚠️  PUBLICATIONS WITHOUT PDF ({len(publications_without_pdf)}):")
+        print(f"\n📂 FOLDERS WITHOUT A PDF ({len(publications_without_pdf)}):")
         if publications_without_pdf:
             for i, pub in enumerate(publications_without_pdf, 1):
                 print(f"\n   {i}. [{pub['key']}]")
@@ -424,16 +469,15 @@ def main():
                         title = title[:67] + '...'
                     print(f"      Title: {title}")
         else:
-            print("   None - all publications have PDF files! 🎉")
+            print("   None — every folder has at least one PDF. 🎉")
         
         # Summary for PDFs
         publications_with_pdf = len(existing) - len(publications_without_pdf)
-        print(f"\n   Publications with PDF:    {publications_with_pdf}")
-        print(f"   Publications without PDF: {len(publications_without_pdf)}")
+        print(f"\n   With PDF:    {publications_with_pdf}")
+        print(f"   Without PDF: {len(publications_without_pdf)}")
         
         if publications_without_pdf:
-            print(f"\n💡 To extract abstracts from PDFs:")
-            print(f"   python scripts/extract_abstract_from_pdf.py")
+            print(f"\n💡 Add PDFs when you can, then run: make extract-abstracts")
     
     # Rename files if requested
     if args.renaming:
@@ -486,29 +530,98 @@ def main():
     
     # Summary
     print("\n" + "=" * 80)
-    print(f"\n📊 SUMMARY:")
-    print(f"   Total entries in BibTeX:     {len(bib_entries)}")
-    print(f"   Existing publication pages:  {len(existing)}")
-    print(f"   Exact matches:               {len(exact_matches)}")
-    print(f"   Title-based matches:         {len(title_matches)}")
-    print(f"   Truly missing:               {len(truly_missing)}")
+    print(f"\n📊 SUMMARY")
+    print(f"   BibTeX entries:           {len(bib_entries)}")
+    print(f"   Folders on site:          {len(existing)}")
+    print(f"   Matched by citation key:  {len(exact_matches)}")
+    print(f"   Possible key duplicates:  {len(title_matches)}")
+    print(f"   No Hugo page yet:         {len(truly_missing)}")
     
-    if truly_missing:
-        print(f"\n💡 To create missing publications:")
-        print(f"   python create_publication_template.py {args.bib_file}")
+    if truly_missing and not args.prompt_create_missing:
+        print(f"\n💡 Create missing pages (published entries only by default):")
+        print(f"   poetry run python scripts/create_publication_template.py {args.bib_file}")
+        print(f"   Add --include-unpublished for drafts (submitted, under review, …)")
     
     if title_matches:
-        print(f"\n🔧 To review citation key variations:")
-        print(f"   Check the title-based matches above and consider:")
-        print(f"   - Renaming folders to match BibTeX keys")
-        print(f"   - Updating BibTeX keys to match folder names")
-        print(f"   - Keeping both if they are different publications")
+        print(f"\n🔧 Title-based matches need a human check:")
+        print(f"   Same paper under two keys, or two different papers? Adjust BibTeX or folder names.")
     
     if exact_matches and not args.renaming:
-        print(f"\n🔧 To standardize file names:")
-        print(f"   python scripts/check_missing_publications_enhanced.py {args.bib_file} --renaming --dry-run")
-    
+        print(f"\n🔧 Optional — align cite.bib / PDF filenames with folder names:")
+        print(f"   poetry run python scripts/check_missing_publications_enhanced.py {args.bib_file} --renaming --dry-run")
+
+    if args.prompt_create_missing and truly_missing:
+        candidates = (
+            list(truly_missing) if args.prompt_include_unpublished else [
+                m for m in truly_missing
+                if has_publishable_bib_date(bib_entries[m['key']])
+            ]
+        )
+        if not candidates and truly_missing and not args.prompt_include_unpublished:
+            print(
+                "\n💡 None of the missing entries have a publication date in BibTeX "
+                "(biblatex `date` starting with a year, or a 4-digit `year`)."
+            )
+            print("   Drafts are skipped for the create prompt by default.")
+            print("   Re-run with --all to include them (or use create_publication_template.py --include-unpublished).")
+        elif candidates:
+            _prompt_create_missing_publications(args, candidates)
+
     return 0
+
+
+def _prompt_create_missing_publications(
+    args: argparse.Namespace,
+    candidates: List[dict],
+) -> None:
+    """Offer one-shot creation of missing publication folders (interactive only)."""
+    if not sys.stdin.isatty():
+        print(
+            "\n💡 Non-interactive session: skipping create prompt. Run:\n"
+            f"   poetry run python scripts/create_publication_template.py {args.bib_file} --lang {args.lang}"
+        )
+        print("   Add --include-unpublished to create drafts (submitted, under review, …).")
+        return
+
+    n = len(candidates)
+    print("\n" + "─" * 60)
+    if args.prompt_include_unpublished:
+        if n == 1:
+            print("📭 1 BibTeX entry has no Hugo publication folder yet (including drafts).")
+        else:
+            print(f"📭 {n} BibTeX entries have no Hugo publication folders yet (including drafts).")
+    else:
+        if n == 1:
+            print("📭 1 BibTeX entry with a publication date has no Hugo publication folder yet.")
+        else:
+            print(
+                f"📭 {n} BibTeX entries with publication dates have no Hugo publication folders yet."
+            )
+    try:
+        reply = input("Create these pages now? [y/N]: ").strip().lower()
+    except EOFError:
+        return
+    if reply not in ("y", "yes"):
+        print("   Skipped. You can run create_publication_template.py later.")
+        return
+
+    script = Path(__file__).resolve().parent / "create_publication_template.py"
+    cmd = [
+        sys.executable,
+        str(script),
+        args.bib_file,
+        "--lang",
+        args.lang,
+    ]
+    if args.prompt_include_unpublished:
+        cmd.append("--include-unpublished")
+    print(f"\n🔨 Running: {' '.join(cmd)}\n")
+    try:
+        subprocess.check_call(cmd, cwd=Path(args.bib_file).resolve().parent)
+    except subprocess.CalledProcessError as e:
+        print(f"\n❌ create_publication_template.py exited with code {e.returncode}")
+    except FileNotFoundError:
+        print(f"\n❌ Could not run: {script}")
 
 
 if __name__ == '__main__':

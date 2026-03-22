@@ -29,6 +29,9 @@ Usage:
     # Force re-extract even if abstract exists
     python extract_abstract_from_pdf.py --force
 
+By default, publications whose index.md already has both abstract and summary skip PDF loading
+and OpenAI calls (incremental). Use --force to re-extract all candidates in the batch.
+
 Requirements:
     pip install langchain openai pypdf python-dotenv pyyaml
     
@@ -203,6 +206,21 @@ def parse_frontmatter(content: str) -> tuple[Dict, str]:
     except yaml.YAMLError as e:
         print(f"      ⚠️  Error parsing YAML: {e}")
         return {}, content
+
+
+def index_has_complete_abstract_summary(index_path: Path) -> bool:
+    """Return True if frontmatter already has non-empty abstract and summary."""
+    try:
+        with open(index_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+    except OSError:
+        return False
+    frontmatter, _ = parse_frontmatter(content)
+    if not frontmatter:
+        return False
+    has_abstract = bool(str(frontmatter.get('abstract', '') or '').strip())
+    has_summary = bool(str(frontmatter.get('summary', '') or '').strip())
+    return has_abstract and has_summary
 
 
 def create_minimal_index_md(pub_key: str, extracted: Dict[str, str]) -> str:
@@ -385,7 +403,7 @@ Environment:
     parser.add_argument('--override', action='store_true',
                        help='Completely override index.md with extracted content (creates minimal template)')
     parser.add_argument('--max-publications', type=int,
-                       help='Maximum number of publications to process')
+                       help='Max publications still needing work to process (after incremental filter)')
     
     args = parser.parse_args()
     
@@ -416,11 +434,43 @@ Environment:
         if not publications:
             print(f"❌ Publication '{args.key}' not found or has no PDF")
             return 1
-    
-    # Limit number if specified
+
+    total_after_key = len(publications)
+    skipped_incremental = 0
+
+    # Incremental: skip items that already have abstract+summary (no PDF / no API) unless --force
+    if args.force:
+        print("🔄 --force: re-extracting from PDF for all candidates in this run\n")
+    else:
+        skipped_incremental = sum(
+            1 for p in publications if index_has_complete_abstract_summary(p['index_md'])
+        )
+        if skipped_incremental:
+            print(
+                f"⏭️  {skipped_incremental} publication(s) already have abstract+summary — "
+                f"skipping (incremental, no API)\n"
+            )
+        publications = [
+            p for p in publications
+            if not index_has_complete_abstract_summary(p['index_md'])
+        ]
+        if not publications:
+            print("✅ Nothing to process — all selected publications already have abstract and summary.")
+            print("   Use --force to re-extract from PDFs.")
+            return 0
+
+    publications.sort(key=lambda p: p['key'])
+
+    # Limit batch size (only applies to publications still needing work)
     if args.max_publications:
-        publications = publications[:args.max_publications]
-    
+        total_need = len(publications)
+        publications = publications[: args.max_publications]
+        if total_need > len(publications):
+            print(
+                f"📌 Processing {len(publications)} of {total_need} publication(s) "
+                f"needing work (--max-publications)\n"
+            )
+
     # Initialize LLM
     print(f"🤖 Initializing OpenAI ({args.model})...\n")
     try:
@@ -465,11 +515,13 @@ Environment:
     # Print summary
     print("=" * 80)
     print("📊 Summary:")
-    print(f"   Total publications found:    {len(publications)}")
-    print(f"   Successfully processed:      {processed}")
-    print(f"   Updated:                     {updated}")
-    print(f"   Skipped (already has data):  {skipped}")
-    print(f"   Errors:                      {errors}")
+    print(f"   Publications (after --key):      {total_after_key}")
+    print(f"   Skipped incremental (no API):    {skipped_incremental}")
+    print(f"   In this extraction batch:        {len(publications)}")
+    print(f"   Successfully processed:          {processed}")
+    print(f"   Updated index.md:                {updated}")
+    print(f"   Skipped at write (no change):    {skipped}")
+    print(f"   Errors:                          {errors}")
     
     if args.dry_run:
         print("\n💡 This was a dry run. Remove --dry-run to actually update files.")
