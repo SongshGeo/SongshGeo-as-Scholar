@@ -105,6 +105,11 @@ update-publist:
 		echo "$(RED)❌ Error: $(PUBLIST_DIR) directory not found$(NC)"; \
 		exit 1; \
 	fi
+	@if [ ! -f "$(BIB_FILE)" ]; then \
+		echo "$(RED)❌ Error: $(BIB_FILE) not found at project root$(NC)"; \
+		exit 1; \
+	fi
+	@cp -f "$(BIB_FILE)" "$(PUBLIST_DIR)/$(BIB_FILE)"
 	@cd $(PUBLIST_DIR) && xelatex -interaction=nonstopmode main.tex > /dev/null 2>&1
 	@cd $(PUBLIST_DIR) && biber main > /dev/null 2>&1
 	@cd $(PUBLIST_DIR) && xelatex -interaction=nonstopmode main.tex > /dev/null 2>&1
