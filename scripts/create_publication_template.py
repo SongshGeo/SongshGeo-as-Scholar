@@ -259,6 +259,8 @@ def main():
                        help='Only create truly missing publications (default: True)')
     parser.add_argument('--all', action='store_true',
                        help='Create all publications, including those with title matches')
+    parser.add_argument('--include-unpublished', action='store_true',
+                       help='Also create folders for entries without biblatex date / 4-digit year (e.g. submitted)')
     
     args = parser.parse_args()
     
@@ -281,7 +283,8 @@ def main():
     
     # Find missing publications
     missing_keys = set(entries.keys()) - existing
-    
+    skipped_unpublished_only = False
+
     if args.only_missing:
         # Use enhanced matching to find truly missing publications
         print("🔍 Using intelligent matching to find truly missing publications...")
@@ -300,7 +303,24 @@ def main():
             
             # Only create truly missing publications
             missing_keys = {entry['key'] for entry in truly_missing}
-            
+
+            if not args.include_unpublished:
+                from check_missing_publications_enhanced import has_publishable_bib_date
+                before = len(missing_keys)
+                missing_keys = {
+                    k for k in missing_keys
+                    if has_publishable_bib_date(bib_entries_enhanced[k])
+                }
+                dropped = before - len(missing_keys)
+                if dropped:
+                    print(
+                        f"   Excluding {dropped} entr"
+                        f"{'ies' if dropped != 1 else 'y'} without publication date "
+                        f"(use --include-unpublished)"
+                    )
+                if not missing_keys and before > 0:
+                    skipped_unpublished_only = True
+
             print(f"   Found {len(exact_matches)} exact matches")
             print(f"   Found {len(title_matches)} title-based matches")
             print(f"   Found {len(truly_missing)} truly missing publications\n")
@@ -310,6 +330,12 @@ def main():
             print(f"   Found {len(missing_keys)} missing publications\n")
     
     if not missing_keys:
+        if skipped_unpublished_only:
+            print(
+                "✅ No folders to create for publication-dated entries. "
+                "Use --include-unpublished for drafts (submitted, under review, …)."
+            )
+            return 0
         print("✅ All publications already have folders!")
         return 0
     
@@ -337,7 +363,8 @@ def main():
     
     if args.only_missing:
         print(f"\n🔍 Note: Only created truly missing publications (used intelligent matching)")
-        print(f"   Use --all to create all publications, including those with title matches")
+        print(f"   Use --include-unpublished for drafts without biblatex date / 4-digit year")
+        print(f"   Use --all to create every BibTeX entry, including title-based duplicates")
     
     return 0
 

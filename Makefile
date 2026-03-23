@@ -8,6 +8,12 @@ CONTENT_DIR := content
 PUBLIST_DIR := publist
 UPLOADS_DIR := static/uploads
 
+# Optional: cap how many incomplete publications to process per extract run (empty = all)
+EXTRACT_MAX_PUBLICATIONS :=
+
+# Optional: e.g. CHECK_PROMPT_FLAGS=--all so create prompt includes drafts (submitted, under review)
+CHECK_PROMPT_FLAGS :=
+
 # Python interpreter
 PYTHON := poetry run python
 
@@ -24,7 +30,7 @@ YELLOW := \033[0;33m
 RED := \033[0;31m
 NC := \033[0m # No Color
 
-.PHONY: help check check-pdf preview-rename rename extract-abstracts update-publist \
+.PHONY: help check check-pdf check-pdf-interactive preview-rename rename extract-abstracts update-publist \
 		full-update install server build clean status commit push deploy \
 		docs-serve docs-build
 
@@ -37,6 +43,7 @@ help:
 	@echo "$(GREEN)📚 Publication Management Workflow:$(NC)"
 	@echo "  $(YELLOW)make check$(NC)              Check for duplicates/missing publications"
 	@echo "  $(YELLOW)make check-pdf$(NC)          Check which publications lack PDFs"
+	@echo "  $(YELLOW)make check-pdf-interactive$(NC) Same + optional prompt to create missing pages"
 	@echo "  $(YELLOW)make preview-rename$(NC)     Preview file renaming (cite.bib + PDFs)"
 	@echo "  $(YELLOW)make rename$(NC)             Rename files to match citation keys"
 	@echo "  $(YELLOW)make extract-abstracts$(NC)  Extract abstracts from PDFs"
@@ -80,6 +87,11 @@ check-pdf:
 	@echo "$(BLUE)📄 Checking PDF coverage...$(NC)"
 	@$(PYTHON) $(CHECK_SCRIPT) $(BIB_FILE) --lang $(LANG) --check-pdf
 
+# Same as check-pdf; in TTY may prompt to create missing publication folders (full-update)
+check-pdf-interactive:
+	@echo "$(BLUE)📄 Checking PDF coverage...$(NC)"
+	@$(PYTHON) $(CHECK_SCRIPT) $(BIB_FILE) --lang $(LANG) --check-pdf --prompt-create-missing $(CHECK_PROMPT_FLAGS)
+
 # Preview file renaming
 preview-rename:
 	@echo "$(BLUE)👀 Previewing file renaming...$(NC)"
@@ -95,7 +107,7 @@ rename:
 extract-abstracts:
 	@echo "$(BLUE)🤖 Extracting abstracts from PDFs...$(NC)"
 	@echo "$(YELLOW)⚠️  This will use OpenAI API (costs apply)$(NC)"
-	@$(PYTHON) $(EXTRACT_SCRIPT) --max-publications 10
+	@$(PYTHON) $(EXTRACT_SCRIPT) $(if $(EXTRACT_MAX_PUBLICATIONS),--max-publications $(EXTRACT_MAX_PUBLICATIONS),)
 	@echo "$(GREEN)✅ Abstracts extracted$(NC)"
 
 # Compile publication list and move to uploads
@@ -105,6 +117,11 @@ update-publist:
 		echo "$(RED)❌ Error: $(PUBLIST_DIR) directory not found$(NC)"; \
 		exit 1; \
 	fi
+	@if [ ! -f "$(BIB_FILE)" ]; then \
+		echo "$(RED)❌ Error: $(BIB_FILE) not found at project root$(NC)"; \
+		exit 1; \
+	fi
+	@cp -f "$(BIB_FILE)" "$(PUBLIST_DIR)/$(BIB_FILE)"
 	@cd $(PUBLIST_DIR) && xelatex -interaction=nonstopmode main.tex > /dev/null 2>&1
 	@cd $(PUBLIST_DIR) && biber main > /dev/null 2>&1
 	@cd $(PUBLIST_DIR) && xelatex -interaction=nonstopmode main.tex > /dev/null 2>&1
@@ -126,28 +143,32 @@ full-update:
 	@echo "$(YELLOW)Step 1/6: Checking publication status...$(NC)"
 	@$(MAKE) check
 	@echo ""
-	@echo "$(YELLOW)Step 2/6: Checking for missing PDFs...$(NC)"
-	@$(MAKE) check-pdf
+	@echo "$(YELLOW)Step 2/6: BibTeX vs site folders + PDF files in each folder...$(NC)"
+	@$(MAKE) check-pdf-interactive
 	@echo ""
-	@read -p "$(YELLOW)Continue with renaming? [y/N] $(NC)" confirm; \
+	@printf "%s\n" "$(YELLOW)── Steps 3–4: align cite.bib and PDF names with folder keys (optional) ──$(NC)"
+	@printf "%s" "$(YELLOW)Continue to preview renames? [y/N] $(NC)"
+	@read -r confirm; \
 	if [ "$$confirm" != "y" ] && [ "$$confirm" != "Y" ]; then \
-		echo "$(RED)Aborted by user$(NC)"; \
+		echo "$(RED)Stopped here (no renames).$(NC)"; \
 		exit 1; \
 	fi
 	@echo ""
 	@echo "$(YELLOW)Step 3/6: Previewing file renaming...$(NC)"
 	@$(MAKE) preview-rename
 	@echo ""
-	@read -p "$(YELLOW)Proceed with renaming? [y/N] $(NC)" confirm; \
+	@printf "%s" "$(YELLOW)Apply those renames? [y/N] $(NC)"
+	@read -r confirm; \
 	if [ "$$confirm" != "y" ] && [ "$$confirm" != "Y" ]; then \
-		echo "$(RED)Aborted by user$(NC)"; \
+		echo "$(RED)Stopped here (no renames applied).$(NC)"; \
 		exit 1; \
 	fi
 	@echo ""
 	@echo "$(YELLOW)Step 4/6: Renaming files...$(NC)"
 	@$(MAKE) rename
 	@echo ""
-	@read -p "$(YELLOW)Extract abstracts from PDFs? [y/N] $(NC)" confirm; \
+	@printf "%s" "$(YELLOW)Run OpenAI abstract extraction (incremental skips filled pages)? [y/N] $(NC)"
+	@read -r confirm; \
 	if [ "$$confirm" = "y" ] || [ "$$confirm" = "Y" ]; then \
 		echo "$(YELLOW)Step 5/6: Extracting abstracts...$(NC)"; \
 		$(MAKE) extract-abstracts; \

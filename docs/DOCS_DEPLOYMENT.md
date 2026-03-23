@@ -223,14 +223,26 @@ Docsify 有丰富的插件生态。在 `index.html` 中添加：
    - `scripts/README.md`
    - `.github/workflows/docs.yml`
 
-2. **构建步骤**:
+2. **触发条件**:
+   - ✅ 只在 `main` 分支部署（避免环境保护规则冲突）
+   - ✅ 监听文档相关文件变化
+   - ✅ 支持手动触发
+
+3. **构建步骤**:
    - 复制 `docs/` 内容到 `_site/`
    - 复制 `scripts/README.md` 到 `_site/scripts/`
    - 创建重定向页面
 
-3. **部署到 GitHub Pages**:
+4. **部署到 GitHub Pages**:
    - 使用 GitHub Pages 官方 Actions
    - 自动部署到 `gh-pages` 分支（无需手动管理）
+
+5. **与主站分离**:
+   - 主站通过 Vercel 部署
+   - 文档站通过 GitHub Pages 部署
+   - 避免部署冲突
+
+更多详情请查看 [.github/workflows/README.md](../.github/workflows/README.md)
 
 ## 🔍 搜索功能
 
