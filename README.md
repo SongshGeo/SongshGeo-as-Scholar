@@ -90,6 +90,8 @@ Before starting, ensure:
 | `make rename` | Rename files to match citation keys |
 | `make extract-abstracts` | Extract abstracts from PDFs using OpenAI |
 | `make update-publist` | Compile publication list PDF |
+| `make update-publist-verbose` | Same as above, show XeLaTeX/biber output (debug) |
+| `make package-publist-skill` | Zip skill + Makefile + docs (+ local `publist/` sources) for sharing |
 | `make full-update` | Complete automated workflow |
 
 ### Development
