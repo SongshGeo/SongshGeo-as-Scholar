@@ -1,40 +1,635 @@
-nav#navbar-main.navbar.navbar-light {
-    font-family: "Ovo", "Georgia", "STZhongsong", "Microsoft YaHei", serif;
-}
+// =============================================================================
+// Editorial restyle — Hugo Blox academic-cv
+// Type system: 13px–48px scale; headings 1.15–1.3 lh, -0.025em to -0.01em ls;
+//              body 17px / 1.8 lh; max-width 896px; ligatures + kerning on.
+// Fonts:  Crimson Pro (display) · Source Serif 4 (body) · Inter (UI) · JBMono
+// Palette: ink (#1a1a1a) · warm cream (#fdfdfb) · navy (#1F3A5F) accent
+// =============================================================================
 
-.navbar-light {
-    font-family: "Ovo", "Georgia", "STZhongsong", "Microsoft YaHei", serif;
-}
+$ink:           #1a1a1a;
+$ink-soft:      #3a3a38;
+$ink-mute:      #6b6b67;
+$ink-faint:     #9a9a94;
+$rule:          rgba(26, 26, 26, .14);
+$rule-soft:     rgba(26, 26, 26, .08);
+$cream:         #fdfdfb;
+$cream-warm:    #f7f6f1;
+$navy:          #1F3A5F;
+$oxblood:       #7A1F1F;
+$serif-display: "Crimson Pro", "EB Garamond", "Source Serif 4", "Georgia", "STZhongsong", "Microsoft YaHei", serif;
+$serif-text:    "Source Serif 4", "EB Garamond", "Crimson Pro", "Georgia", "STZhongsong", "Microsoft YaHei", serif;
+$sans:          "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
 
-nav#navbar-main.navbar.navbar-expand-ig.navbar-light.compensate-for-scrolibar {
-    font-family: "Ovo", "Georgia", "STZhongsong", "Microsoft YaHei", serif;
-}
-
-.portrait-title h2 {
-    font-family: "Ovo", "Georgia", "STZhongsong", "Microsoft YaHei", serif;
-}
-
-.portrait-title h3 {
-    font-family: "Ovo", "Georgia", "STZhongsong", "Microsoft YaHei", serif;
-}
-
-.page-body section div div div h1 {
-    font-family: "Ovo", "Georgia", "STZhongsong", "Microsoft YaHei", serif;
-}
-
-.page-body section div div div div {
-    font-family: "Ovo", "Georgia", "STZhongsong", "Microsoft YaHei", serif;
-}
+// -----------------------------------------------------------------------------
+// Globals — type scale 13–48px; ligatures + kerning
+// -----------------------------------------------------------------------------
 
 html {
-    font-family: "Ovo", "Georgia", "STZhongsong", "Microsoft YaHei", serif;
+  font-size: 17px;          // body anchor — 1rem = 17px
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1, "onum" 1;
+  font-variant-ligatures: common-ligatures contextual;
 }
 
-strong {
-    font-family: "Arial";
+body {
+  font-family: $serif-text;
+  font-size: 1rem;          // 17px
+  line-height: 1.8;
+  color: $ink;
+  background: $cream;
+  counter-reset: section;
+}
+
+// Container — responsive reading width
+// Tight on tablet/laptop for comfort, breathing room on wide displays
+.container,
+.universal-wrapper,
+.article-container {
+  max-width: 896px !important;
+
+  @media (min-width: 1200px) { max-width: 1040px !important; }
+  @media (min-width: 1400px) { max-width: 1200px !important; }
+  @media (min-width: 1680px) { max-width: 1320px !important; }
+}
+
+// Headings — display serif, tight leading, neg letter-spacing
+h1, h2, h3, h4, h5, h6,
+.navbar-brand {
+  font-family: $serif-display;
+  font-weight: 500;
+  color: $ink;
+}
+
+h1 {
+  font-size: 2.118rem;      // ~36px
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  margin-bottom: 1rem;
+}
+
+h2 {
+  font-size: 1.647rem;      // ~28px
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin-bottom: .85rem;
+}
+
+h3 {
+  font-size: 1.294rem;      // ~22px
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  margin-bottom: .65rem;
+}
+
+h4 { font-size: 1.118rem; line-height: 1.3; letter-spacing: -0.01em; }
+h5 { font-size: 1rem;     line-height: 1.3; letter-spacing: -0.01em; }
+h6 { font-size: .882rem;  line-height: 1.3; letter-spacing: 0; }
+
+p, li {
+  font-family: $serif-text;
+  font-size: 1rem;          // 17px
+  line-height: 1.8;
+}
+
+strong, b { font-weight: 600; font-family: inherit; }
+em, i    { font-style: italic; }
+
+a {
+  color: $navy;
+  text-underline-offset: 3px;
+  text-decoration-thickness: .5px;
+
+  &:hover { color: $oxblood; }
+}
+
+small, .small { font-size: .765rem; }   // 13px
+
+// Constrain prose only on individual article pages (not home widgets)
+// where column grid already controls width.
+.article-container .article-style {
+  > p, > li, > ul, > ol, > blockquote {
+    max-width: 68ch;
+  }
+}
+
+code, kbd, pre, samp {
+  font-family: "JetBrains Mono", "Roboto Mono", Menlo, Consolas, monospace;
+  font-size: .85em;
+  font-feature-settings: "liga" 0;       // disable ligatures in code
+}
+
+// -----------------------------------------------------------------------------
+// Navbar — 13px UI sans, hairline, lots of breathing
+// -----------------------------------------------------------------------------
+
+nav#navbar-main,
+.navbar-light {
+  font-family: $sans;
+  background: $cream !important;
+  border-bottom: 1px solid $rule-soft;
+  box-shadow: none !important;
+  padding: 1rem 0;
+  font-size: .824rem;       // ~14px
+}
+
+.navbar-brand {
+  font-family: $serif-display;
+  font-weight: 500;
+  font-size: 1.118rem;
+  letter-spacing: -0.01em;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  font-family: $sans;
+  font-weight: 500;
+  font-size: .765rem;       // 13px
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: $ink-soft;
+
+  &:hover, &.active { color: $navy; }
+}
+
+// -----------------------------------------------------------------------------
+// Home sections — vertical rhythm
+// -----------------------------------------------------------------------------
+
+.home-section {
+  counter-increment: section;
+  padding: 7rem 0;
+
+  @media (max-width: 768px) { padding: 4rem 0; }
+}
+
+// Section eyebrow — tiny 13px sans, "—  01"
+.home-section .section-heading {
+  margin-bottom: 2.5rem;
+
+  h1 {
+    position: relative;
+    font-family: $serif-display;
+    font-size: 1.882rem;     // ~32px
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    border-bottom: 1px solid $rule;
+    padding-bottom: .65rem;
+
+    &::before {
+      content: "—  " counter(section, decimal-leading-zero);
+      display: block;
+      font-family: $sans;
+      font-size: .765rem;    // 13px
+      font-weight: 600;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: $ink-faint;
+      margin-bottom: .55rem;
+    }
+  }
+}
+
+// -----------------------------------------------------------------------------
+// About / hero — minimal, sparse, elizen-style
+// -----------------------------------------------------------------------------
+
+.wg-about {
+  padding-top: 8rem;
+  padding-bottom: 6rem;
+
+  @media (max-width: 768px) {
+    padding-top: 4rem;
+    padding-bottom: 3rem;
+  }
+
+  // Hide redundant h1 in right column (left has h2 with same name)
+  > .container > .row > .col-lg-8 > h1:first-child { display: none; }
+
+  // Bio — first paragraph only on landing; rest hidden behind print/expand
+  .article-style {
+    p:nth-of-type(n + 2),
+    ul { display: none; }
+
+    p:first-of-type {
+      font-family: $serif-text;
+      font-size: 1.118rem;    // ~19px — slightly larger lede
+      line-height: 1.75;
+      color: $ink-soft;
+      margin-bottom: 2.5rem;
+      font-style: italic;
+    }
+  }
+}
+
+#profile {
+  text-align: center;
+
+  .avatar {
+    width: 132px !important;
+    height: 132px !important;
+    margin-bottom: 1.5rem;
+  }
+
+  .portrait-title h2 {
+    font-family: $serif-display;
+    font-size: 1.647rem;      // ~28px
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    font-weight: 500;
+    margin-bottom: .15rem;
+  }
+
+  .portrait-title h3 {
+    font-family: $serif-text;
+    font-size: .882rem;       // 15px
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.45;
+    color: $ink-mute;
+    margin-bottom: .15rem;
+    letter-spacing: 0;
+  }
+
+  .network-icon {
+    margin-top: 1.4rem;
+
+    li { margin: 0 .35rem; }
+
+    .big-icon {
+      font-size: .94rem;
+      color: $ink-mute;
+      transition: color .2s ease;
+
+      &:hover { color: $navy; }
+    }
+  }
+}
+
+// Interests + Education — compact subheadings
+.wg-about {
+  .section-subheading {
+    font-family: $sans;
+    font-size: .765rem;       // 13px
+    font-weight: 600;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: $ink-faint;
+    margin-bottom: .85rem;
+  }
+
+  .ul-interests li,
+  .ul-edu .description .course,
+  .ul-edu .description .institution {
+    font-family: $serif-text;
+    font-size: .882rem;       // 15px
+    line-height: 1.6;
+  }
+
+  .ul-edu .description .institution {
+    color: $ink-mute;
+    font-style: italic;
+  }
 }
 
 #interests {
-    font-size: 1.25rem;
-    font-weight: bold;
+  font-family: $serif-text;
+  font-size: .882rem;
+  font-weight: 500;
+}
+
+// -----------------------------------------------------------------------------
+// Collection items (featured publications, research projects)
+// Borderless, separated by hairline rules; summaries clamped for alignment
+// -----------------------------------------------------------------------------
+
+.card,
+.card-simple,
+.pub-list-item,
+.media.stream-item {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  transform: none !important;
+  transition: none !important;
+
+  &:hover { transform: none !important; }
+}
+
+// Hairline divider between consecutive items in featured / research lists
+.wg-collection,
+.wg-portfolio {
+  .col-lg-8 > .card-simple,
+  .col-lg-8 > .media.stream-item,
+  .js-layout-row .isotope-item .media.stream-item {
+    padding-top: 1.75rem !important;
+    padding-bottom: 1.75rem !important;
+    border-bottom: 1px solid $rule-soft !important;
+  }
+
+  .col-lg-8 > :first-child .card-simple,
+  .col-lg-8 > .card-simple:first-of-type,
+  .col-lg-8 > .media.stream-item:first-of-type,
+  .js-layout-row > .isotope-item:first-of-type .media.stream-item {
+    padding-top: 0 !important;
+  }
+
+  .col-lg-8 > .card-simple:last-of-type,
+  .col-lg-8 > .media.stream-item:last-of-type,
+  .js-layout-row > .isotope-item:last-of-type .media.stream-item {
+    border-bottom: none !important;
+    padding-bottom: 0 !important;
+  }
+
+  // Title — refined
+  .article-title,
+  .section-subheading.article-title {
+    font-family: $serif-display;
+    font-size: 1.176rem;        // ~20px
+    line-height: 1.35;
+    letter-spacing: -0.015em;
+    margin-bottom: .35rem !important;
+
+    a {
+      color: $ink;
+      text-decoration: none;
+      &:hover {
+        color: $navy;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+    }
+  }
+
+  // Meta line
+  .article-metadata,
+  .stream-meta {
+    font-family: $sans;
+    font-size: .765rem;          // 13px
+    color: $ink-mute;
+    line-height: 1.55;
+    letter-spacing: .01em;
+
+    .author-highlighted {
+      color: $ink;
+      font-weight: 600;
+    }
+    .article-date,
+    .pub-publication { color: $ink-mute; }
+    .middot-divider { margin: 0 .4rem; opacity: .6; }
+  }
+
+  // Summary — clamp to 2 lines for visual rhythm
+  .summary-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .article-style {
+    margin-top: .5rem;
+
+    p, & {
+      font-family: $serif-text;
+      font-size: .882rem;        // 15px
+      line-height: 1.65;
+      color: $ink-mute;
+      margin-bottom: 0;
+
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  // Buttons row
+  .btn-links {
+    margin-top: .9rem;
+
+    .btn {
+      font-family: $sans;
+      font-size: .735rem;       // 12.5px
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: .35rem .85rem;
+      border-radius: 2px;
+      margin-right: .35rem;
+      border-width: 1px;
+    }
+
+    .btn-outline-primary {
+      color: $ink-soft;
+      border-color: $rule;
+      background: transparent;
+
+      &:hover {
+        color: $cream;
+        background: $navy;
+        border-color: $navy;
+      }
+    }
+  }
+}
+
+// Buttons inside featured publication card (PDF / Cite)
+.wg-collection .btn-page-header,
+.wg-portfolio .btn-page-header {
+  font-family: $sans;
+  font-size: .735rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: .35rem .85rem;
+  border-radius: 2px;
+  border-width: 1px;
+}
+
+// Generic title styling for any other contexts
+.card-title {
+  font-family: $serif-display;
+  font-size: 1.118rem;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+}
+
+.publication .pub-authors,
+.publication .pub-publication,
+.media-body .pub-authors,
+.media-body .pub-publication {
+  font-size: .824rem;        // 14px
+  color: $ink-mute;
+}
+
+// -----------------------------------------------------------------------------
+// Contact widget — refined
+// -----------------------------------------------------------------------------
+
+.wg-contact {
+  .form-control {
+    font-family: $serif-text;
+    font-size: 1rem;
+    border: 1px solid $rule;
+    border-radius: 2px;
+    background: $cream;
+
+    &:focus { border-color: $navy; box-shadow: none; }
+  }
+
+  .btn {
+    font-family: $sans;
+    font-size: .824rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    border-radius: 2px;
+    padding: .65rem 1.5rem;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Horizontal rules — thin double line
+// -----------------------------------------------------------------------------
+
+hr {
+  border: none;
+  border-top: 1px solid $ink;
+  border-bottom: 1px solid $ink;
+  height: 3px;
+  opacity: .25;
+  margin: 2.5rem auto;
+  max-width: 4rem;
+}
+
+// -----------------------------------------------------------------------------
+// Dark mode
+// -----------------------------------------------------------------------------
+
+.dark {
+  $bg-dark:       #15171a;
+  $bg-dark-warm:  #1c1f23;
+  $ink-dark:      #E8E4DA;
+  $ink-dark-soft: #c8c4ba;
+  $ink-dark-mute: #8a8680;
+  $ink-dark-fnt:  #5a5650;
+  $rule-dark:     rgba(232, 228, 218, .14);
+  $rule-soft-dk:  rgba(232, 228, 218, .08);
+  $gold:          #C9B27A;
+
+  body { color: $ink-dark; background: $bg-dark; }
+
+  h1, h2, h3, h4, h5, h6 { color: $ink-dark; }
+
+  nav#navbar-main,
+  .navbar-light { background: $bg-dark !important; border-bottom-color: $rule-soft-dk; }
+
+  .navbar-light .navbar-nav .nav-link {
+    color: $ink-dark-soft;
+    &:hover, &.active { color: $gold; }
+  }
+
+  a { color: $gold; &:hover { color: lighten(#C9B27A, 10%); } }
+
+  .home-section .section-heading h1 {
+    border-bottom-color: $rule-dark;
+    &::before { color: $ink-dark-fnt; }
+  }
+
+  .wg-about .article-style p:first-of-type { color: $ink-dark-soft; }
+
+  #profile {
+    .portrait-title h3 { color: $ink-dark-mute; }
+    .network-icon .big-icon {
+      color: $ink-dark-mute;
+      &:hover { color: $gold; }
+    }
+  }
+
+  .wg-about {
+    .section-subheading { color: $ink-dark-fnt; }
+    .ul-edu .description .institution { color: $ink-dark-mute; }
+  }
+
+  .wg-collection,
+  .wg-portfolio {
+    .col-lg-8 > .card-simple,
+    .col-lg-8 > .media.stream-item,
+    .js-layout-row .isotope-item .media.stream-item {
+      border-bottom-color: $rule-soft-dk !important;
+    }
+
+    .article-title a {
+      color: $ink-dark;
+      &:hover { color: $gold; }
+    }
+
+    .article-metadata,
+    .stream-meta {
+      color: $ink-dark-mute;
+      .author-highlighted { color: $ink-dark; }
+      .article-date,
+      .pub-publication { color: $ink-dark-mute; }
+    }
+
+    .article-style { color: $ink-dark-mute; }
+
+    .btn-links .btn-outline-primary,
+    .btn-page-header {
+      color: $ink-dark-soft;
+      border-color: $rule-dark;
+      &:hover {
+        color: $bg-dark;
+        background: $gold;
+        border-color: $gold;
+      }
+    }
+  }
+
+  .publication .pub-authors,
+  .publication .pub-publication,
+  .media-body .pub-authors,
+  .media-body .pub-publication { color: $ink-dark-mute; }
+
+  hr { border-color: $ink-dark; }
+
+  .wg-contact .form-control {
+    background: $bg-dark-warm;
+    border-color: $rule-dark;
+    color: $ink-dark;
+    &:focus { border-color: $gold; }
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Print — restore full bio for CV print-out
+// -----------------------------------------------------------------------------
+
+@media print {
+  nav#navbar-main,
+  .home-section-bg,
+  .network-icon,
+  footer,
+  .at-share-btn,
+  #disqus_thread,
+  .scroll-top { display: none !important; }
+
+  body { color: #000; background: #fff; font-size: 11pt; }
+  a { color: #000; text-decoration: underline; }
+
+  .wg-about .article-style p,
+  .wg-about .article-style ul { display: revert !important; }
+
+  .home-section { padding: 1.5rem 0 !important; }
+
+  .card,
+  .pub-list-item,
+  .media.stream-item {
+    border: 1px solid #000 !important;
+    box-shadow: none !important;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .home-section .section-heading h1::before { color: #000; }
 }

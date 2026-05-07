@@ -6,10 +6,10 @@
 # Appearance
 
 appearance:
-  theme_day: minimal
-  theme_night: minimal
-  font: Minimal
-  font_size: L
+  theme_day: songshgeo-editorial
+  theme_night: songshgeo-editorial
+  font: Editorial
+  font_size: M
 
 # SEO
 

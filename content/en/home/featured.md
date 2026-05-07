@@ -4,14 +4,14 @@
 widget: featured
 
 # This file represents a page section.
-headless: false
-active: false
+headless: true
+active: true
 
 # Order that this section appears on the page.
 weight: 80
 
-title: Featured
-subtitle: 'My selected outcomes'
+title: Selected Publications
+subtitle: ''
 
 content:
   # Page type to display. E.g. post, talk, publication...
