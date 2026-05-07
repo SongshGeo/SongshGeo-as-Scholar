@@ -15,6 +15,14 @@
   var POLL_INTERVAL_MS = 100;
   var MAX_POLL_MS = 8000;
 
+  // Localized UI labels — picks zh strings if <html lang> starts with "zh"
+  var IS_ZH = (document.documentElement.lang || '').toLowerCase().indexOf('zh') === 0;
+  var L = {
+    year:   IS_ZH ? '年份'   : 'Year',
+    topics: IS_ZH ? '标签'   : 'Topics',
+    clear:  IS_ZH ? '清空'   : 'Clear',
+  };
+
   if (document.readyState !== 'loading') {
     init();
   } else {
@@ -171,8 +179,8 @@
 
   function buildTimeline(years, state, onChange) {
     var wrap = el('div', 'pub-timeline');
-    var label = el('div', 'pub-timeline-label', 'Year');
-    var clear = el('button', 'pub-timeline-clear', 'Clear');
+    var label = el('div', 'pub-timeline-label', L.year);
+    var clear = el('button', 'pub-timeline-clear', L.clear);
     clear.type = 'button';
     clear.style.display = 'none';
     var head = el('div', 'pub-timeline-head');
@@ -218,10 +226,10 @@
     var bar = el('div', 'pub-keywords-bar');
     var toggle = el('button', 'pub-keywords-toggle');
     toggle.type = 'button';
-    toggle.innerHTML = '<i class="fas fa-tags" aria-hidden="true"></i><span>Topics</span>';
+    toggle.innerHTML = '<i class="fas fa-tags" aria-hidden="true"></i><span>' + L.topics + '</span>';
     var count = el('span', 'pub-keywords-count');
     toggle.appendChild(count);
-    var clear = el('button', 'pub-keywords-clear', 'Clear');
+    var clear = el('button', 'pub-keywords-clear', L.clear);
     clear.type = 'button';
     clear.style.display = 'none';
     bar.appendChild(toggle);

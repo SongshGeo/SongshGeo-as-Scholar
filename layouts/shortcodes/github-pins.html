@@ -11,7 +11,11 @@
       <span class="github-pin-repo">{{ $pin.repo }}</span>
     </div>
 
-    <p class="github-pin-desc">{{ $pin.description }}</p>
+    {{- $desc := $pin.description -}}
+    {{- if and (eq site.Language.Lang "zh") $pin.description_zh -}}
+      {{- $desc = $pin.description_zh -}}
+    {{- end -}}
+    <p class="github-pin-desc">{{ $desc }}</p>
 
     <div class="github-pin-meta">
       {{- with $pin.language }}

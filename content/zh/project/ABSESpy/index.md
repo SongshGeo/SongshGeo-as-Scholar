@@ -1,6 +1,6 @@
 ---
-title: "ABSESpy: Agent-Based Social-ecological systems Modelling Framework in Python"
-summary: ABSESpy makes it easier to build artificial Social-ecological systems with real GeoSpatial datasets and fully incorporate human behavior.
+title: "ABSESpy：面向真实社会-生态系统的多主体建模框架"
+summary: ABSESpy 让基于真实地理空间数据构建人工社会-生态系统、并完整刻画人类行为变得更简单。
 tags:
 - agent-based-modelling
 - Python

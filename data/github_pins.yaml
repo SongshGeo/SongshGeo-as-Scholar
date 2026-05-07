@@ -1,10 +1,12 @@
 # Pinned GitHub repos for the Open Source widget.
+# `description_zh` is used on the zh site if present; otherwise falls back to `description`.
 # Stars are last-updated manually; refresh from github.com/SongshGeo periodically.
 
 pins:
   - owner: SongshGeoLab
     repo: ABSESpy
     description: Agent-based Social-ecological Systems framework in Python for coupling human-nature research.
+    description_zh: 用于人-自然耦合研究的多主体社会-生态系统 Python 框架。
     language: Python
     color: "#3572A5"
     stars: 54
@@ -12,6 +14,7 @@ pins:
   - owner: SongshGeo
     repo: mksci-font
     description: Make matplotlib scientific plots use Chinese Song typeface and English Times New Roman.
+    description_zh: 让 matplotlib 科研图表使用中文宋体、英文 Times New Roman。
     language: Jupyter Notebook
     color: "#DA5B0B"
     stars: 32
@@ -19,6 +22,7 @@ pins:
   - owner: PaperBell-Org
     repo: Obsidian-PaperBell
     description: An Obsidian template vault for tracking your academic life.
+    description_zh: 用于记录学术生活的 Obsidian 模板库。
     language: TypeScript
     color: "#3178C6"
     stars: 317
@@ -26,6 +30,7 @@ pins:
   - owner: SongshGeo
     repo: Python-Project-Template
     description: A succinct Python project template.
+    description_zh: 简洁的 Python 项目脚手架。
     language: Python
     color: "#3572A5"
     stars: 8
