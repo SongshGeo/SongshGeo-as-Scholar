@@ -4,6 +4,7 @@ summary: ABSESpy makes it easier to build artificial Social-ecological systems w
 tags:
 - agent-based-modelling
 - Python
+- ongoing
 date: '2021-10-10T00:00:00Z'
 # Optional external URL for project (replaces project detail page).
 external_link: ''

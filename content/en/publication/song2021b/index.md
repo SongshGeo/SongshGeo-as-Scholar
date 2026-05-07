@@ -36,9 +36,13 @@ publication_short: _Ecoscience_
 abstract: The adaptive capacity of psammophytes to sand burial is crucial for the ecological restoration of coastal dune systems. The responses of Spinifex littoreus to different sand burial depths and levels were examined on the coast of Pingtan Island, Fujian Province, South China. The results indicated that, compared with the control group (CG), sand burial on the S. littoreus stolons had no significant impact on the vertical growth of its conjoint ramets. However, the horizontal growth of S. littoreus stolons was stimulated and significantly increased in half-intense (HI) and complete-intense (CI) sand burial treatments by 24.56% and 40.79%, respectively. Throughout the experiment, about 96% of adventitious roots were observed on the base section of stolons, while no roots in the control group (CG). After 20-day artificial sand burial treatments, the dry weight ratio between stem and leaf of S. littoreus was decreased in all three sections of stolons, especially for the top sections. Overall, S. littoreus can adapt to the complete and intense sand burial in growing season by rapid growth of stolons, abundant production of adventitious roots on the stolon base, and more germination of leaves on the stolon top
 # Summary. An optional shortened abstract.
 summary: The adaptive capacity of psammophytes to sand burial is crucial for the ecological restoration of coastal dune systems. The responses of Spinifex littoreus to different sand burial depths and levels were examined on the coast of Pingtan Island, Fujian Province, South China.
+my-role:
+  - leading
 tags:
   - adaptation
   - field experiment
+  - role-leading
+  - year-2021
 # Display this page in the Featured widget?
 featured: false
 # Custom links (uncomment lines below)

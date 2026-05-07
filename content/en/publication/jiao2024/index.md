@@ -45,4 +45,10 @@ summary: This study of the Lower Yellow River Floodplain reveals that hydrologic
   The findings highlight the impact of river stabilization from upstream regulation
   on human-nature interactions, emphasizing the need for integrated river governance
   in floodplain management.
+my-role:
+  - co-authored
+tags:
+  - role-co-authored
+  - year-2025
+
 ---

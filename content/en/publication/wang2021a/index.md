@@ -32,8 +32,12 @@ publication_short: _Advances in earth science_
 abstract: 'Traditional Water-Food-Energy（WFE）nexus lacks consideration of the support and feedback capacity of ecosystems，which makes it difficult to guarantee a coordinated regional water-food-energy security. Based on a review of recent international frameworks for Water-Food-Energy-Ecosystem （WFEE） nexus construction，we found that there was a need to integrate the social governance processes of water，food and energy resource sectors from the perspective of ecosystem services. On the basis of different ecosystem types， the common WFEE nexus can be classified into five ecosystems：agriculture，river，forest，grassland，and urban. There is a relative lack of research on forest and grassland ecosystems. In terms of research methods，the research difficulties are the determination of subsystem boundaries in quantitative assessment，the influence of multiple subjects on the nexus in prediction，and the combination of resource management and ecological restoration in integration and optimization. With the goal of optimizing the WFEE nexus structure and providing an overall decision basis for regional sustainable development，future research can focus on four aspects： grasping the regional characteristics，expanding the index system，integrating the model requirements，and optimizing the national space.'
 # Summary. An optional shortened abstract.
 summary: Based on a review of recent international frameworks for Water-Food-Energy-Ecosystem （WFEE） nexus construction，we found that there was a need to integrate the social governance processes of water，food and energy resource sectors from the perspective of ecosystem services. 
+my-role:
+  - co-authored
 tags: 
   - water resources management
+  - role-co-authored
+  - year-2021
 # Display this page in the Featured widget?
 featured: false
 # Custom links (uncomment lines below)

@@ -37,9 +37,15 @@ publication_short: _JOSS_
 abstract: ABSESpy is a novel agent-based modeling (ABM) framework that enhances socio-ecological systems (SES) research fidelity. Addressing critical needs in SES study, such as complex decision-making, scaling, and data integration, it features a Branch-Leaf architecture for clear separation and integration of human and natural subsystems, promoting replicability and model coupling. `ABSESpy` also supports modeling human behavior through well-recognized workflows of perception, decision-making definitions, and responses. Moreover, it advances real-world modeling with multiple time operating modes, accommodating the diverse temporal scales of SES phenomena and integrating time-sensitive event simulations. These innovations position `ABSESpy` as a crucial tool in addressing current gaps in SES research, fostering more ABMs for real-world SES issues.
 # Summary. An optional shortened abstract.
 summary: ""
+my-role:
+  - leading
+  - featured
 tags:
   - Python
   - agent-based modeling
+  - role-leading
+  - role-featured
+  - year-2023
 # Display this page in the Featured widget?
 featured: true
 # Custom links (uncomment lines below)

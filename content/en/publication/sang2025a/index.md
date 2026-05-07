@@ -42,4 +42,10 @@ summary: This study presents a conceptual modeling framework for coupled human a
   between key human and natural components, successfully reproducing historical trends
   and predicting future scenarios, thereby offering valuable insights for enhancing
   regional sustainability efforts.
+my-role:
+  - co-authored
+tags:
+  - role-co-authored
+  - year-2025
+
 ---

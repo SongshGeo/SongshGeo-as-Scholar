@@ -1,56 +1,47 @@
 ---
-# An instance of the Contact widget.
-widget: contact
-
-# This file represents a page section.
+# Contact section — markdown widget.
+# Edit the list below to add/remove channels.
+# File path: content/en/home/contact.md
+widget: markdown
 headless: true
+active: true
 
-# Order that this section appears on the page.
 weight: 110
 
 title: Contact
-subtitle:
-
-content:
-  # Automatically link email and phone or display as text?
-  autolink: true
-
-  # Email form provider
-  form:
-    provider: netlify
-    formspree:
-      id:
-    netlify:
-      # Enable CAPTCHA challenge to reduce spam?
-      captcha: false
-
-  # Contact details (edit or remove options as required)
-  email:  song@gea.mpg.de
-  address:
-    street: Kahlaische Strasse 10
-    city: Jena
-    region: Thüringen
-    postcode: '07745'
-    country: Germany
-    country_code: DE
-  coordinates:
-    latitude: '50.91778229923765'
-    longitude: '11.578400140037207'
-  # directions: Enter Building 1 and take the stairs to Office 200 on Floor 2
-  # office_hours:
-  #   - 'Monday 10:00 to 13:00'
-  #   - 'Wednesday 09:00 to 10:00'
-  appointment_url: 'https://cal.com/s-huang-song-sodoej'
-  contact_links:
-    # - icon: twitter
-    #   icon_pack: fab
-    #   name: DM Me
-    #   link: 'https://twitter.com/Twitter'
-    # - icon: video
-    #   icon_pack: fas
-    #   name: Book an academic meeting with me.
-    #   link: 'https://calendly.com/songshgeo'
+subtitle: ''
 
 design:
   columns: '2'
 ---
+
+<ul class="contact-channels">
+  <li>
+    <strong><a href="mailto:song@gea.mpg.de">song@gea.mpg.de</a></strong>
+    <span>Best for collaboration inquiries, paper requests, and formal academic correspondence.</span>
+  </li>
+  <li>
+    <strong><a href="https://cal.com/s-huang-song-sodoej" target="_blank" rel="noopener">Book a 30-min meeting</a></strong>
+    <span>Schedule an online chat about research methods, agent-based modelling, or potential collaborations.</span>
+  </li>
+  <li>
+    <strong><a href="https://github.com/SongshGeo" target="_blank" rel="noopener">GitHub · @SongshGeo</a></strong>
+    <span>Open issues, contribute, or ask questions about my open-source projects (ABSESpy, mksci-font, …).</span>
+  </li>
+  <li>
+    <strong><a href="https://twitter.com/ShuangSong11" target="_blank" rel="noopener">Twitter / X · @ShuangSong11</a></strong>
+    <span>Informal updates, conference notes, and short questions.</span>
+  </li>
+  <li>
+    <strong><a href="https://scholar.google.com.hk/citations?hl=en&user=fNZkCsUAAAAJ" target="_blank" rel="noopener">Google Scholar</a></strong>
+    <span>Citation tracking and full publication list with alerts.</span>
+  </li>
+  <li>
+    <strong><a href="https://orcid.org/0000-0002-8112-8780" target="_blank" rel="noopener">ORCID · 0000-0002-8112-8780</a></strong>
+    <span>Persistent researcher identifier for grant applications and registry lookups.</span>
+  </li>
+  <li>
+    <strong>Mailing address</strong>
+    <span>Max Planck Institute of Geoanthropology, Kahlaische Strasse 10, 07745 Jena, Germany</span>
+  </li>
+</ul>

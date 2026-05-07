@@ -42,9 +42,13 @@ publication_short: _Ecohydrology_
 abstract: 'Understanding the constraints on light-use efficiency (LUE) induced by high evaporative water demand (vapour–pressure deficit; VPD) and soil water stress (soil moisture content; SMC) is crucial for understanding and simulating vegetation productivity, particularly in the arid and semi-arid regions. However, the relative impacts of VPD and SMC on LUE are unclear, as we lack a mechanistic understanding of impacts and their interactions. In this study, we quantified the relative roles of VPD and SMC in limiting LUE and analysed the interactions among VPD, SMC and LUE using data from CO2 and water flux stations and weather stations along a climatic gradient in the Heihe River Basin, China. We found a threshold of VPD constraint on LUE; above the threshold, LUE decreased at only 3.6% to 23.1% of the rate below the threshold. As SMC decreased, however, the VPD threshold increased, and the reduction of LUE caused by VPD decreased significantly, which is more than half of that in moister regions. Therefore, both VPD and SMC played essential roles in LUE limitation caused by water stress. A threshold also existed for heat flux and the correlation between SMC and LUE; the strength of the correlation first decreased and then increased with increasing VPD. Our results clarified the relative impacts of VPD and SMC on LUE, and can improve simulation and prediction of plant productivity.'
 # Summary. An optional shortened abstract.
 summary:  We quantified the relative roles of VPD and SMC in limiting LUE and analysed the interactions among VPD, SMC and LUE using data from CO2 and water flux stations and weather stations along a climatic gradient in the Heihe River Basin, China. 
+my-role:
+  - co-authored
 tags:
   - ecology
   - adaptation
+  - role-co-authored
+  - year-2021
 # Display this page in the Featured widget?
 featured: false
 # Custom links (uncomment lines below)

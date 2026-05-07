@@ -39,12 +39,18 @@ publication_short: _Water Resources Research_
 abstract: "Water governance determine ``who gets water, when, and how' in most large river basins. Shifts in water governance regimes from natural to social-ecological or ``hydrosocial' carry profound implications for human wellbeing; identifying regime changes in water governance is critical to navigating social-ecological transitions and guiding sustainability. We characterized water governance along with the three main aspects - stress, purpose, and allocation - to develop a quantitative Integrated Water Governance Index (IWGI) at a basin scale. Applying the IWGI to the rapidly-changing Yellow River Basin (YRB) in China clarifies shifts in water governance between massive supply, transformation governance, and adaptation-oriented regimes. In the YRB, the underlying causes of regime shifts were increasing water supply and demand before the governance transformation and re-allocation and regulation after the change. The IWGI offers a comprehensive and straightforward approach to linking water governance regimes to sustainability, providing valuable insights into hydrosocial transitions."
 # Summary. An optional shortened abstract.
 summary: In the Yellow River Basin, the underlying causes of regime shifts were increasing water supply and demand before the governance transformation and re-allocation and regulation after the change. The IWGI offers a comprehensive and straightforward approach to linking water governance regimes to sustainability, providing valuable insights into hydrosocial transitions.
+my-role:
+  - leading
+  - featured
 tags:
   - historical geography
   - system evolution
   - Yellow River
   - water resources management
   - governance
+  - role-leading
+  - role-featured
+  - year-2023
 # Display this page in the Featured widget?
 featured: true
 # Custom links (uncomment lines below)

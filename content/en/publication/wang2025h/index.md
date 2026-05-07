@@ -29,4 +29,10 @@ summary: The article highlights the ongoing challenges in the human-water relati
   proposing future strategies focused on data collection, infrastructure development,
   integrated water management, and ecological restoration to ensure sustainable water
   resources and maintain the river's flow.
+my-role:
+  - co-authored
+tags:
+  - role-co-authored
+  - year-2025
+
 ---

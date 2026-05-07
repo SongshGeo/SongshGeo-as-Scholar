@@ -53,4 +53,10 @@ summary: The study presents the CHANS-SD-YRB model, developed using a System Dyn
   may improve by 2100, significant challenges such as ecological trade-offs and resource
   limitations will complicate sustainable development in the region, highlighting
   the necessity for integrated policy solutions.
+my-role:
+  - co-authored
+tags:
+  - role-co-authored
+  - year-2026
+
 ---

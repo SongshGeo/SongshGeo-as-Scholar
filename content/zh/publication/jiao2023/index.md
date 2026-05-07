@@ -32,9 +32,13 @@ publication_short: _Hydrological Processes_
 abstract: 'Open-surface water bodies are essential terrestrial water sources and ecosystem service providers, and their evaluation is necessary for effective water management. In this study, 36 000 Landsat images of the Yellow River Basin (YRB) were collected, and a multiple index (Modified Normalized Difference Water Index, Normalized Difference Vegetation Index and Enhanced Vegetation Index, i.e. MNDWI, NDVI and EVI) method was used to identify open-surface water bodies in the flood and dry seasons during 1990–2020. Our results showed that during these 30 years, YRB surface waters were characterized by spatial and seasonal heterogeneities. The open-surface water coverage in the upper and middle reaches of the YRB was 8.74‰ and 4.24‰, respectively, less than the average coverage in the whole YRB of 9.45‰. Surface water area was significant larger in flood seasons than in dry seasons, while during 1990–2020, the surface water area increased by 27.5% in the flood season and by 58.9% in the dry season, reaching 7239.2 km2 (flood season) and 6654.8 km2 (dry season) in 2020. Meanwhile the seasonal variation has decreased. Climate factors (winter temperature and summer precipitation) positively correlated with open-surface water only in the source region of the YRB. In other regions, anthropic factors (e.g. water conservation projects) strongly affected open-surface water bodies by increasing their spatial area overall and decreasing seasonal differences in their coverage.'
 # Summary. An optional shortened abstract.
 summary:  During these 30 years, YRB surface waters were characterized by spatial and seasonal heterogeneities. The open-surface water coverage in the upper and middle reaches of the YRB was 8.74‰ and 4.24‰, respectively, less than the average coverage in the whole YRB of 9.45‰. Surface water area was significant larger in flood seasons than in dry seasons, while during 1990–2020, the surface water area increased by 27.5% in the flood season and by 58.9% in the dry season, reaching 7239.2 km2 (flood season) and 6654.8 km2 (dry season) in 2020. 
+my-role:
+  - co-authored
 tags:
   - Yellow River
   - remote sensing
+  - role-co-authored
+  - year-2021
 # Display this page in the Featured widget?
 featured: false
 # Custom links (uncomment lines below)

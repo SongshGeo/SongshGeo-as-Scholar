@@ -1,0 +1,31 @@
+# Pinned GitHub repos for the Open Source widget.
+# Stars are last-updated manually; refresh from github.com/SongshGeo periodically.
+
+pins:
+  - owner: SongshGeoLab
+    repo: ABSESpy
+    description: Agent-based Social-ecological Systems framework in Python for coupling human-nature research.
+    language: Python
+    color: "#3572A5"
+    stars: 54
+
+  - owner: SongshGeo
+    repo: mksci-font
+    description: Make matplotlib scientific plots use Chinese Song typeface and English Times New Roman.
+    language: Jupyter Notebook
+    color: "#DA5B0B"
+    stars: 32
+
+  - owner: PaperBell-Org
+    repo: Obsidian-PaperBell
+    description: An Obsidian template vault for tracking your academic life.
+    language: TypeScript
+    color: "#3178C6"
+    stars: 317
+
+  - owner: SongshGeo
+    repo: Python-Project-Template
+    description: A succinct Python project template.
+    language: Python
+    color: "#3572A5"
+    stars: 8
