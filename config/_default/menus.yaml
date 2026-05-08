@@ -13,6 +13,9 @@ main:
   - name: Projects
     url: '#projects'
     weight: 80
+  - name: Gallery
+    url: '#gallery'
+    weight: 85
   - name: GitHub
     url: '#skills'
     weight: 90

@@ -1,0 +1,44 @@
+{{/* photos.html — Render a gallery of images from the current page bundle,
+     excluding featured.*. Falls back to translation pages' resources when the
+     current bundle has no extras, so bilingual pages share photos without
+     duplicating files. Lightbox via fancybox. */}}
+
+{{ $resize := .Get "resize" | default "1200x1200" }}
+{{ $sort   := .Get "sort"   | default "asc" }}
+{{ $group  := .Get "group"  | default (printf "page-%s" .Page.RelPermalink) }}
+
+{{ $images := slice }}
+{{ range (.Page.Resources.ByType "image") }}
+  {{ if not (strings.Contains (lower (path.Base .Name)) "featured") }}
+    {{ $images = $images | append . }}
+  {{ end }}
+{{ end }}
+
+{{ if eq (len $images) 0 }}
+  {{ range .Page.Translations }}
+    {{ range (.Resources.ByType "image") }}
+      {{ if not (strings.Contains (lower (path.Base .Name)) "featured") }}
+        {{ $images = $images | append . }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ $.Page.Store.Set "has_gallery" true }}
+
+{{ if gt (len $images) 0 }}
+<div class="gallery-grid photos-grid">
+  {{ range (sort $images "Name" $sort) }}
+    {{ $thumb := .Fit (printf "%s webp" $resize) }}
+    <figure class="gallery-item">
+      <a data-fancybox="{{ $group }}" href="{{ .RelPermalink }}">
+        <img src="{{ $thumb.RelPermalink }}"
+             loading="lazy"
+             width="{{ $thumb.Width }}"
+             height="{{ $thumb.Height }}"
+             alt="{{ replaceRE `\.[^.]+$` `` (path.Base .Name) }}">
+      </a>
+    </figure>
+  {{ end }}
+</div>
+{{ end }}

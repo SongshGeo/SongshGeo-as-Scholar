@@ -109,6 +109,10 @@ extensions:
   academicons:
     enable: true
 
+# Force-load Fancybox lightbox on every page (the gallery shortcode in a
+# v1 home widget can't reliably set the `has_gallery` flag on the home page).
+require_fancybox: true
+
 # Security
 
 security:

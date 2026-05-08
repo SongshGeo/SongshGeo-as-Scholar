@@ -1,0 +1,32 @@
+{{/* Fieldwork home gallery — renders cards linking to each fieldwork page.
+     Each card uses the page's `featured.*` image (auto-detected via Hugo Blox's
+     get_featured_image function) plus title + location from frontmatter. */}}
+
+{{ $section := site.GetPage "/fieldwork" }}
+{{ $order := .Get "order" | default "desc" }}
+{{ $resize := .Get "resize" | default "900x900" }}
+
+<div class="gallery-grid">
+  {{- $pages := $section.Pages.ByDate -}}
+  {{- if eq $order "desc" }}{{ $pages = $pages.Reverse }}{{ end -}}
+  {{- range $pages -}}
+    {{- $img := "" -}}
+    {{- with (.Resources.ByType "image").GetMatch "*featured*" -}}
+      {{- $img = .Fit (printf "%s webp" $resize) -}}
+    {{- end -}}
+
+    <figure class="gallery-item">
+      <a href="{{ .RelPermalink }}" aria-label="{{ .Title }}">
+        {{- if $img -}}
+        <img src="{{ $img.RelPermalink }}"
+             width="{{ $img.Width }}" height="{{ $img.Height }}"
+             loading="lazy" alt="{{ .Title }}">
+        {{- end -}}
+      </a>
+      <figcaption>
+        <a href="{{ .RelPermalink }}" class="gallery-item-title">{{ .Title }}</a>
+        {{- with .Params.location }}<span class="gallery-item-meta">{{ . }}</span>{{ end -}}
+      </figcaption>
+    </figure>
+  {{- end }}
+</div>
