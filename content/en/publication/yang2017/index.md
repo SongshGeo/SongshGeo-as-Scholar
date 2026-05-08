@@ -36,9 +36,15 @@ publication_short: _Chinese Journal of Applied Ecology_
 abstract: Diurnal variation and its influencing factors of leaf water potential ( ψl ) of Spinifex littoreus on the nebkhas in two succession periods were measured on the coast of Pingtan Island，Fujian Province． The results showed that the diurnal variation of ψl of S． littoreus mainly demonstrated a ‘W’curve pattern，with a temporary rise at midday． The mean ψl of S． littoreus on the nebkhas at developing stage was higher than that at stabilizing stage，and recovered better during the night． ψl of S． littoreus was positively related to the atmospheric water potential ( ψa ) and relative humidity， negatively related to air temperature，but had no significant correlation with the soil water potential at different depthes． ψl of S． littoreus on the interdune depression at developing stage was higher than that on the windward slope and on the leeward slope from 10:00 to 16:00，and that on the windward slope was lower than that on the leeward slope all day long except at 10:00 and at 12:00． The variation of ψl of S． littoreus on the leeward slope was higher than that on the windward slope， and the minimal variation was found on the interdune depression，without statistical significance． ψl of S． littoreus on the windward slope was positively correlated with ψa and relative humidity，while negatively correlated with air temperature． ψl of S． littoreus on the leeward slope and the interdune depression were correlated with meteorological factors，but they had no significant relationship．
 # Summary. An optional shortened abstract.
 summary: Diurnal variation and its influencing factors of leaf water potential ( ψl ) of _Spinifex littoreus_ on the nebkhas in two succession periods were measured on the coast of Pingtan Island, Fujian Province．
+my-role:
+  - featured
+  - co-authored
 tags:
   - adaptation
   - Field experiment
+  - role-featured
+  - role-co-authored
+  - year-2017
 # Display this page in the Featured widget?
 featured: true
 # Custom links (uncomment lines below)

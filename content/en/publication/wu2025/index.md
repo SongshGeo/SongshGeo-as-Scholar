@@ -42,4 +42,7 @@ summary: This study evaluates the impact of ecological restoration (ER) on the h
   lifespan, it may also lead to a 6.9% reduction in average annual energy output.
   The findings highlight the complex interplay between ecosystem management and hydropower
   efficiency, providing insights for integrated watershed management.
+tags:
+  - year-2025
+
 ---

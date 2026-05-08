@@ -7,6 +7,10 @@ LANG := en
 CONTENT_DIR := content
 PUBLIST_DIR := publist
 UPLOADS_DIR := static/uploads
+# Final publication list PDF path (override: make PUBLIST_OUTPUT_PDF=/path/to/out.pdf update-publist)
+PUBLIST_OUTPUT_PDF := $(UPLOADS_DIR)/pubs.pdf
+# Zip bundle for sharing the compile-publist-from-bib skill (see package-publist-skill)
+PUBLIST_SKILL_ZIP_DIR := dist
 
 # Optional: cap how many incomplete publications to process per extract run (empty = all)
 EXTRACT_MAX_PUBLICATIONS :=
@@ -31,7 +35,7 @@ RED := \033[0;31m
 NC := \033[0m # No Color
 
 .PHONY: help check check-pdf check-pdf-interactive preview-rename rename extract-abstracts update-publist \
-		full-update install server build clean status commit push deploy \
+		update-publist-verbose package-publist-skill full-update install server build clean status commit push deploy \
 		docs-serve docs-build
 
 # Default target
@@ -48,6 +52,8 @@ help:
 	@echo "  $(YELLOW)make rename$(NC)             Rename files to match citation keys"
 	@echo "  $(YELLOW)make extract-abstracts$(NC)  Extract abstracts from PDFs"
 	@echo "  $(YELLOW)make update-publist$(NC)     Compile publication list PDF"
+	@echo "  $(YELLOW)make update-publist-verbose$(NC) Same, show XeLaTeX/biber output (debug)"
+	@echo "  $(YELLOW)make package-publist-skill$(NC) Zip skill + Makefile + docs for sharing"
 	@echo "  $(YELLOW)make full-update$(NC)        Complete workflow (check → rename → extract → publist)"
 	@echo ""
 	@echo "$(GREEN)🛠️  Development:$(NC)"
@@ -118,21 +124,81 @@ update-publist:
 		exit 1; \
 	fi
 	@if [ ! -f "$(BIB_FILE)" ]; then \
-		echo "$(RED)❌ Error: $(BIB_FILE) not found at project root$(NC)"; \
+		echo "$(RED)❌ Error: $(BIB_FILE) not found (set BIB_FILE to your .bib path)$(NC)"; \
 		exit 1; \
 	fi
-	@cp -f "$(BIB_FILE)" "$(PUBLIST_DIR)/$(BIB_FILE)"
+	@mkdir -p "$(dir $(PUBLIST_OUTPUT_PDF))"
+	@cp -f "$(BIB_FILE)" "$(PUBLIST_DIR)/$(notdir $(BIB_FILE))"
 	@cd $(PUBLIST_DIR) && xelatex -interaction=nonstopmode main.tex > /dev/null 2>&1
 	@cd $(PUBLIST_DIR) && biber main > /dev/null 2>&1
 	@cd $(PUBLIST_DIR) && xelatex -interaction=nonstopmode main.tex > /dev/null 2>&1
 	@cd $(PUBLIST_DIR) && xelatex -interaction=nonstopmode main.tex > /dev/null 2>&1
 	@if [ -f "$(PUBLIST_DIR)/main.pdf" ]; then \
-		cp $(PUBLIST_DIR)/main.pdf $(UPLOADS_DIR)/pubs.pdf; \
-		echo "$(GREEN)✅ Publication list updated: $(UPLOADS_DIR)/pubs.pdf$(NC)"; \
+		cp $(PUBLIST_DIR)/main.pdf $(PUBLIST_OUTPUT_PDF); \
+		echo "$(GREEN)✅ Publication list updated: $(PUBLIST_OUTPUT_PDF)$(NC)"; \
 	else \
 		echo "$(RED)❌ Error: Failed to compile publication list$(NC)"; \
 		exit 1; \
 	fi
+
+# Same as update-publist but prints XeLaTeX/biber output (for debugging)
+update-publist-verbose:
+	@echo "$(BLUE)📄 Compiling publication list (verbose)...$(NC)"
+	@if [ ! -d "$(PUBLIST_DIR)" ]; then \
+		echo "$(RED)❌ Error: $(PUBLIST_DIR) directory not found$(NC)"; \
+		exit 1; \
+	fi
+	@if [ ! -f "$(BIB_FILE)" ]; then \
+		echo "$(RED)❌ Error: $(BIB_FILE) not found (set BIB_FILE to your .bib path)$(NC)"; \
+		exit 1; \
+	fi
+	@mkdir -p "$(dir $(PUBLIST_OUTPUT_PDF))"
+	@cp -f "$(BIB_FILE)" "$(PUBLIST_DIR)/$(notdir $(BIB_FILE))"
+	@cd $(PUBLIST_DIR) && xelatex -interaction=nonstopmode main.tex
+	@cd $(PUBLIST_DIR) && biber main
+	@cd $(PUBLIST_DIR) && xelatex -interaction=nonstopmode main.tex
+	@cd $(PUBLIST_DIR) && xelatex -interaction=nonstopmode main.tex
+	@if [ -f "$(PUBLIST_DIR)/main.pdf" ]; then \
+		cp $(PUBLIST_DIR)/main.pdf $(PUBLIST_OUTPUT_PDF); \
+		echo "$(GREEN)✅ Publication list updated: $(PUBLIST_OUTPUT_PDF)$(NC)"; \
+	else \
+		echo "$(RED)❌ Error: Failed to compile publication list$(NC)"; \
+		exit 1; \
+	fi
+
+# Zip the compile-publist-from-bib skill, Makefile, README, and publist-related docs for sharing.
+# If publist/ exists locally (often gitignored), it is included so recipients get the LaTeX template.
+package-publist-skill:
+	@echo "$(BLUE)📦 Packaging publist skill bundle...$(NC)"
+	@command -v zip >/dev/null 2>&1 || { echo "$(RED)❌ zip not found (install zip).$(NC)"; exit 1; }
+	@mkdir -p "$(PUBLIST_SKILL_ZIP_DIR)"
+	@if [ ! -d .cursor/skills/compile-publist-from-bib ]; then \
+		echo "$(RED)❌ Error: .cursor/skills/compile-publist-from-bib not found$(NC)"; \
+		exit 1; \
+	fi
+	@STAMP=$$(date +%Y%m%d-%H%M%S); \
+	ZIP="$(PUBLIST_SKILL_ZIP_DIR)/publist-skill-$$STAMP.zip"; \
+	rm -f "$$ZIP"; \
+	zip -r "$$ZIP" \
+		.cursor/skills/compile-publist-from-bib \
+		Makefile \
+		README.md \
+		docs/README.md \
+		docs/WORKFLOW.md \
+		docs/QUICKSTART.md \
+		docs/SETUP_COMPLETE.md \
+		docs/SCRIPTS_CHANGELOG.md; \
+	if [ $$? -ne 0 ]; then exit 1; fi; \
+	if [ -d publist ]; then \
+		echo "$(YELLOW)Including local publist/ (sources only: no .git, no LaTeX aux)$(NC)"; \
+		find publist \( -type d -name .git -prune \) -o \( -type f \
+			! -name '*.aux' ! -name '*.log' ! -name '*.bbl' ! -name '*.bcf' ! -name '*.blg' \
+			! -name '*.out' ! -name '*.run.xml' ! -name '*.synctex.gz' ! -name '*.pdf' \
+			! -name '*.bpx' \) -print | zip -r "$$ZIP" -@; \
+	else \
+		echo "$(YELLOW)publist/ not found — skipped (often gitignored). Clone template locally to include.$(NC)"; \
+	fi; \
+	echo "$(GREEN)✅ Bundle: $$ZIP$(NC)"
 
 # Full update workflow
 full-update:

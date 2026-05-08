@@ -1,6 +1,6 @@
 ---
-title: Social-ecological system analysis of the Yellow River Basin
-summary: China's Yellow River Basin (YRB) is one of the most anthropogenically altered large river basins worldwide. Therefore, coupling human and natural system studies is crucial to support its sustainability. This project aims at using a social-ecological system framework to deepen our understanding of this complex system.
+title: 黄河流域社会-生态系统分析
+summary: 黄河流域是全球受人类活动影响最深的大河流域之一。本项目采用社会-生态系统框架耦合自然与人文过程，加深对这一复杂巨系统的理解，支撑流域可持续发展。
 date: '2017-10-10T00:00:00Z'
 # Optional external URL for project (replaces project detail page).
 external_link: ''
@@ -19,6 +19,7 @@ url_video: ''
 tags:
   - social-ecological system
   - social-hydrology
+  - ongoing
 # Slides (optional).
 #   Associate this project with Markdown slides.
 #   Simply enter your slide deck's filename without extension.

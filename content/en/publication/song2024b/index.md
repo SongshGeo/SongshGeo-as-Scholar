@@ -32,4 +32,10 @@ image:
 
 # Associated Projects (optional)
 projects: []
+my-role:
+  - leading
+tags:
+  - role-leading
+  - year-2025
+
 ---

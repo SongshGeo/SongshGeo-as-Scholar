@@ -46,4 +46,10 @@ summary: This study quantifies the spatiotemporal variations in irrigation water
   with future projections indicating that these discrepancies may worsen. The findings
   underscore the need for institutional adaptations to improve water resilience and
   sustainability in the region.
+my-role:
+  - co-authored
+tags:
+  - role-co-authored
+  - year-2025
+
 ---

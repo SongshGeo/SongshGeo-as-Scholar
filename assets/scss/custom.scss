@@ -1,40 +1,1568 @@
-nav#navbar-main.navbar.navbar-light {
-    font-family: "Ovo", "Georgia", "STZhongsong", "Microsoft YaHei", serif;
-}
+// =============================================================================
+// Editorial restyle — Hugo Blox academic-cv
+// Type system: 13px–48px scale; headings 1.15–1.3 lh, -0.025em to -0.01em ls;
+//              body 17px / 1.8 lh; max-width 896px; ligatures + kerning on.
+// Fonts:  Crimson Pro (display) · Source Serif 4 (body) · Inter (UI) · JBMono
+// Palette: ink (#1a1a1a) · warm cream (#fdfdfb) · navy (#1F3A5F) accent
+// =============================================================================
 
-.navbar-light {
-    font-family: "Ovo", "Georgia", "STZhongsong", "Microsoft YaHei", serif;
-}
+$ink:           #1a1a1a;
+$ink-soft:      #3a3a38;
+$ink-mute:      #6b6b67;
+$ink-faint:     #9a9a94;
+$rule:          rgba(26, 26, 26, .14);
+$rule-soft:     rgba(26, 26, 26, .08);
+$cream:         #fdfdfb;
+$cream-warm:    #f7f6f1;
+$navy:          #1F3A5F;
+$oxblood:       #7A1F1F;
+$serif-display: "Crimson Pro", "EB Garamond", "Source Serif 4", "Georgia", "STZhongsong", "Microsoft YaHei", serif;
+$serif-text:    "Source Serif 4", "EB Garamond", "Crimson Pro", "Georgia", "STZhongsong", "Microsoft YaHei", serif;
+$sans:          "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
 
-nav#navbar-main.navbar.navbar-expand-ig.navbar-light.compensate-for-scrolibar {
-    font-family: "Ovo", "Georgia", "STZhongsong", "Microsoft YaHei", serif;
-}
-
-.portrait-title h2 {
-    font-family: "Ovo", "Georgia", "STZhongsong", "Microsoft YaHei", serif;
-}
-
-.portrait-title h3 {
-    font-family: "Ovo", "Georgia", "STZhongsong", "Microsoft YaHei", serif;
-}
-
-.page-body section div div div h1 {
-    font-family: "Ovo", "Georgia", "STZhongsong", "Microsoft YaHei", serif;
-}
-
-.page-body section div div div div {
-    font-family: "Ovo", "Georgia", "STZhongsong", "Microsoft YaHei", serif;
-}
+// -----------------------------------------------------------------------------
+// Globals — type scale 13–48px; ligatures + kerning
+// -----------------------------------------------------------------------------
 
 html {
-    font-family: "Ovo", "Georgia", "STZhongsong", "Microsoft YaHei", serif;
+  font-size: 17px;          // body anchor — 1rem = 17px
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1, "onum" 1;
+  font-variant-ligatures: common-ligatures contextual;
 }
 
-strong {
-    font-family: "Arial";
+body {
+  font-family: $serif-text;
+  font-size: 1rem;          // 17px
+  line-height: 1.8;
+  color: $ink;
+  background: $cream;
+  counter-reset: section;
+}
+
+// Container — responsive reading width
+// Tight on tablet/laptop for comfort, breathing room on wide displays
+.container,
+.universal-wrapper,
+.article-container {
+  max-width: 896px !important;
+
+  @media (min-width: 1200px) { max-width: 1040px !important; }
+  @media (min-width: 1400px) { max-width: 1200px !important; }
+  @media (min-width: 1680px) { max-width: 1320px !important; }
+}
+
+// Headings — display serif, tight leading, neg letter-spacing
+h1, h2, h3, h4, h5, h6,
+.navbar-brand {
+  font-family: $serif-display;
+  font-weight: 500;
+  color: $ink;
+}
+
+h1 {
+  font-size: 2.118rem;      // ~36px
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  margin-bottom: 1rem;
+}
+
+h2 {
+  font-size: 1.647rem;      // ~28px
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin-bottom: .85rem;
+}
+
+h3 {
+  font-size: 1.294rem;      // ~22px
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  margin-bottom: .65rem;
+}
+
+h4 { font-size: 1.118rem; line-height: 1.3; letter-spacing: -0.01em; }
+h5 { font-size: 1rem;     line-height: 1.3; letter-spacing: -0.01em; }
+h6 { font-size: .882rem;  line-height: 1.3; letter-spacing: 0; }
+
+p, li {
+  font-family: $serif-text;
+  font-size: 1rem;          // 17px
+  line-height: 1.8;
+}
+
+strong, b { font-weight: 600; font-family: inherit; }
+em, i    { font-style: italic; }
+
+a {
+  color: $navy;
+  text-underline-offset: 3px;
+  text-decoration-thickness: .5px;
+
+  &:hover { color: $oxblood; }
+}
+
+small, .small { font-size: .765rem; }   // 13px
+
+// Constrain prose only on individual article pages (not home widgets).
+// Use rem-based width so headings (with larger font-size) align with body
+// at the same resolved pixel width, then center via auto margin.
+.article-container .article-style {
+  > p, > li, > ul, > ol, > blockquote, > pre,
+  > h2, > h3, > h4, > h5, > h6,
+  > figure, > .highlight {
+    max-width: 48rem;        // ~816px — wider than the prior 68ch cap
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  // Images / videos in prose can break out wider for emphasis
+  > p > img,
+  > figure > img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+code, kbd, pre, samp {
+  font-family: "JetBrains Mono", "Roboto Mono", Menlo, Consolas, monospace;
+  font-size: .85em;
+  font-feature-settings: "liga" 0;       // disable ligatures in code
+}
+
+// -----------------------------------------------------------------------------
+// Navbar — 13px UI sans, hairline, lots of breathing
+// -----------------------------------------------------------------------------
+
+nav#navbar-main,
+.navbar-light {
+  font-family: $sans;
+  background: $cream !important;
+  border-bottom: 1px solid $rule-soft;
+  box-shadow: none !important;
+  padding: 1rem 0;
+  font-size: .824rem;       // ~14px
+}
+
+.navbar-brand {
+  font-family: $serif-display;
+  font-weight: 500;
+  font-size: 1.118rem;
+  letter-spacing: -0.01em;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  font-family: $sans;
+  font-weight: 500;
+  font-size: .765rem;       // 13px
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: $ink-soft;
+
+  &:hover, &.active { color: $navy; }
+}
+
+// -----------------------------------------------------------------------------
+// Home sections — vertical rhythm
+// -----------------------------------------------------------------------------
+
+.home-section {
+  counter-increment: section;
+  padding: 4.5rem 0;
+
+  @media (max-width: 768px) { padding: 2.75rem 0; }
+}
+
+// Section eyebrow — tiny 13px sans, "—  01"
+.home-section .section-heading {
+  margin-bottom: 2.5rem;
+
+  h1 {
+    position: relative;
+    font-family: $serif-display;
+    font-size: 1.882rem;     // ~32px
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    border-bottom: 1px solid $rule;
+    padding-bottom: .65rem;
+
+    &::before {
+      content: "—  " counter(section, decimal-leading-zero);
+      display: block;
+      font-family: $sans;
+      font-size: .765rem;    // 13px
+      font-weight: 600;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: $ink-faint;
+      margin-bottom: .55rem;
+    }
+  }
+}
+
+// -----------------------------------------------------------------------------
+// About / hero — minimal, sparse, elizen-style
+// -----------------------------------------------------------------------------
+
+.wg-about {
+  padding-top: 5.5rem;
+  padding-bottom: 4rem;
+
+  @media (max-width: 768px) {
+    padding-top: 3rem;
+    padding-bottom: 2.25rem;
+  }
+
+  // Hide redundant h1 in right column (left has h2 with same name)
+  > .container > .row > .col-lg-8 > h1:first-child { display: none; }
+
+  // Bio — first paragraph only on landing; rest hidden behind print/expand
+  .article-style {
+    p:nth-of-type(n + 2),
+    ul { display: none; }
+
+    p:first-of-type {
+      font-family: $serif-text;
+      font-size: 1.118rem;    // ~19px — slightly larger lede
+      line-height: 1.75;
+      color: $ink-soft;
+      margin-bottom: 2.5rem;
+      font-style: italic;
+    }
+  }
+}
+
+#profile {
+  text-align: center;
+
+  .avatar {
+    width: 132px !important;
+    height: 132px !important;
+    margin-bottom: 1.5rem;
+  }
+
+  .portrait-title h2 {
+    font-family: $serif-display;
+    font-size: 1.647rem;      // ~28px
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    font-weight: 500;
+    margin-bottom: .15rem;
+  }
+
+  .portrait-title h3 {
+    font-family: $serif-text;
+    font-size: .882rem;       // 15px
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.45;
+    color: $ink-mute;
+    margin-bottom: .15rem;
+    letter-spacing: 0;
+  }
+
+  .network-icon {
+    margin-top: 1.4rem;
+
+    li { margin: 0 .35rem; }
+
+    .big-icon {
+      font-size: .94rem;
+      color: $ink-mute;
+      transition: color .2s ease;
+
+      &:hover { color: $navy; }
+    }
+  }
+}
+
+// Interests + Education — compact subheadings
+.wg-about {
+  .section-subheading {
+    font-family: $sans;
+    font-size: .765rem;       // 13px
+    font-weight: 600;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: $ink-faint;
+    margin-bottom: .85rem;
+  }
+
+  .ul-interests li,
+  .ul-edu .description .course,
+  .ul-edu .description .institution {
+    font-family: $serif-text;
+    font-size: .882rem;       // 15px
+    line-height: 1.6;
+  }
+
+  .ul-edu .description .institution {
+    color: $ink-mute;
+    font-style: italic;
+  }
 }
 
 #interests {
-    font-size: 1.25rem;
-    font-weight: bold;
+  font-family: $serif-text;
+  font-size: .882rem;
+  font-weight: 500;
+}
+
+// -----------------------------------------------------------------------------
+// Publications timeline (col-lg-4) + keyword chip cloud (col-lg-8)
+// Injected by assets/js/publications-filter.js
+// -----------------------------------------------------------------------------
+
+.pub-timeline {
+  margin-top: 1.5rem;
+  width: 100%;
+  max-width: 14rem;
+
+  @media (max-width: 991.98px) {
+    max-width: none;
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+  }
+}
+
+.pub-timeline-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  border-bottom: 1px solid $rule-soft;
+  padding-bottom: .35rem;
+  margin-bottom: .5rem;
+}
+
+.pub-timeline-label {
+  font-family: $sans;
+  font-size: .68rem;
+  font-weight: 600;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: $ink-faint;
+}
+
+.pub-timeline-clear,
+.pub-keywords-clear {
+  font-family: $sans;
+  font-size: .68rem;
+  font-weight: 500;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  background: transparent;
+  border: none;
+  color: $oxblood;
+  cursor: pointer;
+  padding: 0;
+
+  &:hover { text-decoration: underline; text-underline-offset: 2px; }
+}
+
+.pub-timeline-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+
+  @media (max-width: 991.98px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: .35rem;
+  }
+}
+
+.pub-year-chip {
+  font-family: $sans;
+  font-size: .82rem;
+  font-weight: 500;
+  letter-spacing: .02em;
+  background: transparent;
+  border: none;
+  border-left: 2px solid transparent;
+  color: $ink-mute;
+  text-align: left;
+  padding: .3rem .65rem;
+  cursor: pointer;
+  transition: color .15s ease, border-color .15s ease, background .15s ease;
+
+  &:hover {
+    color: $ink;
+    border-left-color: $rule;
+  }
+
+  &.active {
+    color: $navy;
+    border-left-color: $navy;
+    font-weight: 600;
+    background: rgba(31, 58, 95, .04);
+  }
+
+  @media (max-width: 991.98px) {
+    border-left: none;
+    border-radius: 999px;
+    border: 1px solid $rule-soft;
+    padding: .25rem .7rem;
+    font-size: .735rem;
+
+    &:hover { border-color: $ink-soft; }
+    &.active {
+      background: $navy;
+      border-color: $navy;
+      color: $cream;
+    }
+  }
+}
+
+// Keyword chip picker (col-lg-8)
+.pub-keywords {
+  margin-bottom: 1.5rem;
+}
+
+.pub-keywords-bar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: .65rem;
+}
+
+.pub-keywords-toggle {
+  font-family: $sans;
+  font-size: .735rem;
+  font-weight: 500;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  background: transparent;
+  border: 1px solid $rule;
+  color: $ink-mute;
+  padding: .35rem .85rem;
+  border-radius: 999px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  transition: color .2s ease, border-color .2s ease, background .2s ease;
+
+  i { font-size: .82rem; }
+
+  &:hover {
+    color: $ink;
+    border-color: $ink-soft;
+  }
+
+  &.active {
+    color: $cream;
+    background: $navy;
+    border-color: $navy;
+  }
+}
+
+.pub-keywords-count {
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.pub-keyword-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem;
+  padding: .85rem 0 .25rem;
+  border-top: 1px dashed $rule-soft;
+  margin-top: .35rem;
+}
+
+.pub-keyword-chip {
+  font-family: $sans;
+  font-size: .695rem;
+  font-weight: 500;
+  letter-spacing: .04em;
+  background: transparent;
+  border: 1px solid $rule-soft;
+  color: $ink-mute;
+  padding: .2rem .65rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: color .15s ease, border-color .15s ease, background .15s ease;
+  text-transform: capitalize;
+
+  &:hover {
+    color: $ink;
+    border-color: $ink-soft;
+  }
+
+  &.active {
+    color: $cream;
+    background: $navy;
+    border-color: $navy;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Fieldwork gallery — editorial photo grid with figcaptions
+// -----------------------------------------------------------------------------
+
+// Override Hugo Blox's masonry gallery (which uses `position: absolute` on
+// imgs, a `:after` overlay, and `background: #000` on items) with a clean
+// editorial horizontal strip that stays compact regardless of photo count.
+$gallery-item-w: 17rem;     // ~289px — fixed column width; height = 17/4*5 = 21.25rem ≈ 360px
+$gallery-gap:    1rem;
+
+.gallery-grid {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  gap: $gallery-gap !important;
+  margin: 0 !important;
+  padding: .25rem .25rem 1rem !important;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+  scrollbar-color: $rule transparent;
+  -webkit-overflow-scrolling: touch;
+
+  &::-webkit-scrollbar { height: 6px; }
+  &::-webkit-scrollbar-track { background: transparent; }
+  &::-webkit-scrollbar-thumb { background: $rule-soft; border-radius: 3px; }
+  &:hover::-webkit-scrollbar-thumb { background: $rule; }
+}
+
+.gallery-item {
+  position: static !important;
+  display: block !important;       // kill theme's flex-column-end
+  flex: 0 0 $gallery-item-w !important;
+  width: $gallery-item-w !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  color: inherit !important;
+  overflow: visible !important;
+  transform: none !important;
+  scroll-snap-align: start;
+
+  &::before, &::after { display: none !important; content: none !important; }
+  &:hover { transform: none !important; }
+
+  @media (max-width: 575.98px) {
+    flex: 0 0 14rem !important;
+    width: 14rem !important;
+  }
+
+  a {
+    display: block;
+    overflow: hidden;
+    border: 1px solid $rule-soft;
+    border-radius: 2px;
+    background: $cream;
+    transition: border-color .25s ease, transform .25s ease;
+    font-size: 0;
+    position: relative;
+    z-index: auto;
+
+    &:hover {
+      border-color: $navy;
+      transform: translateY(-2px);
+    }
+  }
+
+  img {
+    all: revert;
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    cursor: zoom-in;
+    transition: transform .4s ease;
+  }
+
+  a:hover img { transform: scale(1.02); }
+
+  figcaption {
+    margin-top: .55rem;
+    padding-left: .15rem;
+    white-space: normal;
+    line-height: 1.4;
+
+    p { margin: 0; }
+  }
+
+  .gallery-item-title {
+    display: block;
+    font-family: $sans;
+    font-size: .85rem;
+    font-weight: 600;
+    letter-spacing: -.005em;
+    color: $ink;
+    text-decoration: none;
+    transition: color .2s ease;
+    line-height: 1.3;
+
+    &:hover { color: $navy; text-decoration: none; }
+  }
+
+  .gallery-item-meta {
+    display: block;
+    font-family: $serif-text;
+    font-style: italic;
+    font-size: .735rem;
+    color: $ink-mute;
+    margin-top: .15rem;
+  }
+}
+
+// Fade hint at the right edge — suggests scrollability when items overflow
+.wg-markdown:has(.gallery-grid) > .container > .row > .col-lg-8,
+.wg-features:has(.gallery-grid) {
+  // (no-op placeholder — could add gradient overlay later if needed)
+}
+
+// -----------------------------------------------------------------------------
+// Featurette / Open Source — GitHub pins + stats grid
+// -----------------------------------------------------------------------------
+
+.wg-features {
+  .row.featurette { justify-content: center; }
+
+  .col-md-12.section-heading {
+    text-align: center;
+    margin-bottom: 2rem;
+
+    h1 {
+      display: inline-block;
+      position: relative;
+      font-size: 1.882rem;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      border-bottom: 1px solid $rule;
+      padding-bottom: .65rem;
+      margin: 0 auto 0;
+
+      &::before {
+        content: "—  " counter(section, decimal-leading-zero);
+        display: block;
+        font-family: $sans;
+        font-size: .765rem;
+        font-weight: 600;
+        letter-spacing: .22em;
+        text-transform: uppercase;
+        color: $ink-faint;
+        margin-bottom: .55rem;
+      }
+    }
+  }
+}
+
+// Native GitHub pin cards (rendered by shortcodes/github-pins.html)
+.github-pins-grid {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 0 auto 1.75rem;
+  max-width: 920px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+.github-pin {
+  display: flex;
+  flex-direction: column;
+  gap: .65rem;
+  padding: 1rem 1.15rem;
+  border: 1px solid $rule-soft;
+  border-radius: 4px;
+  background: $cream;
+  color: $ink;
+  text-decoration: none;
+  transition: border-color .2s ease, transform .2s ease;
+
+  &:hover {
+    text-decoration: none;
+    border-color: $navy;
+    transform: translateY(-2px);
+
+    .github-pin-repo { color: $navy; }
+  }
+}
+
+.github-pin-header {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  font-family: $sans;
+  font-size: .82rem;
+  line-height: 1.2;
+}
+
+.github-pin-icon {
+  color: $ink-mute;
+  flex-shrink: 0;
+}
+
+.github-pin-owner {
+  color: $ink-mute;
+  font-weight: 400;
+}
+
+.github-pin-repo {
+  font-family: $sans;
+  font-weight: 600;
+  color: $ink;
+  letter-spacing: -.005em;
+  transition: color .2s ease;
+}
+
+.github-pin-desc {
+  font-family: $serif-text;
+  font-size: .85rem;
+  line-height: 1.55;
+  color: $ink-soft;
+  margin: 0;
+  flex: 1;
+}
+
+.github-pin-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-family: $sans;
+  font-size: .735rem;
+  color: $ink-mute;
+  align-items: center;
+}
+
+.github-pin-lang {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+}
+
+.github-pin-lang-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.github-pin-stars {
+  display: inline-flex;
+  align-items: center;
+  gap: .3rem;
+}
+
+.github-pin-star { color: $ink-faint; }
+
+.github-pins-cta {
+  text-align: center;
+  margin: 1.5rem 0 0;
+  font-family: $sans;
+  font-size: .82rem;
+  letter-spacing: .04em;
+
+  a {
+    color: $ink-soft;
+    border-bottom: 1px solid $rule;
+    padding-bottom: 2px;
+    transition: color .2s ease, border-color .2s ease;
+    text-decoration: none;
+
+    &:hover {
+      color: $navy;
+      border-bottom-color: $navy;
+      text-decoration: none;
+    }
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Filter buttons (portfolio widget) — editorial pills
+// -----------------------------------------------------------------------------
+
+.project-toolbar {
+  margin-bottom: 2rem;
+  margin-top: -.25rem;
+}
+
+.project-filters .btn-toolbar { justify-content: flex-start; }
+
+.project-filters .btn-group {
+  gap: .35rem;
+  flex-wrap: wrap;
+}
+
+.project-filters .btn.btn-primary,
+.project-filters .btn.btn-primary.btn-lg {
+  font-family: $sans;
+  font-size: .735rem;          // 12.5px
+  font-weight: 500;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  padding: .4rem .9rem;
+  border-radius: 999px;
+  background: transparent;
+  color: $ink-mute;
+  border: 1px solid $rule;
+  box-shadow: none;
+  transition: color .2s ease, border-color .2s ease, background .2s ease;
+
+  &:hover,
+  &:focus {
+    color: $ink;
+    border-color: $ink-soft;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  &.active {
+    color: $cream;
+    background: $navy;
+    border-color: $navy;
+
+    &:hover {
+      color: $cream;
+      background: $oxblood;
+      border-color: $oxblood;
+    }
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Collection items (featured publications, research projects)
+// Borderless, separated by hairline rules; summaries clamped for alignment
+// -----------------------------------------------------------------------------
+
+.card,
+.card-simple,
+.pub-list-item,
+.media.stream-item {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  transform: none !important;
+  transition: none !important;
+
+  &:hover { transform: none !important; }
+}
+
+// Hairline divider between consecutive items in featured / research lists
+.wg-collection,
+.wg-portfolio {
+  .col-lg-8 > .card-simple,
+  .col-lg-8 > .media.stream-item,
+  .js-layout-row .isotope-item .media.stream-item {
+    padding-top: 1.75rem !important;
+    padding-bottom: 1.75rem !important;
+    border-bottom: 1px solid $rule-soft !important;
+  }
+
+  .col-lg-8 > :first-child .card-simple,
+  .col-lg-8 > .card-simple:first-of-type,
+  .col-lg-8 > .media.stream-item:first-of-type,
+  .js-layout-row > .isotope-item:first-of-type .media.stream-item {
+    padding-top: 0 !important;
+  }
+
+  .col-lg-8 > .card-simple:last-of-type,
+  .col-lg-8 > .media.stream-item:last-of-type,
+  .js-layout-row > .isotope-item:last-of-type .media.stream-item {
+    border-bottom: none !important;
+    padding-bottom: 0 !important;
+  }
+
+  // Title — refined
+  .article-title,
+  .section-subheading.article-title {
+    font-family: $serif-display;
+    font-size: 1.176rem;        // ~20px
+    line-height: 1.35;
+    letter-spacing: -0.015em;
+    margin-bottom: .35rem !important;
+
+    a {
+      color: $ink;
+      text-decoration: none;
+      &:hover {
+        color: $navy;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+    }
+  }
+
+  // Meta line
+  .article-metadata,
+  .stream-meta {
+    font-family: $sans;
+    font-size: .765rem;          // 13px
+    color: $ink-mute;
+    line-height: 1.55;
+    letter-spacing: .01em;
+
+    .author-highlighted {
+      color: $ink;
+      font-weight: 600;
+    }
+    .article-date,
+    .pub-publication { color: $ink-mute; }
+    .middot-divider { margin: 0 .4rem; opacity: .6; }
+  }
+
+  // Summary — clamp to 2 lines for visual rhythm
+  .summary-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .article-style {
+    margin-top: .5rem;
+
+    p, & {
+      font-family: $serif-text;
+      font-size: .882rem;        // 15px
+      line-height: 1.65;
+      color: $ink-mute;
+      margin-bottom: 0;
+
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  // Buttons row
+  .btn-links {
+    margin-top: .9rem;
+
+    .btn {
+      font-family: $sans;
+      font-size: .735rem;       // 12.5px
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: .35rem .85rem;
+      border-radius: 2px;
+      margin-right: .35rem;
+      border-width: 1px;
+    }
+
+    .btn-outline-primary {
+      color: $ink-soft;
+      border-color: $rule;
+      background: transparent;
+
+      &:hover {
+        color: $cream;
+        background: $navy;
+        border-color: $navy;
+      }
+    }
+  }
+}
+
+// Buttons inside featured publication card (PDF / Cite)
+.wg-collection .btn-page-header,
+.wg-portfolio .btn-page-header {
+  font-family: $sans;
+  font-size: .735rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: .35rem .85rem;
+  border-radius: 2px;
+  border-width: 1px;
+}
+
+// Generic title styling for any other contexts
+.card-title {
+  font-family: $serif-display;
+  font-size: 1.118rem;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+}
+
+.publication .pub-authors,
+.publication .pub-publication,
+.media-body .pub-authors,
+.media-body .pub-publication {
+  font-size: .824rem;        // 14px
+  color: $ink-mute;
+}
+
+// -----------------------------------------------------------------------------
+// Contact channel list (markdown widget)
+// -----------------------------------------------------------------------------
+
+.contact-channels {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    display: flex;
+    flex-direction: column;
+    gap: .15rem;
+    padding: .9rem 0;
+    border-bottom: 1px solid $rule-soft;
+
+    &:first-child { padding-top: 0; }
+    &:last-child  { border-bottom: none; padding-bottom: 0; }
+  }
+
+  strong {
+    font-family: $sans;
+    font-weight: 600;
+    font-size: .92rem;
+    letter-spacing: .005em;
+
+    a {
+      color: $ink;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: color .2s ease, border-color .2s ease;
+
+      &:hover {
+        color: $navy;
+        border-bottom-color: $navy;
+        text-decoration: none;
+      }
+    }
+  }
+
+  span {
+    font-family: $serif-text;
+    font-size: .88rem;
+    line-height: 1.6;
+    color: $ink-mute;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Citation view (publication list, view: 4) — tidy bibliographic format
+// -----------------------------------------------------------------------------
+
+.pub-list-item.view-citation {
+  margin: 0 !important;
+  padding: 1.1rem 0 !important;
+  border-bottom: 1px solid $rule-soft !important;
+  font-family: $serif-text;
+  font-size: .92rem;
+  line-height: 1.65;
+  color: $ink-soft;
+
+  .pub-icon {
+    color: $ink-faint;
+    margin-right: .5rem;
+    font-size: .82rem;
+  }
+
+  .li-cite-author {
+    font-family: $serif-text;
+    color: $ink;
+    font-size: inherit;
+
+    .author-highlighted {
+      font-weight: 600;
+      color: $ink;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      &:hover { color: $navy; }
+    }
+  }
+
+  > a {
+    color: $ink;
+    font-weight: 500;
+    text-decoration: none;
+
+    &:hover {
+      color: $navy;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+  }
+
+  em {
+    font-style: italic;
+    color: $ink-mute;
+  }
+
+  p {
+    margin: .45rem 0 0 1.5rem;
+
+    .btn {
+      font-family: $sans;
+      font-size: .695rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: .25rem .7rem;
+      border-radius: 2px;
+      border-width: 1px;
+      margin-right: .35rem;
+    }
+  }
+}
+
+// First and last item in the list — strip extra rule lines
+.wg-collection .col-lg-8 > .pub-list-item.view-citation:first-child {
+  padding-top: 0 !important;
+}
+.wg-collection .col-lg-8 > .pub-list-item.view-citation:last-child {
+  border-bottom: none !important;
+  padding-bottom: 0 !important;
+}
+
+// -----------------------------------------------------------------------------
+// Detail pages (publication / project / post) — featured image as banner
+// Move image above title, match container max-width, crop with object-fit.
+// -----------------------------------------------------------------------------
+
+.pub,
+article.article {
+  display: flex;
+  flex-direction: column;
+
+  .article-header.featured-image-wrapper {
+    order: -1;
+    width: 100%;
+    margin: 0 auto 2rem !important;
+    padding: 0 !important;
+
+    // Defeat the inline `max-width: NNNpx; max-height: NNNpx` set by the
+    // page_header.html partial so the image scales with our container.
+    max-width: 896px !important;
+    max-height: none !important;
+
+    @media (min-width: 1200px) { max-width: 1040px !important; }
+    @media (min-width: 1400px) { max-width: 1200px !important; }
+    @media (min-width: 1680px) { max-width: 1320px !important; }
+
+    > div {
+      width: 100% !important;
+      max-width: none !important;
+    }
+
+    .featured-image {
+      width: 100% !important;
+      height: auto !important;
+      max-height: 380px;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 4px;
+      display: block;
+
+      @media (max-width: 768px) { max-height: 240px; }
+    }
+
+    .article-header-caption {
+      display: block;
+      text-align: right;
+      font-family: $sans;
+      font-size: .695rem;
+      letter-spacing: .04em;
+      color: $ink-faint;
+      margin-top: .4rem;
+      padding-right: .25rem;
+    }
+  }
+
+  // Title block — match editorial home section heading rhythm
+  > .article-container.pt-3 {
+    padding-top: 0 !important;
+
+    h1 {
+      font-size: 2.118rem;          // 36px
+      line-height: 1.18;
+      letter-spacing: -0.022em;
+      margin-bottom: 1rem;
+
+      @media (max-width: 768px) {
+        font-size: 1.7rem;
+      }
+    }
+
+    .page-subtitle {
+      font-family: $serif-text;
+      font-size: 1.05rem;
+      font-style: italic;
+      color: $ink-mute;
+      margin-bottom: 1.25rem;
+    }
+
+    .article-metadata {
+      font-family: $sans;
+      font-size: .82rem;
+      color: $ink-mute;
+      margin-bottom: 1rem;
+    }
+  }
+
+  // Abstract callout — h3 label + .pub-abstract body styled as one block
+  // (uses :has() to find the h3 immediately preceding .pub-abstract)
+  h3:has(+ .pub-abstract) {
+    font-family: $sans !important;
+    font-size: .735rem !important;
+    font-weight: 600 !important;
+    text-transform: uppercase;
+    color: $navy !important;
+    max-width: 48rem;
+    margin: 2.25rem auto 0 !important;
+    padding: 1.1rem 1.4rem .35rem;
+    background: rgba(31, 58, 95, .04);
+    border-left: 3px solid $navy;
+    border-top-right-radius: 3px;
+    letter-spacing: .18em !important;
+    line-height: 1.2;
+  }
+
+  .pub-abstract {
+    font-family: $serif-text;
+    font-size: .98rem;
+    line-height: 1.75;
+    color: $ink-soft;
+    max-width: 48rem;
+    margin: 0 auto 2.25rem !important;
+    padding: .35rem 1.4rem 1.25rem !important;
+    background: rgba(31, 58, 95, .04);
+    border-left: 3px solid $navy;
+    border-bottom-right-radius: 3px;
+
+    // First child paragraph — drop default top margin from markdownify
+    > :first-child { margin-top: 0; }
+    > :last-child  { margin-bottom: 0; }
+  }
+
+  .pub-row-heading {
+    font-family: $sans;
+    font-size: .735rem;
+    font-weight: 600;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: $ink-faint;
+    padding-top: .15rem;
+  }
+}
+
+// Horizontal rule between page sections (e.g., before related publications)
+.content-widget-hr {
+  border: none;
+  border-top: 1px solid $rule-soft;
+  margin: 3rem 0 2rem;
+}
+
+// -----------------------------------------------------------------------------
+// Horizontal rules — thin double line
+// -----------------------------------------------------------------------------
+
+hr {
+  border: none;
+  border-top: 1px solid $ink;
+  border-bottom: 1px solid $ink;
+  height: 3px;
+  opacity: .25;
+  margin: 2.5rem auto;
+  max-width: 4rem;
+}
+
+// -----------------------------------------------------------------------------
+// Dark mode
+// -----------------------------------------------------------------------------
+
+.dark {
+  $bg-dark:       #15171a;
+  $bg-dark-warm:  #1c1f23;
+  $ink-dark:      #E8E4DA;
+  $ink-dark-soft: #c8c4ba;
+  $ink-dark-mute: #8a8680;
+  $ink-dark-fnt:  #5a5650;
+  $rule-dark:     rgba(232, 228, 218, .14);
+  $rule-soft-dk:  rgba(232, 228, 218, .08);
+  $gold:          #C9B27A;
+
+  body { color: $ink-dark; background: $bg-dark; }
+
+  h1, h2, h3, h4, h5, h6 { color: $ink-dark; }
+
+  nav#navbar-main,
+  .navbar-light { background: $bg-dark !important; border-bottom-color: $rule-soft-dk; }
+
+  .navbar-light .navbar-nav .nav-link {
+    color: $ink-dark-soft;
+    &:hover, &.active { color: $gold; }
+  }
+
+  a { color: $gold; &:hover { color: lighten(#C9B27A, 10%); } }
+
+  .home-section .section-heading h1 {
+    border-bottom-color: $rule-dark;
+    &::before { color: $ink-dark-fnt; }
+  }
+
+  .wg-about .article-style p:first-of-type { color: $ink-dark-soft; }
+
+  #profile {
+    .portrait-title h3 { color: $ink-dark-mute; }
+    .network-icon .big-icon {
+      color: $ink-dark-mute;
+      &:hover { color: $gold; }
+    }
+  }
+
+  .wg-about {
+    .section-subheading { color: $ink-dark-fnt; }
+    .ul-edu .description .institution { color: $ink-dark-mute; }
+  }
+
+  .wg-features .col-md-12.section-heading h1 {
+    border-bottom-color: $rule-dark;
+    &::before { color: $ink-dark-fnt; }
+  }
+
+  // Publications timeline + keyword picker — dark mode
+  .pub-timeline-head { border-bottom-color: $rule-soft-dk; }
+  .pub-timeline-label { color: $ink-dark-fnt; }
+  .pub-timeline-clear,
+  .pub-keywords-clear { color: lighten(#7A1F1F, 18%); }
+
+  .pub-year-chip {
+    color: $ink-dark-mute;
+    border-left-color: transparent;
+
+    &:hover { color: $ink-dark; border-left-color: $rule-dark; }
+    &.active {
+      color: $gold;
+      border-left-color: $gold;
+      background: rgba(201, 178, 122, .08);
+    }
+
+    @media (max-width: 991.98px) {
+      border: 1px solid $rule-soft-dk;
+      &:hover { border-color: $ink-dark-mute; }
+      &.active {
+        background: $gold;
+        border-color: $gold;
+        color: $bg-dark;
+      }
+    }
+  }
+
+  .pub-keywords-toggle {
+    color: $ink-dark-mute;
+    border-color: $rule-dark;
+    &:hover { color: $ink-dark; border-color: $ink-dark-soft; }
+    &.active {
+      color: $bg-dark;
+      background: $gold;
+      border-color: $gold;
+    }
+  }
+
+  .pub-keyword-cloud { border-top-color: $rule-soft-dk; }
+
+  .pub-keyword-chip {
+    color: $ink-dark-mute;
+    border-color: $rule-soft-dk;
+    &:hover { color: $ink-dark; border-color: $ink-dark-mute; }
+    &.active {
+      color: $bg-dark;
+      background: $gold;
+      border-color: $gold;
+    }
+  }
+
+  .gallery-item {
+    a {
+      border-color: $rule-soft-dk;
+      background: $bg-dark-warm;
+      &:hover { border-color: $gold; }
+    }
+    .gallery-item-title {
+      color: $ink-dark;
+      &:hover { color: $gold; }
+    }
+    .gallery-item-meta { color: $ink-dark-mute; }
+  }
+
+  .github-pin {
+    border-color: $rule-soft-dk;
+    background: $bg-dark-warm;
+    color: $ink-dark;
+
+    &:hover {
+      border-color: $gold;
+      .github-pin-repo { color: $gold; }
+    }
+  }
+
+  .github-pin-icon,
+  .github-pin-owner,
+  .github-pin-meta { color: $ink-dark-mute; }
+  .github-pin-repo { color: $ink-dark; }
+  .github-pin-desc { color: $ink-dark-soft; }
+  .github-pin-star { color: $ink-dark-fnt; }
+
+  .github-pins-cta a {
+    color: $ink-dark-mute;
+    border-bottom-color: $rule-dark;
+    &:hover { color: $gold; border-bottom-color: $gold; }
+  }
+
+  .project-filters .btn.btn-primary,
+  .project-filters .btn.btn-primary.btn-lg {
+    color: $ink-dark-mute;
+    border-color: $rule-dark;
+    background: transparent;
+
+    &:hover,
+    &:focus {
+      color: $ink-dark;
+      border-color: $ink-dark-soft;
+      background: transparent;
+    }
+
+    &.active {
+      color: $bg-dark;
+      background: $gold;
+      border-color: $gold;
+
+      &:hover {
+        color: $bg-dark;
+        background: lighten(#C9B27A, 8%);
+        border-color: lighten(#C9B27A, 8%);
+      }
+    }
+  }
+
+  .wg-collection,
+  .wg-portfolio {
+    .col-lg-8 > .card-simple,
+    .col-lg-8 > .media.stream-item,
+    .js-layout-row .isotope-item .media.stream-item {
+      border-bottom-color: $rule-soft-dk !important;
+    }
+
+    .article-title a {
+      color: $ink-dark;
+      &:hover { color: $gold; }
+    }
+
+    .article-metadata,
+    .stream-meta {
+      color: $ink-dark-mute;
+      .author-highlighted { color: $ink-dark; }
+      .article-date,
+      .pub-publication { color: $ink-dark-mute; }
+    }
+
+    .article-style { color: $ink-dark-mute; }
+
+    .btn-links .btn-outline-primary,
+    .btn-page-header {
+      color: $ink-dark-soft;
+      border-color: $rule-dark;
+      &:hover {
+        color: $bg-dark;
+        background: $gold;
+        border-color: $gold;
+      }
+    }
+  }
+
+  .publication .pub-authors,
+  .publication .pub-publication,
+  .media-body .pub-authors,
+  .media-body .pub-publication { color: $ink-dark-mute; }
+
+  hr { border-color: $ink-dark; }
+
+  .contact-channels {
+    li { border-bottom-color: $rule-soft-dk; }
+    strong a {
+      color: $ink-dark;
+      &:hover { color: $gold; border-bottom-color: $gold; }
+    }
+    span { color: $ink-dark-mute; }
+  }
+
+  .pub-list-item.view-citation {
+    border-bottom-color: $rule-soft-dk !important;
+    color: $ink-dark-soft;
+    .pub-icon { color: $ink-dark-fnt; }
+    .li-cite-author,
+    .li-cite-author .author-highlighted { color: $ink-dark; }
+    > a {
+      color: $ink-dark;
+      &:hover { color: $gold; }
+    }
+    em { color: $ink-dark-mute; }
+  }
+
+  // Detail pages — banner caption + metadata
+  .pub,
+  article.article {
+    .article-header-caption { color: $ink-dark-fnt; }
+    > .article-container.pt-3 {
+      .page-subtitle { color: $ink-dark-mute; }
+      .article-metadata { color: $ink-dark-mute; }
+    }
+    h3:has(+ .pub-abstract) {
+      color: $gold !important;
+      background: rgba(201, 178, 122, .06);
+      border-left-color: $gold;
+    }
+    .pub-abstract {
+      color: $ink-dark-soft;
+      background: rgba(201, 178, 122, .06);
+      border-left-color: $gold;
+    }
+    .pub-row-heading { color: $ink-dark-fnt; }
+  }
+
+  .content-widget-hr { border-top-color: $rule-soft-dk; }
+}
+
+// -----------------------------------------------------------------------------
+// Print — restore full bio for CV print-out
+// -----------------------------------------------------------------------------
+
+@media print {
+  nav#navbar-main,
+  .home-section-bg,
+  .network-icon,
+  footer,
+  .at-share-btn,
+  #disqus_thread,
+  .scroll-top { display: none !important; }
+
+  body { color: #000; background: #fff; font-size: 11pt; }
+  a { color: #000; text-decoration: underline; }
+
+  .wg-about .article-style p,
+  .wg-about .article-style ul { display: revert !important; }
+
+  .home-section { padding: 1.5rem 0 !important; }
+
+  .card,
+  .pub-list-item,
+  .media.stream-item {
+    border: 1px solid #000 !important;
+    box-shadow: none !important;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .home-section .section-heading h1::before { color: #000; }
 }

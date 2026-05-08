@@ -22,3 +22,10 @@ publist
 # Logs
 logs/
 *.log
+
+# Skill share bundles (make package-publist-skill)
+dist/
+
+# Vercel build tooling cache
+.tools/
+.vercel/

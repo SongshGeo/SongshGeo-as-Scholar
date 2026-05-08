@@ -38,11 +38,15 @@ publication_short: _Sustainability_
 abstract: 'Riverscapes are coupled social-ecological systems (SESs), in which the differences between the scales and functioning of interacting social and ecological components ( “mismatch”) impose challenges for global arid basin sustainability. Here, we defined riverscape SESs as networks of connected ecological and social components (nodes) to disentangle the structure and effects of SESs in Heihe River Basin (HRB) in arid regions of northwest China. Results showed the ecological network in HRB has low network density and high vertex strength. Heihe River Basin Bureau, as an emerging bridging organization, changed the SES structure and increased the matching degree of SES from 0.33 to 0.53, which has caused an obvious improvement in the downstream ecology. However, the characteristics of the ecological network demonstrated that cross-boundary management actions restricted to only the river would exacerbate local environmental pressures, such as the continued decline of groundwater in midstream regions and the potential appropriation of water for ecology by the expanding farmland in the downstream region. Our study demonstrated that network analysis could be one promising direction to untangle the complex SES and understand the relationship between SES structure and outcomes. We suggest comanaging the cross-boundary river and lands to further match the SES for basin sustainability.'
 # Summary. An optional shortened abstract.
 summary: Our study demonstrated that network analysis could be one promising direction to untangle the complex SES and understand the relationship between SES structure and outcomes. We suggest comanaging the cross-boundary river and lands to further match the SES for basin sustainability.
+my-role:
+  - co-authored
 tags: 
   - network analysis
   - social-ecological system
   - social-hydrology
   - governance
+  - role-co-authored
+  - year-2019
 # Display this page in the Featured widget?
 featured: false
 # Custom links (uncomment lines below)

@@ -7,7 +7,7 @@ authors:
 - admin
 - Wang Shuai
 - Xiang Bei
-date: '2025-01-01T00:00:00Z'
+date: '2024-11-11T00:00:00Z'
 hugoblox:
   ids:
     doi: 10.1016/j.jenvman.2024.122957
@@ -45,4 +45,10 @@ summary: This study of the Lower Yellow River Floodplain reveals that hydrologic
   The findings highlight the impact of river stabilization from upstream regulation
   on human-nature interactions, emphasizing the need for integrated river governance
   in floodplain management.
+my-role:
+  - co-authored
+tags:
+  - role-co-authored
+  - year-2024
+
 ---

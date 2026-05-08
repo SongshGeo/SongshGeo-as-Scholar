@@ -1,0 +1,3 @@
+{{/* Custom JS hook — auto-included at body end by blox-bootstrap site_js.html */}}
+{{ $pubFilter := resources.Get "js/publications-filter.js" | resources.Minify | resources.Fingerprint }}
+<script src="{{ $pubFilter.RelPermalink }}" integrity="{{ $pubFilter.Data.Integrity }}" defer></script>

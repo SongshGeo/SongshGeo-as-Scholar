@@ -1,0 +1,44 @@
+{{/* Editorial gallery shortcode — overrides Hugo Blox default to render
+     <figure>+<figcaption> for visible editorial-style captions, while
+     keeping fancybox lightbox on click. Loads images from
+     assets/media/albums/<album>/ and reads captions from page Params.gallery_item. */}}
+
+{{ $.Page.Store.Set "has_gallery" true }}
+
+{{ $album := (.Get "album") | default "gallery" }}
+{{ $album_path := path.Join "media" "albums" $album "*" }}
+{{ $sort_order := .Get "order" | default "asc" }}
+{{ $resize_options := printf "%s webp" (.Get "resize_options" | default "1200x1200") }}
+
+<div class="gallery-grid">
+  {{ $images := resources.Match $album_path }}
+  {{ range (sort $images "Name" $sort_order) }}
+    {{ $image := .Fit $resize_options }}
+    {{ $filename := path.Base .Name }}
+
+    {{/* Look up caption from the page's gallery_item array */}}
+    {{ $caption := "" }}
+    {{ if $.Page.Params.gallery_item }}
+      {{ range (where (where $.Page.Params.gallery_item "album" $album) "image" $filename) }}
+        {{ $caption = .caption }}
+      {{ end }}
+    {{ end }}
+
+    <figure class="gallery-item">
+      <a data-fancybox="gallery-{{$album}}"
+         href="{{ .RelPermalink }}"
+         {{ with $caption }}data-caption="{{ . | markdownify | emojify | plainify | safeHTMLAttr }}"{{ end }}>
+        <img src="{{ $image.RelPermalink }}"
+             loading="lazy"
+             width="{{ $image.Width }}"
+             height="{{ $image.Height }}"
+             alt="{{ plainify $caption | default $filename }}">
+      </a>
+      {{ with $caption }}
+      <figcaption>{{ . | markdownify | emojify }}</figcaption>
+      {{ end }}
+    </figure>
+  {{ else }}
+    {{ errorf "Unable to load gallery `%s` in `%s`." $album_path .Page.File.Filename }}
+  {{ end }}
+</div>

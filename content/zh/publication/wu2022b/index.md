@@ -40,9 +40,15 @@ publication_short: _Nature Sustainability_
 abstract: In the context of global change, the community, as the basic unit of a social-ecological system, is facing both potential or existing shocks and trends in the structure and function of the system. Community-based adaptation (CBA) provides an effective way for communities to mitigate change and even seize the opportunity for transformation. In order to understand the mechanisms of current CBA adaptation pathways, a review of research on CBA over the past 20 years is presented. In the CBA process, funding agencies, rights agencies, research institutions and implementers are the agents engaged in action. The objects to which the adaptation agents adapt have shocking first-order impacts as well as concomitant second-order impacts. The adaptation pathway has a hierarchy, which corresponds to the eight steps of clarifying adaptation objects, liquidating adaptation assets, assessing adaptation capabilities, clarifying adaptation needs, setting adaptation purposes, dividing adaptation stages, designing adaptation measures, and implementing adaptation measures. The negative effects of physical, resource and social barriers can induce maladaptation. Thus, we propose a prospective direction for optimizing community-based adaptation, including improving monitoring and evaluation systems to build an indicator framework for long-term community adaptation, using social-ecological networks as a tool to strengthen multiple-agent decision making, and promoting nature-based solutions to enhance social-ecological system adaptation.
 # Summary. An optional shortened abstract.
 summary: SDG interactions showed nonlinear changes as the SDG Index increased:SDGs were both more positively and more negatively connected at low and high sustainable development levels, but they were clustered into more isolated positive connection groups at middle levels. 
+my-role:
+  - featured
+  - co-authored
 tags: 
   - system evolution
   - sustainability
+  - role-featured
+  - role-co-authored
+  - year-2022
 # Display this page in the Featured widget?
 featured: true
 # Custom links (uncomment lines below)

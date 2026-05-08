@@ -1,18 +1,18 @@
 ---
-# An instance of the Blank widget with a Gallery page element.
-# Documentation: https://wowchemy.com/docs/getting-started/page-builder/
+# Fieldwork home strip — renders cards from content/en/fieldwork/*/index.md.
+# To add a story: drop a featured.jpg into a new folder under content/en/fieldwork/
+# and create an index.md with title / summary / date / location frontmatter.
 widget: blank
+headless: true
+active: true
 
-# This file represents a page section.
-headless: false
-active: false
+weight: 85
 
-# Order that this section appears on the page.
-weight: 66
-
-title: Gallery
-subtitle:
+title: Fieldwork
+subtitle: Modelling is only half the work.
 
 design:
   columns: '1'
 ---
+
+{{< fieldwork-gallery sort="date" order="desc" resize="900x900" >}}

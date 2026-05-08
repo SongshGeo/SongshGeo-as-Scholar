@@ -35,11 +35,17 @@ publication_short: _EGU2023_
 abstract: "For governing river basin systems, social-ecological systems (SES) structures can be reshaped by institutions, such as policies, laws, and norms. Effective (“matched” or “fit”) institutions operate at appropriate spatial, temporal, and functional scales to manage and balance different relationships and interactions between human and water systems, supporting (but not guaranteeing) the sustainability of SES. To better understand how water governance institutions match/mismatch their social-ecological context, we take the Yellow River Basin (YRB), China, as an example to dive into causal links between institutional changes and outcomes. An agent-based model was developed around the Yellow River's most far-reaching water quota institution during the past half century, considering how factors such as human behaviour and environmental change have combined with the institutional shifts to lead to changes in the Yellow River's water use. Our results show regional differences in the impact of the system, with some areas tending to ignore the constraints of the quota system when other provinces embarked on a water-saving transition. Our model demonstrates the dramatic impact of institutional change on socio-hydrological processes and has guidness for the sustainable use of water resources at a time when non-engineered measures of water governance are becoming increasingly common."
 # Summary. An optional shortened abstract.
 summary: "An agent-based model was developed around the Yellow River's most far-reaching water quota institution during the past half century, considering how factors such as human behaviour and environmental change have combined with the institutional shifts to lead to changes in the Yellow River's water use."
+my-role:
+  - leading
+  - featured
 tags:
   - Yellow River
   - Python
   - institutional analysis
   - agent-based modeling
+  - role-leading
+  - role-featured
+  - year-2023
 # Display this page in the Featured widget?
 featured: true
 # Custom links (uncomment lines below)

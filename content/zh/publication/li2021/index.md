@@ -34,8 +34,14 @@ publication_short: _Journal of Arid Environments_
 abstract: Land degradation is a universal environmental problem around the world, which affects 1.5 billion people’s wellbeing. Therefore, the efforts to monitor where land degradation has happened and to find out the causes are meaningful for land management and restoration. Arid regions such as Southern Africa have attracted many concerns on land degradation assessment. However, previous studies have neglected the impacts of rainfall variation and possible breakpoints. In this study, the Time Series Segment and Residual Trend (TSS-RESTREND) method was used to detect land degradation in southern Africa and to compare with linear regression, RESTREND methods. Using TSS-RESTREND, 73.22% of the study area was found with vegetation controlled by precipitation, and 18.9% of the study area was found with breakpoints detected. Besides, results demonstrated that these increasing, decreasing, unchanged, and indeterminate pixels respectively made up 21.32%, 9.67%, 42.23%, and 26.78% of the study area. By eliminating positive effects from precipitation and including negative effects from breakpoints, TSS-RESTREND highlighted the potential overestimate of improvement by the linear regression method and the underestimate of degradation by the linear regression and RESTREND methods. These results showed that the land degradation detection with TSS-RESTREND method is useful for land conservation and restoration.
 # Summary. An optional shortened abstract.
 summary: By eliminating positive effects from precipitation and including negative effects from breakpoints, TSS-RESTREND highlighted the potential overestimate of improvement by the linear regression method and the underestimate of degradation by the linear regression and RESTREND methods. These results showed that the land degradation detection with TSS-RESTREND method is useful for land conservation and restoration.
+my-role:
+  - featured
+  - co-authored
 tags: 
   - system evolution
+  - role-featured
+  - role-co-authored
+  - year-2020
 # Display this page in the Featured widget?
 featured: true
 # Custom links (uncomment lines below)

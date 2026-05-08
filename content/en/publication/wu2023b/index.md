@@ -45,4 +45,10 @@ summary: This study classifies 166 countries based on their performance in the S
   aid to facilitate sustainable transformations. The findings emphasize that prioritizing
   certain SDGs, like industry and innovation, can help lower-performing countries
   achieve more sustainable development.
+my-role:
+  - co-authored
+tags:
+  - role-co-authored
+  - year-2025
+
 ---

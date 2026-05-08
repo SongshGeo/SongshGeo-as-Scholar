@@ -38,11 +38,17 @@ publication_short: _Ambio_
 abstract: Ecosystems respond to climatic and anthropogenic forcings with regime shifts and reorganizations of their system structures. In river basins, changes in sediment transport can have cascading effects that cause ecosystem regime shifts. The Yellow River, once the world’s most sediment-rich river, has experienced dramatic regime shifts. Although recent intervention has returned sediment discharge in the Yellow River to pristine levels, our understanding of previous regime shifts remains inadequate, particularly for the regime shift to a sediment rich period during early historical time. We reanalyzed previous datasets to clarify the first historical sediment transport regime shift in the Yellow River. Our results show that while historical climatic changes (e.g., the Medieval Warm Period, about 900–1100 AD) caused changes in sediment transport, a regime shift occurred only under increased forcing from anthropogenic stresses (started from about 1350 AD, reached the tipping point after 1900 AD). This unique behavior of the Yellow River under increasing anthropogenic forces may provide perspective for sustainable river basin management.
 # Summary. An optional shortened abstract.
 summary: The Yellow River, once the world’s most sediment-rich river, has experienced dramatic regime shifts. We reanalyzed previous datasets to clarify the first historical sediment transport regime shift in the Yellow River. Our results suggest a regime shift occurred only under increased forcing from anthropogenic stresses (after 1900 AD). 
+my-role:
+  - leading
+  - featured
 tags:
   - historical geography
   - system evolution
   - Yellow River
   - Python
+  - role-leading
+  - role-featured
+  - year-2020
 # Display this page in the Featured widget?
 featured: true
 # Custom links (uncomment lines below)

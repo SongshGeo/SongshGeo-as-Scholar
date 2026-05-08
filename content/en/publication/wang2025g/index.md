@@ -44,4 +44,10 @@ summary: This review highlights the significant anthropogenic impacts on the hyd
   increased evapotranspiration and reduced runoff. The findings emphasize the need
   for dynamic monitoring and a better understanding of human-hydrological interactions
   to address potential resource crises and ecosystem degradation in the region.
+my-role:
+  - co-authored
+tags:
+  - role-co-authored
+  - year-2025
+
 ---

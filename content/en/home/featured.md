@@ -1,37 +1,34 @@
 ---
-# An instance of the Featured widget.
-# Documentation: https://wowchemy.com/docs/page-builder/
-widget: featured
-
-# This file represents a page section.
-headless: false
-active: false
+# Publications — portfolio widget with filter buttons
+# Tags `first-author` / `co-author` / `corresponding-author` / `recent`
+# are populated by `scripts/auto_tag_publications.py`.
+widget: portfolio
+headless: true
+active: true
 
 # Order that this section appears on the page.
-weight: 80
+weight: 70
 
-title: Featured
-subtitle: 'My selected outcomes'
+title: Publications
+subtitle: ''
 
 content:
-  # Page type to display. E.g. post, talk, publication...
   page_type: publication
-  # Choose how many pages you would like to display (0 = all pages)
-  count: 5
-  # Filter on criteria
-  filters:
-    author: ''
-    category: ''
-    publication_type: ''
-    tag: ''
-  # Page order: descending (desc) or ascending (asc) date.
-  order: desc
+  filter_default: 0
+
+  filter_button:
+    - name: All
+      tag: '*'
+    - name: Leading
+      tag: role-leading
+    - name: Featured
+      tag: role-featured
+    - name: Co-authored
+      tag: role-co-authored
 
 design:
-  # Choose a view for the listings:
-  #   1 = List
-  #   2 = Compact
-  #   3 = Card
-  #   4 = Citation (publication only)
-  view: card
+  columns: '2'
+  # 4 = Citation (publication only) — APA-style bibliographic list, tidiest for an academic CV
+  view: 4
+  flip_alt_rows: false
 ---

@@ -34,9 +34,15 @@ publication_short: _Current Opinion in Environmental Sustainability_
 abstract: The fit of social-ecological systems (SESs) is regarded as an important criterion for achieving sustainability. However, there is still a shortage of approaches to achieve this matching, especially for dryland areas, where ecosystems are more vulnerable and sensitive than in other areas, and mismatches between institutions and ecological processes can cause worse consequences in a shorter time. By drawing on the cases of SES management in dryland areas, we propose three distinct but complementary approaches to promote SES fit based on comprehensive and systematic analyses, which can be summarized as structural, dynamic, and scale approaches. These approaches could contribute to enhancing the fit of SES, but more quantitative indicators and tools are needed to analyze complex SES structure–function relationships.
 # Summary. An optional shortened abstract.
 summary: By drawing on the cases of SES management in dryland areas, we propose three distinct but complementary approaches to promote SES fit based on comprehensive and systematic analyses, which can be summarized as structural, dynamic, and scale approaches. 
+my-role:
+  - featured
+  - co-authored
 tags: 
   - social-ecological system (SES)
   - institutions
+  - role-featured
+  - role-co-authored
+  - year-2020
 # Display this page in the Featured widget?
 featured: true
 # Custom links (uncomment lines below)

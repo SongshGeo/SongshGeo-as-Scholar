@@ -1,56 +1,47 @@
 ---
-# An instance of the Contact widget.
-widget: contact
-
-# This file represents a page section.
+# 联系方式 — markdown widget
+# 编辑下面的列表增删频道
+# 文件路径：content/zh/home/contact.md
+widget: markdown
 headless: true
+active: true
 
-# Order that this section appears on the page.
 weight: 110
 
-title: Contact
-subtitle:
-
-content:
-  # Automatically link email and phone or display as text?
-  autolink: true
-
-  # Email form provider
-  form:
-    provider: netlify
-    formspree:
-      id:
-    netlify:
-      # Enable CAPTCHA challenge to reduce spam?
-      captcha: false
-
-  # Contact details (edit or remove options as required)
-  email:  song@gea.mpg.de
-  address:
-    street: Xinjiekouwai
-    city: Beijing
-    region: Haidian District
-    postcode: '100875'
-    country: China
-    country_code: China
-  coordinates:
-    latitude: '37.4275'
-    longitude: '-122.1697'
-  # directions: Enter Building 1 and take the stairs to Office 200 on Floor 2
-  # office_hours:
-  #   - 'Monday 10:00 to 13:00'
-  #   - 'Wednesday 09:00 to 10:00'
-  appointment_url: 'https://calendly.com/songshgeo'
-  contact_links:
-    # - icon: twitter
-    #   icon_pack: fab
-    #   name: DM Me
-    #   link: 'https://twitter.com/Twitter'
-    # - icon: video
-    #   icon_pack: fas
-    #   name: Book an academic meeting with me.
-    #   link: 'https://calendly.com/songshgeo'
+title: 联系方式
+subtitle: ''
 
 design:
   columns: '2'
 ---
+
+<ul class="contact-channels">
+  <li>
+    <strong><a href="mailto:song@gea.mpg.de">song@gea.mpg.de</a></strong>
+    <span>合作咨询、论文索取、正式学术往来请走邮件。</span>
+  </li>
+  <li>
+    <strong><a href="https://cal.com/s-huang-song-sodoej" target="_blank" rel="noopener">预约 30 分钟会面</a></strong>
+    <span>线上聊研究方法、Agent-based 建模、合作机会。</span>
+  </li>
+  <li>
+    <strong><a href="https://github.com/SongshGeo" target="_blank" rel="noopener">GitHub · @SongshGeo</a></strong>
+    <span>开源项目（ABSESpy、mksci-font 等）的 issue、贡献、技术问题。</span>
+  </li>
+  <li>
+    <strong><a href="https://twitter.com/ShuangSong11" target="_blank" rel="noopener">Twitter / X · @ShuangSong11</a></strong>
+    <span>非正式更新、会议笔记、短问题。</span>
+  </li>
+  <li>
+    <strong><a href="https://scholar.google.com.hk/citations?hl=zh-CN&user=fNZkCsUAAAAJ" target="_blank" rel="noopener">Google Scholar</a></strong>
+    <span>论文被引、提醒订阅、完整出版列表。</span>
+  </li>
+  <li>
+    <strong><a href="https://orcid.org/0000-0002-8112-8780" target="_blank" rel="noopener">ORCID · 0000-0002-8112-8780</a></strong>
+    <span>申请基金、登记机构查询用的科研身份标识。</span>
+  </li>
+  <li>
+    <strong>通讯地址</strong>
+    <span>Max Planck Institute of Geoanthropology, Kahlaische Strasse 10, 07745 Jena, Germany</span>
+  </li>
+</ul>

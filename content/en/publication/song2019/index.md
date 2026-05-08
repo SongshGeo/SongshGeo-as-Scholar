@@ -36,11 +36,17 @@ publication_short: _Acta Geographica Sinica_
 abstract: Social- Ecological System (SES) is composed of social subsystem, ecological subsystem and the interaction between them; its structure, functions, and characteristics are different from those of social subsystem or ecological subsystem alone. Relying on adaptive social mechanisms of power- sharing and decision making, the adaptive governance of SES aims to guarantee human well- being in a sustainable manner under dynamic conditions. Adaptive governance theory is influenced by "common pool resources management", "resilience" and "governance", and lays a foundation for the construction of transformative governance and collaborative governance. This theory has three main objectives:(1) understanding and coping with the multi- stability, nonlinearity, uncertainty, integrity and complexity of SES; (2) establishing non- confrontational social structure, power- sharing structure and decision- making structure, and match with social subsystem and ecological subsystem; (3) achieving sustainable management of ecosystem services through an integrated approach. Therefore, in the face of the "Anthropocene" of human-behaviour-dominant surface processes, achieving adaptive governance helps to deal with the complexity and uncertainty of SES. Given the rapid changes in China's environment and the increasingly complicated interactions between China and countries all over the world, it will be helpful for future studies to pay close attention to the following fields:(1) understand the multi-interaction processes of a coupled system, and enhance its adaptability; (2) emphasize the significance of a holistic approach of studying SES; (3) improve the ability to understand and predict system dynamics in the context of environmental change.
 # Summary. An optional shortened abstract.
 summary: Adaptive governance theory is influenced by "common pool resources management", "resilience" and "governance", and lays a foundation for the construction of transformative governance and collaborative governance. 
+my-role:
+  - leading
+  - featured
 tags:
   - social-ecological system
   - governance
   - adaptation
   - system evolution
+  - role-leading
+  - role-featured
+  - year-2019
 # Display this page in the Featured widget?
 featured: true
 # Custom links (uncomment lines below)

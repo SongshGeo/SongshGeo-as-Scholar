@@ -1,0 +1,11 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "hugo",
+  "buildCommand": "bash ./vercel-build.sh",
+  "outputDirectory": "public",
+  "build": {
+    "env": {
+      "HUGO_VERSION": "0.148.2"
+    }
+  }
+}

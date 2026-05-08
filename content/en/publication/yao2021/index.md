@@ -34,9 +34,13 @@ publication_short: _Land Degradation & Development_
 abstract: The multiple effects of ecosystem restoration programs deserve attention. After reviewing the social-ecological effects of 23 ecosystem restoration programs in Asia's drylands, we find that these programs mainly contribute to SDGs synergistically, but the tradeoffs between social-ecological effects still exists. Among the five goals of SDG15 (Life on Land), SDG13 (Climate Action), SDG6 (Clean Water and Sanitation), SDG1 (No poverty) and SDG2 (Zero Hunger), 11 programs can synergistically achieve no less than three goals, especially grassland restoration and water diversion in China, as well as water management programs in Israel. However, the contribution of ecosystem restoration programs to SDG15 easily weakens SDG6, SDG1 and SDG2, indicating the competition of land and water between ecosystem restoration and agriculture. To reduce the trade-offs among SGDs caused by ecosystem restoration, we propose the social-ecological system research framework of “Dryland Boundary – Water, Food, Energy and Ecosystem Nexus - Meta-coupling – Nature-based Solutions” to guide the implementation of ecosystem restoration programs from four aspects:supply–demand matching, element matching, regional matching and local adaptation.
 # Summary. An optional shortened abstract.
 summary: After reviewing the social-ecological effects of 23 ecosystem restoration programs in Asia's drylands, we find that these programs mainly contribute to SDGs synergistically, but the tradeoffs between social-ecological effects still exists. 
+my-role:
+  - co-authored
 tags:
   - sustainability
   - governance
+  - role-co-authored
+  - year-2021
 # Display this page in the Featured widget?
 featured: False
 # Custom links (uncomment lines below)

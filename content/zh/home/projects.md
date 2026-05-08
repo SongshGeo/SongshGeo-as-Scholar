@@ -7,9 +7,9 @@ widget: portfolio
 headless: true
 
 # Order that this section appears on the page.
-weight: 70
+weight: 80
 
-title: Projects
+title: 项目
 subtitle: ''
 
 content:
@@ -18,18 +18,14 @@ content:
 
   # Default filter index (e.g. 0 corresponds to the first `filter_button` instance below).
   filter_default: 0
-  
 
-  # Filter toolbar (optional).
-  # Add or remove as many filters (`filter_button` instances) as you like.
-  # To show all items, set `tag` to "*".
-  # To filter by a specific tag, set `tag` to an existing tag name.
-  # To remove the toolbar, delete the entire `filter_button` block.
-  # filter_button:
-  #   - name: All
-  #     tag: '*'
-  #   - name: social-ecological system
-  #     tag: social-ecological system
+  filter_button:
+    - name: 全部
+      tag: '*'
+    - name: 进行中
+      tag: ongoing
+    - name: 已归档
+      tag: archived
 
 
 

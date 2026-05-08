@@ -40,9 +40,15 @@ summary: ABSESpy is an innovative agent-based modeling framework designed to imp
   in modeling human behavior and accommodating diverse temporal scales make it a vital
   tool for addressing existing gaps in SES research and enhancing the applicability
   of ABMs to real-world issues.
+my-role:
+  - leading
+  - featured
 tags:
-- Python
-- agent-based modeling
+  - Python
+  - agent-based modeling
+  - role-leading
+  - role-featured
+  - year-2023
 featured: true
 url_pdf: ''
 url_dataset: ''

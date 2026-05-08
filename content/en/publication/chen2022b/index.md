@@ -38,9 +38,13 @@ publication_short: _Ecological Engineering_
 abstract: 'Afforestation combats desertification and improves the ecological environment but leads to huge consumptionof water resources. Understanding how ecological restoration affects the regional water balance is important for scientific desertification management. Using remote sensing satellite images and meteorological data, we analyzed the impacts of ecological restoration on water resources in the Kubuqi Desert during 1986–2017. Human activities accounted for 60.14% of the desertification reversal: annual average NDVI increased by 94%, the severe desertification area decreased by 30%, and the non-desertification area increased threefold. Vegetation restoration accounted for 70.96% of the evapotranspiration increase of 5.17 mm ⋅yr–1. However, precipitation could not support the increased water demand, which relied on replenishment from groundwater and Yellow River diversion. Therefore, to ensure water security in the Kubuqi, species that use less water should be used in future ecological restoration, and decision-makers should carefully consider the huge water consumption cost of ecological restoration.'
 # Summary. An optional shortened abstract.
 summary: Understanding how ecological restoration affects the regional water balance is important for scientific desertification management.  Using remote sensing satellite images and meteorological data, we analyzed the impacts of ecological restoration on water resources in the Kubuqi Desert during 1986–2017. 
+my-role:
+  - co-authored
 tags:
   - system evolution
   - water resources management
+  - role-co-authored
+  - year-2021
 # Display this page in the Featured widget?
 featured: false
 # Custom links (uncomment lines below)
