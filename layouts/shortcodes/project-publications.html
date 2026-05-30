@@ -1,0 +1,28 @@
+{{/* project-publications.html
+     Auto-lists publications tied to this project, grouped by year.
+     Project key is derived from the page-bundle folder name (e.g. "YellowRiver"),
+     overridable via {{< project-publications project="OtherKey" sort="desc" >}}.
+*/}}
+{{ $project := .Get "project" | default .Page.File.ContentBaseName }}
+{{ $sort    := .Get "sort"    | default "asc" }}
+{{ $pubs := where (where .Site.RegularPages "Section" "publication") "Params.projects" "intersect" (slice $project) }}
+
+{{ if $pubs }}
+<div class="project-publications">
+  {{ range ($pubs.GroupByDate "2006" $sort) }}
+  <div class="proj-pub-year-group">
+    <h4 class="proj-pub-year">{{ .Key }}</h4>
+    <ul class="proj-pub-list">
+      {{ range .Pages }}
+      <li>
+        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+        {{ with .Params.publication }}<span class="proj-pub-venue">{{ . | markdownify }}</span>{{ end }}
+      </li>
+      {{ end }}
+    </ul>
+  </div>
+  {{ end }}
+</div>
+{{ else }}
+<p class="proj-pub-empty"><em>No publications are tagged with <code>projects: {{ $project }}</code> yet.</em></p>
+{{ end }}

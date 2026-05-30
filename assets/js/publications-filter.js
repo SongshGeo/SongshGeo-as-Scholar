@@ -14,13 +14,16 @@
   var SECTION_ID = 'featured';
   var POLL_INTERVAL_MS = 100;
   var MAX_POLL_MS = 8000;
+  var INITIAL_COUNT = 6;       // items shown before "Show all" expands the list
 
   // Localized UI labels — picks zh strings if <html lang> starts with "zh"
   var IS_ZH = (document.documentElement.lang || '').toLowerCase().indexOf('zh') === 0;
   var L = {
-    year:   IS_ZH ? '年份'   : 'Year',
-    topics: IS_ZH ? '标签'   : 'Topics',
-    clear:  IS_ZH ? '清空'   : 'Clear',
+    year:     IS_ZH ? '年份'              : 'Year',
+    topics:   IS_ZH ? '标签'              : 'Topics',
+    clear:    IS_ZH ? '清空'              : 'Clear',
+    showAll:  IS_ZH ? '展开全部（{n}）'    : 'Show all ({n})',
+    collapse: IS_ZH ? '收起'              : 'Collapse',
   };
 
   if (document.readyState !== 'loading') {
@@ -68,6 +71,7 @@
       yearsCount: 0,
       keywords: Object.create(null),
       keywordsCount: 0,
+      expanded: false,           // collapse cap when no filter active and false
     };
 
     // ---- Timeline (col-lg-4) ----
@@ -112,34 +116,65 @@
     // refresh roleButtons after replacement so future iterations work
     roleButtons = Array.prototype.slice.call(section.querySelectorAll('.project-filters a'));
 
+    // ---- Show-more / collapse toggle (appended at end of items column) ----
+    var showMore = el('button', 'pub-show-more');
+    showMore.type = 'button';
+    showMore.style.display = 'none';
+    showMore.addEventListener('click', function () {
+      state.expanded = !state.expanded;
+      applyFilter();
+    });
+    itemsCol.appendChild(showMore);
+
+    // Cache meta per element so filter() doesn't re-parse classes on every pass
+    var metaCache = items.map(extractMeta);
+
+    function passes(idx) {
+      var m = metaCache[idx];
+      if (state.role && state.role !== '*') {
+        var want = state.role.replace(/^\.js-id-/, '');
+        if (m.tags.indexOf(want) === -1) return false;
+      }
+      if (state.yearsCount > 0 && !state.years[m.year]) return false;
+      if (state.keywordsCount > 0) {
+        for (var i = 0; i < m.keywords.length; i++) {
+          if (state.keywords[m.keywords[i]]) return true;
+        }
+        return false;
+      }
+      return true;
+    }
+
     function applyFilter() {
+      var hasFilter = state.role !== '*' || state.yearsCount > 0 || state.keywordsCount > 0;
+      var matched = [];
+      for (var i = 0; i < items.length; i++) {
+        if (passes(i)) matched.push(items[i]);
+      }
+      var cap = (!state.expanded && !hasFilter) ? INITIAL_COUNT : matched.length;
+      var visible = new Set(matched.slice(0, cap));
+
       iso.arrange({
         // Isotope v3 (pkgd build) routes the filter function through
         // jQuery's `.is(fn)`, which calls fn as `fn.call(elem, index)`.
         // So the actual element is `this`, not the first argument.
-        filter: function () {
-          var elem = this;
-          if (!elem || !elem.classList) return false;
-          var m = extractMeta(elem);
-
-          if (state.role && state.role !== '*') {
-            var want = state.role.replace(/^\.js-id-/, '');
-            if (m.tags.indexOf(want) === -1) return false;
-          }
-
-          if (state.yearsCount > 0 && !state.years[m.year]) return false;
-
-          if (state.keywordsCount > 0) {
-            var any = false;
-            for (var i = 0; i < m.keywords.length; i++) {
-              if (state.keywords[m.keywords[i]]) { any = true; break; }
-            }
-            if (!any) return false;
-          }
-          return true;
-        },
+        filter: function () { return visible.has(this); },
       });
+
+      var hidden = matched.length - cap;
+      if (state.expanded && !hasFilter && matched.length > INITIAL_COUNT) {
+        showMore.style.display = 'inline-block';
+        showMore.textContent = L.collapse;
+      } else if (hidden > 0) {
+        showMore.style.display = 'inline-block';
+        showMore.textContent = L.showAll.replace('{n}', matched.length);
+      } else {
+        showMore.style.display = 'none';
+      }
     }
+
+    // Apply the initial cap on first render
+    applyFilter();
   }
 
   // ---------- helpers ----------

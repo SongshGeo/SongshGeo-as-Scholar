@@ -498,6 +498,101 @@ nav#navbar-main,
   }
 }
 
+// Project page — auto-generated publication list (project-publications shortcode)
+.project-publications {
+  margin: 1rem 0 0;
+
+  .proj-pub-year-group + .proj-pub-year-group { margin-top: 1.75rem; }
+
+  .proj-pub-year {
+    font-family: $sans;
+    font-size: .735rem;
+    font-weight: 600;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: $ink-faint;
+    margin: 0 0 .55rem;
+    padding-bottom: .3rem;
+    border-bottom: 1px solid $rule-soft;
+  }
+
+  .proj-pub-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      font-family: $serif-text;
+      font-size: .98rem;
+      line-height: 1.55;
+      padding: .55rem 0;
+      border-bottom: 1px dashed $rule-soft;
+
+      &:last-child { border-bottom: none; }
+    }
+
+    a {
+      color: $ink;
+      text-decoration: none;
+      font-weight: 500;
+
+      &:hover {
+        color: $navy;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+    }
+  }
+
+  .proj-pub-venue {
+    display: block;
+    font-family: $serif-text;
+    font-size: .82rem;
+    font-style: italic;
+    color: $ink-mute;
+    margin-top: .15rem;
+  }
+}
+
+.proj-pub-empty {
+  font-family: $serif-text;
+  font-size: .9rem;
+  color: $ink-mute;
+
+  code {
+    background: rgba(26, 26, 26, .04);
+    padding: .05rem .35rem;
+    border-radius: 2px;
+    font-size: .82rem;
+  }
+}
+
+// Show-more / collapse toggle at the bottom of the publications grid
+.pub-show-more {
+  display: block;
+  margin: 1.75rem auto 0;
+  font-family: $sans;
+  font-size: .735rem;
+  font-weight: 500;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  background: transparent;
+  border: 1px solid $rule;
+  color: $ink-mute;
+  padding: .5rem 1.5rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: color .2s ease, border-color .2s ease, background .2s ease;
+
+  &:hover,
+  &:focus {
+    color: $ink;
+    border-color: $ink-soft;
+    background: transparent;
+    outline: none;
+  }
+}
+
 // -----------------------------------------------------------------------------
 // Fieldwork gallery — editorial photo grid with figcaptions
 // -----------------------------------------------------------------------------
@@ -1381,6 +1476,37 @@ hr {
       background: $gold;
       border-color: $gold;
     }
+  }
+
+  .pub-show-more {
+    color: $ink-dark-mute;
+    border-color: $rule-dark;
+    &:hover,
+    &:focus {
+      color: $ink-dark;
+      border-color: $ink-dark-soft;
+      background: transparent;
+    }
+  }
+
+  .project-publications {
+    .proj-pub-year {
+      color: $ink-dark-fnt;
+      border-bottom-color: $rule-soft-dk;
+    }
+    .proj-pub-list {
+      li { border-bottom-color: $rule-soft-dk; }
+      a {
+        color: $ink-dark;
+        &:hover { color: $gold; }
+      }
+    }
+    .proj-pub-venue { color: $ink-dark-mute; }
+  }
+
+  .proj-pub-empty {
+    color: $ink-dark-mute;
+    code { background: rgba(232, 228, 218, .06); }
   }
 
   .gallery-item {
