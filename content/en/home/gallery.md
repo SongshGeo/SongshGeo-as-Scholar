@@ -4,7 +4,7 @@
 # and create an index.md with title / summary / date / location frontmatter.
 widget: blank
 headless: true
-active: true
+active: false
 
 weight: 85
 

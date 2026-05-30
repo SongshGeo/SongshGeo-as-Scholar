@@ -4,7 +4,7 @@
 # 文件路径：content/zh/home/contact.md
 widget: markdown
 headless: true
-active: true
+active: false
 
 weight: 110
 

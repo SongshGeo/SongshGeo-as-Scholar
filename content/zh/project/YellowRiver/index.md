@@ -68,34 +68,9 @@ A comprehensive analysis of the dynamic evolution of the socio-ecological-hydrol
 - How social elements, especially the variables of collective behaviour, influences the processes of the socio-hydrological system, taking the YRB as an informative example. 
 - In addition to engineering, how to build and improve the resilience of the social-hydrological system in the YRB through "soft" solutions from the social aspect. 
 
+## 论文成果
 
-## TimeLine
-
-**2017:** 
-- I started learning Ostrom's social-ecological system framework.
-- I designed and applied a questionnaire survey in the floodplain within YRB. 
-
-**2018:** 
-- I finished my Bachelor's degree dissertation, "Testing of Human-Flood Model: Taking floodplain of the Yellow River in Ningxia as an example", which was rewarded an "Excellent Graduation Thesis."
-
-**2019:** 
-- I published a review article: [Study on adaptive governance of social-ecological system_Progress and prospect](/publication/song2019/).
-
-**2020:** 
-- I published a research article: [Sediment Transport under Increasing Anthropogenic Stress: Regime Shifts within the Yellow River, China](/publication/song2020/).
-
-**2021:** 
-- I published a review article: [Achieving a Fit between Social and Ecological Systems in Drylands for Sustainability](/recent-publications/wang2021b/).
-- I published a research article: [Improving Representation of Collective Memory in Socio-hydrological Models and New Insights into Flood Risk Management](/publication/song2021a/).
-- I published a review article: [A review of community-based socio-ecological system adaptation pathways](/recent-publications/wang2021a/).
-
-**2022:** 
-- I published a research article: [Decreased Virtual Water Outflows from the Yellow River Basin Are Increasingly Critical to China](/publication/song2022b/).
-
-**2023**
-- In April, I went to Vienna, Austria to give a presentation of my upcoming resaerch [Institutional impacts on the evolution of the Yellow River, China: a perspective from socio-hydrological modelling](/publication/song2023c/)
-- My research article [Identifying regime transitions for water governance at the Yellow River Basin, China](/publication/song2023b/) was accepted by _Water Resources Research_.
-- My research article [Quantifying the Effects of Institutional Shifts on Water Governance in the Yellow River Basin: A Social-ecological System Perspective](/publication/song2023d/) was accepted by _Journal of Hydrology_.
+{{< project-publications >}}
 
 
 ## Acknowledgement

@@ -3,7 +3,7 @@
 # Hugo Documentation: https://gohugo.io/getting-started/configuration/#all-configuration-settings
 # This file is formatted using YAML syntax - learn more at https://learnxinyminutes.com/docs/yaml/
 
-title: SongshGeo # Website name
+title: Shuang - Scientist # Website name (brand text; doubles as the current role label)
 baseURL: 'https://cv.songshgeo.com/' # Website URL
 
 ############################

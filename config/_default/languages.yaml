@@ -12,7 +12,7 @@ en:
 zh:
   languageCode: zh-Hans
   contentDir: content/zh
-  title: 宋爽
+  title: 宋爽 - 科学家
   params:
     description: 宋爽的学术主页
   menu:
@@ -26,15 +26,4 @@ zh:
       - name: 项目
         url: '#projects'
         weight: 80
-      - name: 野外
-        url: '#gallery'
-        weight: 85
-      - name: GitHub
-        url: '#skills'
-        weight: 90
-      - name: 联系
-        url: '#contact'
-        weight: 110
-      - name: 博客
-        url: 'https://songshgeo.com/'
-        weight: 130
+      # GitHub / 博客 已并入左上品牌名的身份下拉（assets/js/brand-roles.js）

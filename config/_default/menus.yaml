@@ -13,15 +13,10 @@ main:
   - name: Projects
     url: '#projects'
     weight: 80
-  - name: Gallery
-    url: '#gallery'
-    weight: 85
-  - name: GitHub
-    url: '#skills'
-    weight: 90
-  - name: Contact
-    url: '#contact'
-    weight: 110
-  - name: Blog (non-academic)
-    url: 'https://songshgeo.com/'
-    weight: 130
+  # - name: Gallery
+  #   url: '#gallery'
+  #   weight: 85
+  # - name: Contact
+  #   url: '#contact'
+  #   weight: 110
+  # GitHub / Blog moved to the brand identity dropdown (see assets/js/brand-roles.js)
