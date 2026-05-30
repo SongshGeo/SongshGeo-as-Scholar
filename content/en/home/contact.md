@@ -4,7 +4,7 @@
 # File path: content/en/home/contact.md
 widget: markdown
 headless: true
-active: true
+active: false
 
 weight: 110
 

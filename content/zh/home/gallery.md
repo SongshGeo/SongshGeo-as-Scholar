@@ -3,7 +3,7 @@
 # 新增故事：在 content/zh/fieldwork/ 下新建一个文件夹，放 featured.jpg 和 index.md
 widget: blank
 headless: true
-active: true
+active: false
 
 weight: 85
 
