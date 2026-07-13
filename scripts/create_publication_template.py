@@ -29,6 +29,7 @@ def parse_bibtex_entry(entry_text: str, key: str) -> dict:
         'key': key,
         'title': '',
         'authors': [],
+        'corresponding': [],  # 1-indexed author positions marked corresponding
         'year': '',
         'doi': '',
         'abstract': '',
@@ -51,15 +52,30 @@ def parse_bibtex_entry(entry_text: str, key: str) -> dict:
         authors = [a.strip() for a in re.split(r'\s+and\s+', author_str)]
         fields['authors'] = authors
     
-    # Extract year
-    year_match = re.search(r'year\s*=\s*[{"]?(\d{4})[}",]?', entry_text)
-    if year_match:
+    # Extract year — prefer the biblatex `date = {YYYY-MM-DD}` field (used by most
+    # entries), fall back to a plain `year = {YYYY}`. Without this, dated entries
+    # would default to the current year (wrong tag/timeline for synced papers).
+    date_match = re.search(r'\bdate\s*=\s*[{"]?(\d{4})', entry_text)
+    year_match = re.search(r'\byear\s*=\s*[{"]?(\d{4})[}",]?', entry_text)
+    if date_match:
+        fields['year'] = date_match.group(1)
+    elif year_match:
         fields['year'] = year_match.group(1)
     
     # Extract DOI
     doi_match = re.search(r'doi\s*=\s*[{"]([^}"]+)[}"]', entry_text)
     if doi_match:
         fields['doi'] = doi_match.group(1).strip()
+
+    # Extract corresponding-author positions from biblatex `Author+an = {2=corresponding}`
+    # (may list several, e.g. "1=corresponding;3=corresponding"). Drives author_notes
+    # so auto_tag_publications.py can tag a corresponding (non-first) author as leading.
+    an_match = re.search(r'[Aa]uthor\+an\s*=\s*[{"]([^}"]+)[}"]', entry_text)
+    if an_match:
+        for part in re.split(r'[;,]', an_match.group(1)):
+            pos_match = re.match(r'\s*(\d+)\s*=\s*corresponding', part, re.IGNORECASE)
+            if pos_match:
+                fields['corresponding'].append(int(pos_match.group(1)))
     
     # Extract journal/booktitle
     journal_match = re.search(r'(?:journal|journaltitle|booktitle)\s*=\s*[{"]([^}"]+)[}"]', entry_text)
@@ -133,7 +149,21 @@ def generate_index_md(entry: dict, lang: str = 'en') -> str:
             authors.append(f'  - {clean_name}')
     
     authors_yaml = '\n'.join(authors) if authors else '  - admin'
-    
+
+    # Build author_notes aligned to the emitted authors (first 5), marking the
+    # corresponding author(s) so auto_tag_publications.py can compute the role.
+    n_authors = len(authors) if authors else 1
+    corresponding = [p for p in entry.get('corresponding', []) if 1 <= p <= n_authors]
+    author_notes_yaml = ''
+    if corresponding:
+        lines = []
+        for i in range(n_authors):
+            if (i + 1) in corresponding:
+                lines.append("  - 'Corresponding Author'")
+            else:
+                lines.append('  - []')
+        author_notes_yaml = 'author_notes:\n' + '\n'.join(lines) + '\n'
+
     # Determine publication type (default to journal article)
     pub_type = "'2'"  # 2 = Journal article
     
@@ -157,7 +187,7 @@ title: '{title}'
 # Authors
 authors:
 {authors_yaml}
-
+{author_notes_yaml}
 date: {date_str}
 """
     
