@@ -4,3 +4,6 @@
 
 {{ $brandRoles := resources.Get "js/brand-roles.js" | resources.Minify | resources.Fingerprint }}
 <script src="{{ $brandRoles.RelPermalink }}" integrity="{{ $brandRoles.Data.Integrity }}" defer></script>
+
+{{ $aboutExpand := resources.Get "js/about-expand.js" | resources.Minify | resources.Fingerprint }}
+<script src="{{ $aboutExpand.RelPermalink }}" integrity="{{ $aboutExpand.Data.Integrity }}" defer></script>

@@ -81,9 +81,7 @@ email: 'song@gea.mpg.de'
 highlight_name: true
 ---
 
-👋 Hello! I'm Shuang Song, a postdoctoral researcher at [Max Planck Institute of Geoanthropology](https://www.gea.mpg.de). I currently serve for two departments: [the Department Structural Changes of the Technosphere](https://www.gea.mpg.de/7775/dt) and the [Department of Co-evolution of Land Use and Urbanisation](https://www.gea.mpg.de/114175/dlu).
-
-My research primarily uses water as a link to study the co-evolution between human society and the natural environment. Based on my interdisciplinary background in Physical Geography and the Study of History, I currently focus on the long-term evolution of water management (e.g., irrigation, flood control, and water supply) and its impact on human society, currently focusing on the Yellow River Basin, China.
+👋 Hello! I'm Shuang Song, a postdoctoral researcher at the [Department of Co-evolution of Land Use and Urbanisation](https://www.gea.mpg.de/114175/dlu) of [Max Planck Institute of Geoanthropology](https://www.gea.mpg.de). My research primarily uses water as a link to study the co-evolution between human society and the natural environment. Based on my interdisciplinary background in Physical Geography and the Study of History, I currently focus on the long-term evolution of water management (e.g., irrigation, flood control, and water supply) and its impact on human society.
 
 My approach mainly involves modeling and data analysis. I developed the open-source Agent-based Modeling framework for real-world SES simulation [`ABSESpy`](https://github.com/SongshGeoLab/ABSESpy) and led [`PaperBell` team](https://paperbell.cn/), an academic note-taking workflow for researchers based on [Obsidian](https://obsidian.md/).
 

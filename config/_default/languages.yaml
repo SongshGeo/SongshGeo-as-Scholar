@@ -26,4 +26,8 @@ zh:
       - name: 项目
         url: '#projects'
         weight: 80
-      # GitHub / 博客 已并入左上品牌名的身份下拉（assets/js/brand-roles.js）
+      - name: 团队
+        url: 'https://github.com/SongshGeoLab'   # 外链，主题会自动加 target="_blank"
+        weight: 90
+      # GitHub / 博客 已并入左上品牌名的身份下拉（assets/js/brand-roles.js）。
+      # 团队组织链接刻意留在顶部导航：它是给访客的去处，不属于那个身份下拉里的个人身份。

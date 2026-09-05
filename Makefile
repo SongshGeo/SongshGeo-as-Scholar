@@ -18,6 +18,13 @@ EXTRACT_MAX_PUBLICATIONS :=
 # Optional: e.g. CHECK_PROMPT_FLAGS=--all so create prompt includes drafts (submitted, under review)
 CHECK_PROMPT_FLAGS :=
 
+# Optional extra flags forwarded to sync_pubs_from_zotero.py (see `make sync-pubs`).
+# The saved-search name defaults inside the script (it starts with '#', which Make
+# would treat as a comment). Override the search or scope here, e.g.:
+#   make sync-pubs SYNC_ARGS="--since 2020"
+#   make sync-pubs SYNC_ARGS="--search '#00.English my-pubs' --update-existing"
+SYNC_ARGS :=
+
 # Python interpreter
 PYTHON := poetry run python
 
@@ -26,6 +33,8 @@ SCRIPT_DIR := scripts
 CHECK_SCRIPT := $(SCRIPT_DIR)/check_missing_publications_enhanced.py
 CREATE_SCRIPT := $(SCRIPT_DIR)/create_publication_template.py
 EXTRACT_SCRIPT := $(SCRIPT_DIR)/extract_abstract_from_pdf.py
+SYNC_SCRIPT := $(SCRIPT_DIR)/sync_pubs_from_zotero.py
+AUTOTAG_SCRIPT := $(SCRIPT_DIR)/auto_tag_publications.py
 
 # Colors for output
 BLUE := \033[0;34m
@@ -35,7 +44,7 @@ RED := \033[0;31m
 NC := \033[0m # No Color
 
 .PHONY: help check check-pdf check-pdf-interactive preview-rename rename extract-abstracts update-publist \
-		update-publist-verbose package-publist-skill full-update install server build clean status commit push deploy \
+		update-publist-verbose package-publist-skill sync-pubs package-sync-pubs-skill full-update install server build clean status commit push deploy \
 		docs-serve docs-build
 
 # Default target
@@ -45,6 +54,7 @@ help:
 	@echo "$(BLUE)╚════════════════════════════════════════════════════════════════╝$(NC)"
 	@echo ""
 	@echo "$(GREEN)📚 Publication Management Workflow:$(NC)"
+	@echo "  $(YELLOW)make sync-pubs$(NC)          Pull Zotero saved search → bib → pages → tags → PDF"
 	@echo "  $(YELLOW)make check$(NC)              Check for duplicates/missing publications"
 	@echo "  $(YELLOW)make check-pdf$(NC)          Check which publications lack PDFs"
 	@echo "  $(YELLOW)make check-pdf-interactive$(NC) Same + optional prompt to create missing pages"
@@ -54,6 +64,7 @@ help:
 	@echo "  $(YELLOW)make update-publist$(NC)     Compile publication list PDF"
 	@echo "  $(YELLOW)make update-publist-verbose$(NC) Same, show XeLaTeX/biber output (debug)"
 	@echo "  $(YELLOW)make package-publist-skill$(NC) Zip skill + Makefile + docs for sharing"
+	@echo "  $(YELLOW)make package-sync-pubs-skill$(NC) Zip the Zotero-sync skill for sharing"
 	@echo "  $(YELLOW)make full-update$(NC)        Complete workflow (check → rename → extract → publist)"
 	@echo ""
 	@echo "$(GREEN)🛠️  Development:$(NC)"
@@ -198,6 +209,66 @@ package-publist-skill:
 	else \
 		echo "$(YELLOW)publist/ not found — skipped (often gitignored). Clone template locally to include.$(NC)"; \
 	fi; \
+	echo "$(GREEN)✅ Bundle: $$ZIP$(NC)"
+
+# Sync the master bib from a Zotero saved search, then run the full page pipeline.
+# Needs Zotero running with the Better BibTeX plugin (see sync-pubs-from-zotero skill).
+sync-pubs:
+	@echo "$(BLUE)╔════════════════════════════════════════════════════════════════╗$(NC)"
+	@echo "$(BLUE)║              Sync Publications from Zotero                    ║$(NC)"
+	@echo "$(BLUE)╚════════════════════════════════════════════════════════════════╝$(NC)"
+	@echo ""
+	@echo "$(YELLOW)Step 1/5: Previewing changes from the Zotero saved search...$(NC)"
+	@$(PYTHON) $(SYNC_SCRIPT) --bib $(BIB_FILE) $(SYNC_ARGS) --dry-run
+	@echo ""
+	@printf "%s" "$(YELLOW)Apply these bib changes and rebuild the site pages? [y/N] $(NC)"
+	@read -r confirm; \
+	if [ "$$confirm" != "y" ] && [ "$$confirm" != "Y" ]; then \
+		echo "$(RED)Stopped — nothing written.$(NC)"; \
+		exit 1; \
+	fi
+	@echo ""
+	@echo "$(YELLOW)Step 2/5: Updating $(BIB_FILE)...$(NC)"
+	@$(PYTHON) $(SYNC_SCRIPT) --bib $(BIB_FILE) $(SYNC_ARGS)
+	@echo ""
+	@echo "$(YELLOW)Step 3/5: Creating pages for new publications ($(LANG))...$(NC)"
+	@$(PYTHON) $(CREATE_SCRIPT) $(BIB_FILE) --lang $(LANG)
+	@echo ""
+	@echo "$(YELLOW)Step 4/5: Syncing role / year tags...$(NC)"
+	@$(PYTHON) $(AUTOTAG_SCRIPT)
+	@echo ""
+	@echo "$(YELLOW)Step 5/5: Rebuilding the publication list PDF...$(NC)"
+	@$(MAKE) update-publist
+	@echo ""
+	@echo "$(GREEN)╔════════════════════════════════════════════════════════════════╗$(NC)"
+	@echo "$(GREEN)║              ✅ Zotero Sync Completed!                        ║$(NC)"
+	@echo "$(GREEN)╚════════════════════════════════════════════════════════════════╝$(NC)"
+	@echo ""
+	@echo "$(YELLOW)Next steps:$(NC)"
+	@echo "  1. Review changes: $(YELLOW)git diff $(BIB_FILE) && git status content/$(LANG)/publication/$(NC)"
+	@echo "  2. Curate new pages (featured, tags, PDFs), then: $(YELLOW)make server$(NC)"
+	@echo "  3. Commit + deploy: $(YELLOW)make deploy$(NC)"
+
+# Zip the sync-pubs-from-zotero skill + the sync script for sharing.
+package-sync-pubs-skill:
+	@echo "$(BLUE)📦 Packaging Zotero-sync skill bundle...$(NC)"
+	@command -v zip >/dev/null 2>&1 || { echo "$(RED)❌ zip not found (install zip).$(NC)"; exit 1; }
+	@mkdir -p "$(PUBLIST_SKILL_ZIP_DIR)"
+	@if [ ! -d .cursor/skills/sync-pubs-from-zotero ]; then \
+		echo "$(RED)❌ Error: .cursor/skills/sync-pubs-from-zotero not found$(NC)"; \
+		exit 1; \
+	fi
+	@STAMP=$$(date +%Y%m%d-%H%M%S); \
+	ZIP="$(PUBLIST_SKILL_ZIP_DIR)/sync-pubs-skill-$$STAMP.zip"; \
+	rm -f "$$ZIP"; \
+	zip -r "$$ZIP" \
+		.cursor/skills/sync-pubs-from-zotero \
+		$(SYNC_SCRIPT) \
+		$(CREATE_SCRIPT) \
+		$(CHECK_SCRIPT) \
+		$(AUTOTAG_SCRIPT) \
+		Makefile; \
+	if [ $$? -ne 0 ]; then exit 1; fi; \
 	echo "$(GREEN)✅ Bundle: $$ZIP$(NC)"
 
 # Full update workflow
