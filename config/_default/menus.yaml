@@ -13,10 +13,15 @@ main:
   - name: Projects
     url: '#projects'
     weight: 80
+  - name: Lab
+    url: 'https://github.com/SongshGeoLab'   # external → theme adds target="_blank" automatically
+    weight: 90
   # - name: Gallery
   #   url: '#gallery'
   #   weight: 85
   # - name: Contact
   #   url: '#contact'
   #   weight: 110
-  # GitHub / Blog moved to the brand identity dropdown (see assets/js/brand-roles.js)
+  # GitHub / Blog moved to the brand identity dropdown (see assets/js/brand-roles.js).
+  # The Lab org link stays here in the top nav on purpose — it is a destination for
+  # visitors, not one of the personal identities in that dropdown.

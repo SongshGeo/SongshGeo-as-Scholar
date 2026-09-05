@@ -17,5 +17,10 @@ title: "Shuang Song, Ph.D."
 # Choose the user profile to display
 # This should be the username (folder name) of a profile in your `content/authors/` folder.
 # See https://wowchemy.com/docs/get-started/#introduce-yourself
+#
+# NOTE: the intro prose rendered on the homepage is the MARKDOWN BODY of
+#   content/en/authors/admin/_index.md
+# (not this file, and not the top-level content/*/admin/ section, which no longer exists).
+# Front-matter `bio:` there is NOT the intro — that is the short byline card under posts.
 author: admin
 ---
