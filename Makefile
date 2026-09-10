@@ -35,6 +35,7 @@ CREATE_SCRIPT := $(SCRIPT_DIR)/create_publication_template.py
 EXTRACT_SCRIPT := $(SCRIPT_DIR)/extract_abstract_from_pdf.py
 SYNC_SCRIPT := $(SCRIPT_DIR)/sync_pubs_from_zotero.py
 AUTOTAG_SCRIPT := $(SCRIPT_DIR)/auto_tag_publications.py
+INTEGRITY_SCRIPT := $(SCRIPT_DIR)/check_site_integrity.py
 
 # Colors for output
 BLUE := \033[0;34m
@@ -44,7 +45,7 @@ RED := \033[0;31m
 NC := \033[0m # No Color
 
 .PHONY: help check check-pdf check-pdf-interactive preview-rename rename extract-abstracts update-publist \
-		update-publist-verbose package-publist-skill sync-pubs package-sync-pubs-skill full-update install server build clean status commit push deploy \
+		update-publist-verbose package-publist-skill sync-pubs package-sync-pubs-skill full-update install server build test test-full clean status commit push deploy \
 		docs-serve docs-build
 
 # Default target
@@ -71,6 +72,8 @@ help:
 	@echo "  $(YELLOW)make install$(NC)            Install dependencies"
 	@echo "  $(YELLOW)make server$(NC)             Start Hugo development server"
 	@echo "  $(YELLOW)make build$(NC)              Build the site"
+	@echo "  $(YELLOW)make test$(NC)               Integrity checks on our own code"
+	@echo "  $(YELLOW)make test-full$(NC)          Build, then also check rendered output"
 	@echo "  $(YELLOW)make clean$(NC)              Clean generated files"
 	@echo ""
 	@echo "$(GREEN)🚀 Deployment:$(NC)"
@@ -336,6 +339,16 @@ build:
 	@echo "$(BLUE)🏗️  Building the site...$(NC)"
 	@hugo --gc --minify --logLevel error
 	@echo "$(GREEN)✅ Build complete!$(NC)"
+
+# Integrity checks for the code we wrote ourselves (not the theme).
+# Source-only by default; `make test-full` builds first and also checks output.
+test:
+	@echo "$(BLUE)🔍 Checking site integrity (our code only)...$(NC)"
+	@$(PYTHON) $(INTEGRITY_SCRIPT)
+
+test-full: build
+	@echo "$(BLUE)🔍 Checking site integrity, including rendered output...$(NC)"
+	@$(PYTHON) $(INTEGRITY_SCRIPT) --public public
 
 # Clean generated files
 clean:

@@ -57,6 +57,11 @@ jobs:
             --buildDrafts \
             --buildFuture
       
+      - name: Check site integrity
+        # Stdlib-only, so no dependency install is needed. Checks our own code
+        # and the rendered output; see scripts/check_site_integrity.py.
+        run: python3 scripts/check_site_integrity.py --public public
+
       - name: Comment PR with build status
         uses: actions/github-script@v7
         with:
