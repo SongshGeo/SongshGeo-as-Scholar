@@ -1,0 +1,28 @@
+# 本站自有组件的 UI 文案唯一真源。
+# 模板通过 `i18n "<key>"` 读取；assets/js/ 里的脚本通过 window.__siteUI 读取，
+# 该对象由 layouts/partials/custom_js.html 注入。禁止在 JS 或 SCSS 里硬编码展示文案。
+
+# assets/js/publications-filter.js
+pubfilter_year: 年份
+pubfilter_topics: 标签
+pubfilter_clear: 清空
+pubfilter_show_all: 展开全部（{n}）
+pubfilter_collapse: 收起
+
+# assets/js/about-expand.js
+about_read_more: 展开全文
+about_show_less: 收起
+about_toggle_aria: 展开或收起完整简介
+
+# assets/js/brand-roles.js
+brand_identity_eyebrow: 身份
+brand_switch_aria: 切换身份
+brand_role_scientist: 作为研究者
+brand_role_scientist_sub: 学术主页
+brand_role_explorer: 作为探索者
+brand_role_explorer_sub: 随笔与博客
+brand_role_developer: 作为开发者
+brand_role_developer_sub: GitHub 开源仓库
+
+# layouts/shortcodes/project-publications.html
+project_publications_empty: '暂无标记为 <code>projects: {{ . }}</code> 的论文。'

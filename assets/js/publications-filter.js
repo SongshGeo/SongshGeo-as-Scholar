@@ -16,15 +16,10 @@
   var MAX_POLL_MS = 8000;
   var INITIAL_COUNT = 6;       // items shown before "Show all" expands the list
 
-  // Localized UI labels — picks zh strings if <html lang> starts with "zh"
-  var IS_ZH = (document.documentElement.lang || '').toLowerCase().indexOf('zh') === 0;
-  var L = {
-    year:     IS_ZH ? '年份'              : 'Year',
-    topics:   IS_ZH ? '标签'              : 'Topics',
-    clear:    IS_ZH ? '清空'              : 'Clear',
-    showAll:  IS_ZH ? '展开全部（{n}）'    : 'Show all ({n})',
-    collapse: IS_ZH ? '收起'              : 'Collapse',
-  };
+  // Labels come from i18n/<lang>.yaml via window.__siteUI (see
+  // layouts/partials/custom_js.html). Never hardcode display text here.
+  var L = (window.__siteUI || {}).pubfilter;
+  if (!L) return;
 
   if (document.readyState !== 'loading') {
     init();
@@ -97,24 +92,20 @@
     }
 
     // ---- Rewire role filter buttons ----
-    var roleButtons = Array.prototype.slice.call(section.querySelectorAll('.project-filters a'));
-    roleButtons.forEach(function (btn) {
+    Array.prototype.slice.call(section.querySelectorAll('.project-filters a')).forEach(function (btn) {
       // Replace node to remove Hugo Blox's existing listeners
       var clone = btn.cloneNode(true);
       btn.parentNode.replaceChild(clone, btn);
       clone.addEventListener('click', function (e) {
         e.preventDefault();
         state.role = clone.getAttribute('data-filter') || '*';
-        roleButtons.forEach(function (b) { b.classList.remove('active'); });
-        // re-query (clones replaced originals)
+        // re-query: the clones above replaced the nodes captured on entry
         section.querySelectorAll('.project-filters a').forEach(function (b) {
           b.classList.toggle('active', b === clone);
         });
         applyFilter();
       });
     });
-    // refresh roleButtons after replacement so future iterations work
-    roleButtons = Array.prototype.slice.call(section.querySelectorAll('.project-filters a'));
 
     // ---- Show-more / collapse toggle (appended at end of items column) ----
     var showMore = el('button', 'pub-show-more');

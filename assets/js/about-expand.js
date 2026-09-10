@@ -11,13 +11,10 @@
 (function () {
   'use strict';
 
-  var IS_ZH = (document.documentElement.lang || '').toLowerCase().indexOf('zh') === 0;
-
-  var L = {
-    more: IS_ZH ? '展开全文' : 'Read more',
-    less: IS_ZH ? '收起' : 'Show less',
-    aria: IS_ZH ? '展开或收起完整简介' : 'Expand or collapse the full bio',
-  };
+  // Labels come from i18n/<lang>.yaml via window.__siteUI (see
+  // layouts/partials/custom_js.html). Never hardcode display text here.
+  var L = (window.__siteUI || {}).about;
+  if (!L) return;
 
   if (document.readyState !== 'loading') init();
   else document.addEventListener('DOMContentLoaded', init);

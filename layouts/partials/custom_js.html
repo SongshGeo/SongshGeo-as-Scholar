@@ -1,4 +1,47 @@
 {{/* Custom JS hook — auto-included at body end by blox-bootstrap site_js.html */}}
+
+{{/* Single source of truth for anything the custom JS renders as visible text.
+     Labels come from i18n/<lang>.yaml, the brand name from the author page
+     (content/<lang>/authors/admin/_index.md), and the identity-switcher
+     destinations from data/brand_roles.yaml. Nothing below may be hardcoded
+     in assets/js/. */}}
+{{ $roles := slice }}
+{{ range site.Data.brand_roles }}
+  {{ $roles = $roles | append (dict
+      "label"    (i18n (printf "brand_role_%s" .id))
+      "sub"      (i18n (printf "brand_role_%s_sub" .id))
+      "url"      .url
+      "current"  (default false .current)
+      "external" (default false .external)
+  ) }}
+{{ end }}
+
+{{ $brand := site.Title }}
+{{ with site.GetPage "/authors/admin" }}{{ $brand = .Title }}{{ end }}
+
+{{ $ui := dict
+    "pubfilter" (dict
+        "year"     (i18n "pubfilter_year")
+        "topics"   (i18n "pubfilter_topics")
+        "clear"    (i18n "pubfilter_clear")
+        "showAll"  (i18n "pubfilter_show_all")
+        "collapse" (i18n "pubfilter_collapse"))
+    "about" (dict
+        "more" (i18n "about_read_more")
+        "less" (i18n "about_show_less")
+        "aria" (i18n "about_toggle_aria"))
+    "brand" (dict
+        "text"    $brand
+        "eyebrow" (i18n "brand_identity_eyebrow")
+        "aria"    (i18n "brand_switch_aria")
+        "roles"   $roles)
+}}
+{{/* safeJS is required: without it Go's contextual escaping emits the JSON
+     as a quoted *string*, and every consumer below silently no-ops.
+     jsonify already escapes < > & to \u00XX, so this cannot break out
+     of the script element. */}}
+<script>window.__siteUI = {{ $ui | jsonify | safeJS }};</script>
+
 {{ $pubFilter := resources.Get "js/publications-filter.js" | resources.Minify | resources.Fingerprint }}
 <script src="{{ $pubFilter.RelPermalink }}" integrity="{{ $pubFilter.Data.Integrity }}" defer></script>
 
