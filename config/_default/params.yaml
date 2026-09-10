@@ -18,8 +18,8 @@ marketing:
     site_type: Person
     local_business_type: ''
     org_name: ''
-    description: 'A highly-customizable Hugo academic resume theme powered by Hugo Blox Builder.'
-    twitter: 'GeorgeCushen'
+    description: 'Shuang Song — postdoctoral researcher in geography, studying social-ecological systems and human-water relationships.'
+    twitter: 'ShuangSong11'
   analytics:
     google_analytics: ''
     google_tag_manager: ''
@@ -48,7 +48,7 @@ header:
 
 footer:
   copyright:
-    notice: '© {year} Me. This work is licensed under {license}'
+    notice: '© {year} Shuang Song. This work is licensed under {license}'
     license:
       enable: true
       allow_derivatives: false

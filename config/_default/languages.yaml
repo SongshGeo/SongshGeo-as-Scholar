@@ -14,7 +14,16 @@ zh:
   contentDir: content/zh
   title: 宋爽 - 科学家
   params:
-    description: 宋爽的学术主页
+    # Per-language overrides. The English forms live in config/_default/params.yaml;
+    # anything a zh visitor reads must be overridden here, or the English text
+    # leaks onto the Chinese site (a plain `description:` key does not — the
+    # theme reads marketing.seo.description).
+    marketing:
+      seo:
+        description: 宋爽 —— 地理学博士后，研究社会-生态系统与人水关系。
+    footer:
+      copyright:
+        notice: '© {year} 宋爽。本作品采用 {license} 许可。'
   menu:
     main:
       - name: 主页
