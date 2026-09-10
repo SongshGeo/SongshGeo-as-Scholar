@@ -18,6 +18,7 @@ import sys
 from pathlib import Path
 from typing import Dict, Set, List, Tuple
 from difflib import SequenceMatcher
+from bibtex_entries import field, iter_entries
 from logger_config import setup_logger, log_section, log_success, log_warning, log_error, log_info
 
 
@@ -49,33 +50,22 @@ def parse_bibtex_keys(bib_file: str) -> Dict[str, dict]:
     with open(bib_file, 'r', encoding='utf-8') as f:
         content = f.read()
     
-    # Match BibTeX entries: @article{key, ...}
-    pattern = r'@(\w+)\s*\{\s*([^,\s]+)\s*,([^@]*?)(?=\n@|\Z)'
-    
-    for match in re.finditer(pattern, content, re.MULTILINE | re.DOTALL):
-        entry_type = match.group(1)
-        key = match.group(2)
-        fields = match.group(3)
+    for entry in iter_entries(content):
+        entry_type = entry.type
+        key = entry.key
+        fields = entry.body
         
-        # Extract title if available
-        title_match = re.search(r'title\s*=\s*[{"\'](.*?)[}"\']', fields, re.DOTALL)
-        title = title_match.group(1).strip() if title_match else ''
+        title = field(fields, 'title')
+        authors = field(fields, 'author')
+        doi = field(fields, 'doi')
         
-        # Extract year if available (numeric only; "submitted" etc. are ignored)
+        # Year is numeric-only on purpose: "submitted" etc. are not years.
         year_match = re.search(r'year\s*=\s*[{"\']*(\d{4})[}"\',]*', fields)
         year = year_match.group(1) if year_match else ''
 
-        # biblatex date (YYYY, YYYY-MM, YYYY-MM-DD, ...)
+        # biblatex date (YYYY, YYYY-MM, YYYY-MM-DD, ...) — brace-only, so field() does not fit
         date_match = re.search(r'\bdate\s*=\s*\{([^}]*)\}', fields, re.DOTALL)
         date_val = date_match.group(1).strip() if date_match else ''
-
-        # Extract authors
-        author_match = re.search(r'author\s*=\s*[{"\'](.*?)[}"\']', fields, re.DOTALL)
-        authors = author_match.group(1).strip() if author_match else ''
-        
-        # Extract DOI
-        doi_match = re.search(r'doi\s*=\s*[{"\'](.*?)[}"\']', fields)
-        doi = doi_match.group(1).strip() if doi_match else ''
         
         entries[key] = {
             'type': entry_type,

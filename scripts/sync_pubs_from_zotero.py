@@ -48,6 +48,8 @@ import urllib.error
 import urllib.parse
 import urllib.request
 
+from bibtex_entries import entry_year, field, iter_entries
+
 # ── Config (env-overridable, mirrors the zotero-search skill) ──────────────── #
 DATA_DIR = os.path.expanduser(os.environ.get("ZOTERO_DATA_DIR", "~/Zotero"))
 API_BASE = os.environ.get("ZOTERO_LOCAL_API", "http://localhost:23119").rstrip("/")
@@ -243,21 +245,17 @@ def export_biblatex(citekeys: list) -> str:
 
 
 # ── BibTeX parsing / merge ─────────────────────────────────────────────────── #
-_ENTRY_RE = re.compile(r"@(\w+)\s*\{\s*([^,\s]+)\s*,(.*?)(?=\n@|\Z)", re.DOTALL)
 
 
 def parse_entries(text: str) -> list:
     """Return [{key, type, raw, title, normalized_title, doi}] preserving source order."""
     out = []
-    for m in _ENTRY_RE.finditer(text):
-        etype, key, body = m.group(1), m.group(2), m.group(3)
-        title = re.search(r"title\s*=\s*[{\"'](.*?)[}\"']", body, re.DOTALL)
-        doi = re.search(r"doi\s*=\s*[{\"'](.*?)[}\"']", body)
-        title = (title.group(1).strip() if title else "")
+    for e in iter_entries(text):
+        title = field(e.body, "title")
         out.append({
-            "key": key, "type": etype, "raw": m.group(0).strip(),
+            "key": e.key, "type": e.type, "raw": e.raw,
             "title": title, "normalized_title": normalize_title(title),
-            "doi": norm_doi(doi.group(1) if doi else ""),
+            "doi": norm_doi(field(e.body, "doi")),
         })
     return out
 
@@ -287,11 +285,6 @@ def classify(exported: list, existing: list) -> dict:
             else:
                 result["new"].append(e)
     return result
-
-
-def entry_year(raw: str) -> str:
-    m = re.search(r"\b(?:date|year)\s*=\s*\{?\D*(\d{4})", raw)
-    return m.group(1) if m else ""
 
 
 def is_placeholder_key(key: str) -> bool:

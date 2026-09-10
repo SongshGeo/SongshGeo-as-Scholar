@@ -22,6 +22,8 @@ from pathlib import Path
 from datetime import datetime
 from typing import Dict, Set
 
+from bibtex_entries import iter_entries
+
 
 def parse_bibtex_entry(entry_text: str, key: str) -> dict:
     """Parse a single BibTeX entry and extract fields."""
@@ -111,12 +113,8 @@ def parse_bibtex_entries(bib_file: str) -> Dict[str, dict]:
         content = f.read()
     
     entries = {}
-    pattern = r'@\w+\s*\{\s*([^,\s]+)\s*,([^@]*?)(?=\n@|\Z)'
-    
-    for match in re.finditer(pattern, content, re.MULTILINE | re.DOTALL):
-        key = match.group(1)
-        entry_text = match.group(2)
-        entries[key] = parse_bibtex_entry(entry_text, key)
+    for entry in iter_entries(content):
+        entries[entry.key] = parse_bibtex_entry(entry.body, entry.key)
     
     return entries
 
@@ -265,10 +263,10 @@ def extract_bib_entry(bib_file: str, key: str) -> str:
     with open(bib_file, 'r', encoding='utf-8') as f:
         content = f.read()
     
-    pattern = rf'@\w+\s*\{{\s*{re.escape(key)}\s*,.*?(?=\n@|\Z)'
-    match = re.search(pattern, content, re.MULTILINE | re.DOTALL)
-    
-    return match.group(0) if match else ''
+    for entry in iter_entries(content):
+        if entry.key == key:
+            return entry.raw
+    return ''
 
 
 def main():
@@ -374,7 +372,13 @@ def main():
     # Create folders
     created = 0
     for key in sorted(missing_keys):
-        entry = entries[key]
+        entry = entries.get(key)
+        if entry is None:
+            # Should be unreachable: missing_keys is derived from entries. If it
+            # ever happens the bib and the key set have diverged — say so and
+            # keep going rather than aborting the whole run.
+            print(f"   ❌ Skipping {key}: no such entry in {args.bib_file}")
+            continue
         bib_content = extract_bib_entry(args.bib_file, key)
         
         try:
