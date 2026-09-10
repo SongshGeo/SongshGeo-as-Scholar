@@ -30,23 +30,23 @@ categories:
 ## Skills used in My Papers
 
 ### Complex Network Analysis (ANA)
-In the [Decreased Virtual Water Outflows from the Yellow River Basin Are Increasingly Critical to China](/publication/paper4/), I used the popular Python package `Networkx` to apply CNA. 
+In the [Decreased Virtual Water Outflows from the Yellow River Basin Are Increasingly Critical to China]({{< relref "/publication/song2022a" >}}), I used the popular Python package `Networkx` to apply CNA. 
 
 ### Agent-based modelling (ABM)
-I'm working on an open-source package 「**coupling human and natural systems in ABM**」(CHNS_Agents). This package provides a framework for building coupled human and natural systems. More information can be found in my project: [Complex system modelling of human-water relationships](/project/project2/).
+I'm working on an open-source package 「**coupling human and natural systems in ABM**」(CHNS_Agents). This package provides a framework for building coupled human and natural systems. More information can be found in my project: [Complex system modelling of human-water relationships]({{< relref "/project/ABSESpy" >}}).
 
 ### Causal inference
-In the paper [[Item Water Allocation Institution]], I applied 「[Differenced Synthetic Control](https://www.aeaweb.org/articles?id=10.1257/aer.20190159)」by Python to analyze institutional shifts' net effect on water use. 
+In the paper [Quantifying the Effects of Institutional Shifts on Water Governance]({{< relref "/publication/song2024d" >}}), I applied 「[Differenced Synthetic Control](https://www.aeaweb.org/articles?id=10.1257/aer.20190159)」by Python to analyze institutional shifts' net effect on water use. 
 
 ### Time series analysis
 Analyzing time-series data are available in a lot of my papers since evolution is of my top concerns: 
-- [Decoupling of SDGs followed by re-coupling as sustainable development progresses.pdf](/recent-publications/paper3/)
-- [Decreased Virtual Water Outflows from the Yellow River Basin Are Increasingly Critical to China](/publication/paper4/)
-- [Sediment Transport under Increasing Anthropogenic Stress_Regime Shifts within the Yellow River, China](/publication/paper10/)
-- [Improving Representation of Collective Memory in Socio-hydrological Models and New Insights into Flood Risk Management](/publication/paper8/)
+- [Decoupling of SDGs followed by re-coupling as sustainable development progresses.pdf]({{< relref "/publication/wu2022b" >}})
+- [Decreased Virtual Water Outflows from the Yellow River Basin Are Increasingly Critical to China]({{< relref "/publication/song2022a" >}})
+- [Sediment Transport under Increasing Anthropogenic Stress_Regime Shifts within the Yellow River, China]({{< relref "/publication/song2020" >}})
+- [Improving Representation of Collective Memory in Socio-hydrological Models and New Insights into Flood Risk Management]({{< relref "/publication/song2021a" >}})
 
 ### Data visualization
-I'm also a big fan of [data viz]([[Soft skills_Visualization]]) in Python; here are some of my workpieces:
+I'm also a big fan of [data viz]({{< relref "/post/post6" >}}) in Python; here are some of my workpieces:
 
 ![Figure 1](https://songshgeo-picgo-1302043007.cos.ap-beijing.myqcloud.com/uPic/index.jpg)
 ![Figure2](https://songshgeo-picgo-1302043007.cos.ap-beijing.myqcloud.com/uPic/Kb4REu.jpg)
