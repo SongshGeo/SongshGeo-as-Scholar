@@ -176,6 +176,7 @@ content/en/publication/citation_key/
 - `--force`：可选，覆盖已存在的文件夹（谨慎使用）
 - `--only-missing`：可选，只创建真正缺失的论文（默认行为）
 - `--all`：可选，创建所有缺失的论文，包括标题匹配的
+- `--include-unpublished`：可选，把尚无发表年份的草稿（submitted、under review 等）也算进来
 
 ### 使用建议
 

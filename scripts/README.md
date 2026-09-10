@@ -6,6 +6,10 @@
 2. **`check_missing_publications_enhanced.py`** - 增强版检查脚本，支持智能标题匹配和 PDF 检查
 3. **`create_publication_template.py`** - 为缺失的论文自动生成页面模板
 4. **`extract_abstract_from_pdf.py`** - 从 PDF 文件自动提取摘要并更新到 index.md（使用 OpenAI + LangChain）
+5. **`sync_pubs_from_zotero.py`** - 从 Zotero 保存的检索式同步文献到 `My-Publications.bib`，并串联建页、打标签、生成论文列表 PDF
+6. **`auto_tag_publications.py`** - 为出版物页面推导主题标签
+7. **`bibtex_entries.py`** - 共享的 BibTeX 条目解析器（其他脚本一律 import 它，不要自己写正则）
+8. **`check_site_integrity.py`** - 本仓库自有代码的完整性检查（不测主题）
 
 ## 安装依赖
 
@@ -194,6 +198,7 @@ content/en/publication/citation_key/
 - `--force`：可选，覆盖已存在的文件夹（谨慎使用）
 - `--only-missing`：可选，只创建真正缺失的论文（默认行为）
 - `--all`：可选，创建所有缺失的论文，包括标题匹配的
+- `--include-unpublished`：可选，把尚无发表年份的草稿（submitted、under review 等）也算进来
 
 ### 使用建议
 
@@ -523,4 +528,50 @@ A: 检查：
 3. 网络连接是否正常
 4. 是否触发了速率限制（可以减少 `--max-publications`）
 
+---
 
+## 从 Zotero 同步（`sync_pubs_from_zotero.py`）
+
+对应 `make sync-pubs`。需要 Zotero 正在运行且装有 Better BibTeX。
+
+```bash
+poetry run python scripts/sync_pubs_from_zotero.py
+make sync-pubs                                   # 等价，走完整流程
+make sync-pubs SYNC_ARGS="--since 2020"          # 只要 2020 年以后的
+make sync-pubs SYNC_ARGS="--update-existing"     # 允许刷新已存在的条目
+```
+
+默认读取名为 `#00.English my-pubs` 的保存检索式；用 `--search` 换成别的。
+
+> **citekey 必须在 Zotero 里 pin 住。** `My-Publications.bib` 由 Better BibTeX
+> 生成，页面目录名就是 citekey。如果某个条目的 key 没有 pin，BBT 可能在下次同步
+> 时重新分配它——`song2021a` / `song2021b` 就曾经因此与页面对调，导致两篇论文的
+> 元数据互串。改完 bib 里的 key 之后，记得回 Zotero 对应条目上把它 pin 住
+> （右键 → Better BibTeX → Pin BibTeX key）。`make test` 只能发现页面与 bib 完全
+> 对不上的情况，发现不了两个 key 互换。
+
+## 共享解析器（`bibtex_entries.py`）
+
+所有需要拆分 BibTeX 条目的脚本都必须 `from bibtex_entries import iter_entries`。
+
+历史教训：三个脚本各写各的正则，其中两个把条目正文写成 `[^@]*?`。这个写法迈不过字段里出现的 `@`（比如 `note` 里的邮箱、ORCID 链接），会**整条静默丢弃**，于是几个脚本对"有哪些 citekey"的看法不一致。`make test` 里有一条检查专门盯着这件事。
+
+## 完整性检查（`check_site_integrity.py`）
+
+```bash
+make test          # 只查源码，随时可跑
+make test-full     # 先构建，再连渲染结果一起查
+```
+
+检查项：
+
+- 每个 `content/*/publication/<key>/` 都能在 `My-Publications.bib` 里找到条目——否则 `sync_pubs_from_zotero.py` 根本看不见它，永远修不了
+- `i18n/en.yaml` 与 `i18n/zh.yaml` 的键完全一致，且模板引用的键都有定义
+- `assets/js/`、`assets/scss/` 和 `layouts/` 里没有硬编码的展示文案。JS 按**去向**判定：凡是写进 `textContent` / `innerHTML` / `aria-label` 等的字面量都要来自 `window.__siteUI`；`'<span class="x">'` 这类纯标签片段不算
+- 正文里没有残留的 Obsidian `[[wikilink]]`（Hugo 不认识它，会把方括号原样渲染到页面上，且不报警告）
+- `scripts/` 里只有一个 BibTeX 条目解析器，字段抽取也只有一份
+- （`test-full`）`window.__siteUI` 渲染成 JS 对象而不是字符串，且站内链接无死链
+
+只覆盖本仓库自己写的部分，不测 Hugo、Hugo Blox 或主题。唯一的例外是死链检查——它扫整个渲染结果，因为主题的列表页、标签页也是拿我们的内容生成的，那里的死链同样源于我们写的东西。
+
+CI 在每个 PR 上自动跑这套检查（`.github/workflows/preview.yml`）。

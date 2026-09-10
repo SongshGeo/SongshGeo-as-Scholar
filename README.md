@@ -84,7 +84,9 @@ Before starting, ensure:
 
 | Command | Description |
 |---------|-------------|
+| `make sync-pubs` | Pull Zotero saved search → bib → pages → tags → PDF |
 | `make check` | Check for duplicates/missing publications |
+| `make check-pdf-interactive` | Same as `check-pdf`, plus a prompt to create missing pages |
 | `make check-pdf` | Check which publications lack PDFs |
 | `make preview-rename` | Preview file renaming (cite.bib + PDFs) |
 | `make rename` | Rename files to match citation keys |
@@ -92,6 +94,7 @@ Before starting, ensure:
 | `make update-publist` | Compile publication list PDF |
 | `make update-publist-verbose` | Same as above, show XeLaTeX/biber output (debug) |
 | `make package-publist-skill` | Zip skill + Makefile + docs (+ local `publist/` sources) for sharing |
+| `make package-sync-pubs-skill` | Zip the sync-pubs-from-zotero skill bundle for sharing |
 | `make full-update` | Complete automated workflow |
 
 ### Development
@@ -101,6 +104,8 @@ Before starting, ensure:
 | `make install` | Install dependencies |
 | `make server` | Start Hugo development server |
 | `make build` | Build the site |
+| `make test` | Integrity checks on the code we wrote (not the theme) |
+| `make test-full` | Build, then also check the rendered output |
 | `make clean` | Clean generated files |
 
 ### Deployment

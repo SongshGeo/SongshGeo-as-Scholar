@@ -246,6 +246,7 @@ pip install langchain langchain-community langchain-openai openai pypdf python-d
 | `create_publication_template.py` | 自动创建论文页面模板 | 添加新论文 |
 | `extract_abstract_from_pdf.py` | 从 PDF 自动提取摘要 | 批量补充摘要 |
 | `check_missing_publications.py` | 基础版检查脚本 | 快速检查 |
+| `check_site_integrity.py` | 本仓库自有代码的完整性检查 | `make test` / `make test-full`，CI 每个 PR 自动跑 |
 
 ### 详细使用方法
 

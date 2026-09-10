@@ -97,6 +97,10 @@ make show-log
 ### 4. 测试
 
 ```bash
+# 完整性检查（只查我们自己写的代码，不测主题）
+make test          # 只查源码，秒级
+make test-full     # 先构建，再连渲染结果一起查
+
 # 启动本地服务器
 make server
 
