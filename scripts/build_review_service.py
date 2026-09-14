@@ -290,8 +290,6 @@ def render(journals: list[Journal], field_order: list[str]) -> str:
                 item += f" ({journal.quartile}, {year})"
             else:
                 item += f" ({year})"
-            if journal.count > 1:
-                item += f"~$\\times${journal.count}"
             items.append(item)
         lines += [
             "",
