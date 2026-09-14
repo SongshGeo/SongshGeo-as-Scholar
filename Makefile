@@ -6,9 +6,19 @@ BIB_FILE := My-Publications.bib
 LANG := en
 CONTENT_DIR := content
 PUBLIST_DIR := publist
+CV_DIR := cv
 UPLOADS_DIR := static/uploads
 # Final publication list PDF path (override: make PUBLIST_OUTPUT_PDF=/path/to/out.pdf update-publist)
 PUBLIST_OUTPUT_PDF := $(UPLOADS_DIR)/pubs.pdf
+# Final full-CV PDF path. The filename is linked from content/*/authors/admin/_index.md,
+# so changing it means updating those links too.
+CV_OUTPUT_PDF := $(UPLOADS_DIR)/SongshGeo_fullCV.pdf
+# TeX engine per document — see the latex_build comment; do not swap these.
+PUBLIST_ENGINE := xelatex
+CV_ENGINE := pdflatex
+# Output redirection for the LaTeX passes. The *-verbose targets clear it per-target
+# so the full engine/biber output reaches the terminal.
+LATEX_QUIET := > /dev/null 2>&1
 # Zip bundle for sharing the compile-publist-from-bib skill (see package-publist-skill)
 PUBLIST_SKILL_ZIP_DIR := dist
 
@@ -45,7 +55,8 @@ RED := \033[0;31m
 NC := \033[0m # No Color
 
 .PHONY: help check check-pdf check-pdf-interactive preview-rename rename extract-abstracts update-publist \
-		update-publist-verbose package-publist-skill sync-pubs package-sync-pubs-skill full-update install server build test test-full clean status commit push deploy \
+		update-publist-verbose update-cv update-cv-verbose update-pdfs \
+		package-publist-skill sync-pubs package-sync-pubs-skill full-update install server build test test-full clean status commit push deploy \
 		docs-serve docs-build
 
 # Default target
@@ -55,7 +66,7 @@ help:
 	@echo "$(BLUE)╚════════════════════════════════════════════════════════════════╝$(NC)"
 	@echo ""
 	@echo "$(GREEN)📚 Publication Management Workflow:$(NC)"
-	@echo "  $(YELLOW)make sync-pubs$(NC)          Pull Zotero saved search → bib → pages → tags → PDF"
+	@echo "  $(YELLOW)make sync-pubs$(NC)          Pull Zotero saved search → bib → pages → tags → PDFs"
 	@echo "  $(YELLOW)make check$(NC)              Check for duplicates/missing publications"
 	@echo "  $(YELLOW)make check-pdf$(NC)          Check which publications lack PDFs"
 	@echo "  $(YELLOW)make check-pdf-interactive$(NC) Same + optional prompt to create missing pages"
@@ -64,9 +75,12 @@ help:
 	@echo "  $(YELLOW)make extract-abstracts$(NC)  Extract abstracts from PDFs"
 	@echo "  $(YELLOW)make update-publist$(NC)     Compile publication list PDF"
 	@echo "  $(YELLOW)make update-publist-verbose$(NC) Same, show XeLaTeX/biber output (debug)"
+	@echo "  $(YELLOW)make update-cv$(NC)          Compile full CV PDF (same master bib)"
+	@echo "  $(YELLOW)make update-cv-verbose$(NC)  Same, show pdfLaTeX/biber output (debug)"
+	@echo "  $(YELLOW)make update-pdfs$(NC)        Rebuild both PDFs (publist + CV)"
 	@echo "  $(YELLOW)make package-publist-skill$(NC) Zip skill + Makefile + docs for sharing"
 	@echo "  $(YELLOW)make package-sync-pubs-skill$(NC) Zip the Zotero-sync skill for sharing"
-	@echo "  $(YELLOW)make full-update$(NC)        Complete workflow (check → rename → extract → publist)"
+	@echo "  $(YELLOW)make full-update$(NC)        Complete workflow (check → rename → extract → PDFs)"
 	@echo ""
 	@echo "$(GREEN)🛠️  Development:$(NC)"
 	@echo "  $(YELLOW)make install$(NC)            Install dependencies"
@@ -130,58 +144,75 @@ extract-abstracts:
 	@$(PYTHON) $(EXTRACT_SCRIPT) $(if $(EXTRACT_MAX_PUBLICATIONS),--max-publications $(EXTRACT_MAX_PUBLICATIONS),)
 	@echo "$(GREEN)✅ Abstracts extracted$(NC)"
 
+# Shared LaTeX build used by every document in this repo (publist/, cv/).
+# Each document lives in its own directory, is named main.tex, and pulls its
+# bibliography from the one master $(BIB_FILE) at the repo root — the copy that
+# lands in the document directory is a build artifact, not a source file.
+#
+# The engine is per-document and is NOT interchangeable:
+#   publist/ needs xelatex  — its template is written for it.
+#   cv/      needs pdflatex — it relies on \usepackage{times} and fontawesome v4,
+#                             both of which are Type 1 / NFSS machinery. Under
+#                             xelatex, fontspec takes over, `times` is silently
+#                             ignored (the body font falls back to Latin Modern)
+#                             and fontawesome v4 fails to find its OTF on macOS.
+#   $(1) = source directory
+#   $(2) = output PDF path
+#   $(3) = human-readable label for the log lines
+#   $(4) = TeX engine
+# Verbosity comes from $(LATEX_QUIET), which the *-verbose targets clear per-target —
+# passing shell redirection through $(call) would make any comma in an argument fatal.
+define latex_build
+	@if [ ! -d "$(1)" ]; then \
+		echo "$(RED)❌ Error: $(1) directory not found$(NC)"; \
+		exit 1; \
+	fi
+	@if [ ! -f "$(BIB_FILE)" ]; then \
+		echo "$(RED)❌ Error: $(BIB_FILE) not found (set BIB_FILE to your .bib path)$(NC)"; \
+		exit 1; \
+	fi
+	@mkdir -p "$(dir $(2))"
+	@cp -f "$(BIB_FILE)" "$(1)/$(notdir $(BIB_FILE))"
+	@cd $(1) && $(4) -interaction=nonstopmode main.tex $(LATEX_QUIET)
+	@cd $(1) && biber main $(LATEX_QUIET)
+	@cd $(1) && $(4) -interaction=nonstopmode main.tex $(LATEX_QUIET)
+	@cd $(1) && $(4) -interaction=nonstopmode main.tex $(LATEX_QUIET)
+	@if [ -f "$(1)/main.pdf" ]; then \
+		cp $(1)/main.pdf $(2); \
+		echo "$(GREEN)✅ $(3) updated: $(2)$(NC)"; \
+	else \
+		echo "$(RED)❌ Error: Failed to compile $(3)$(NC)"; \
+		exit 1; \
+	fi
+endef
+
 # Compile publication list and move to uploads
 update-publist:
 	@echo "$(BLUE)📄 Compiling publication list...$(NC)"
-	@if [ ! -d "$(PUBLIST_DIR)" ]; then \
-		echo "$(RED)❌ Error: $(PUBLIST_DIR) directory not found$(NC)"; \
-		exit 1; \
-	fi
-	@if [ ! -f "$(BIB_FILE)" ]; then \
-		echo "$(RED)❌ Error: $(BIB_FILE) not found (set BIB_FILE to your .bib path)$(NC)"; \
-		exit 1; \
-	fi
-	@mkdir -p "$(dir $(PUBLIST_OUTPUT_PDF))"
-	@cp -f "$(BIB_FILE)" "$(PUBLIST_DIR)/$(notdir $(BIB_FILE))"
-	@cd $(PUBLIST_DIR) && xelatex -interaction=nonstopmode main.tex > /dev/null 2>&1
-	@cd $(PUBLIST_DIR) && biber main > /dev/null 2>&1
-	@cd $(PUBLIST_DIR) && xelatex -interaction=nonstopmode main.tex > /dev/null 2>&1
-	@cd $(PUBLIST_DIR) && xelatex -interaction=nonstopmode main.tex > /dev/null 2>&1
-	@if [ -f "$(PUBLIST_DIR)/main.pdf" ]; then \
-		cp $(PUBLIST_DIR)/main.pdf $(PUBLIST_OUTPUT_PDF); \
-		echo "$(GREEN)✅ Publication list updated: $(PUBLIST_OUTPUT_PDF)$(NC)"; \
-	else \
-		echo "$(RED)❌ Error: Failed to compile publication list$(NC)"; \
-		exit 1; \
-	fi
+	$(call latex_build,$(PUBLIST_DIR),$(PUBLIST_OUTPUT_PDF),Publication list,$(PUBLIST_ENGINE))
 
 # Same as update-publist but prints XeLaTeX/biber output (for debugging)
+update-publist-verbose: LATEX_QUIET :=
 update-publist-verbose:
 	@echo "$(BLUE)📄 Compiling publication list (verbose)...$(NC)"
-	@if [ ! -d "$(PUBLIST_DIR)" ]; then \
-		echo "$(RED)❌ Error: $(PUBLIST_DIR) directory not found$(NC)"; \
-		exit 1; \
-	fi
-	@if [ ! -f "$(BIB_FILE)" ]; then \
-		echo "$(RED)❌ Error: $(BIB_FILE) not found (set BIB_FILE to your .bib path)$(NC)"; \
-		exit 1; \
-	fi
-	@mkdir -p "$(dir $(PUBLIST_OUTPUT_PDF))"
-	@cp -f "$(BIB_FILE)" "$(PUBLIST_DIR)/$(notdir $(BIB_FILE))"
-	@cd $(PUBLIST_DIR) && xelatex -interaction=nonstopmode main.tex
-	@cd $(PUBLIST_DIR) && biber main
-	@cd $(PUBLIST_DIR) && xelatex -interaction=nonstopmode main.tex
-	@cd $(PUBLIST_DIR) && xelatex -interaction=nonstopmode main.tex
-	@if [ -f "$(PUBLIST_DIR)/main.pdf" ]; then \
-		cp $(PUBLIST_DIR)/main.pdf $(PUBLIST_OUTPUT_PDF); \
-		echo "$(GREEN)✅ Publication list updated: $(PUBLIST_OUTPUT_PDF)$(NC)"; \
-	else \
-		echo "$(RED)❌ Error: Failed to compile publication list$(NC)"; \
-		exit 1; \
-	fi
+	$(call latex_build,$(PUBLIST_DIR),$(PUBLIST_OUTPUT_PDF),Publication list,$(PUBLIST_ENGINE))
 
-# Zip the compile-publist-from-bib skill, Makefile, README, and publist-related docs for sharing.
-# If publist/ exists locally (often gitignored), it is included so recipients get the LaTeX template.
+# Compile the full academic CV and move to uploads
+update-cv:
+	@echo "$(BLUE)📄 Compiling full CV...$(NC)"
+	$(call latex_build,$(CV_DIR),$(CV_OUTPUT_PDF),Full CV,$(CV_ENGINE))
+
+# Same as update-cv but prints pdfLaTeX/biber output (for debugging)
+update-cv-verbose: LATEX_QUIET :=
+update-cv-verbose:
+	@echo "$(BLUE)📄 Compiling full CV (verbose)...$(NC)"
+	$(call latex_build,$(CV_DIR),$(CV_OUTPUT_PDF),Full CV,$(CV_ENGINE))
+
+# Rebuild every PDF that is generated from the master bib
+update-pdfs: update-publist update-cv
+
+# Zip the compile-publist-from-bib skill, Makefile, README, publist-related docs, and the
+# publist/ LaTeX template for sharing.
 package-publist-skill:
 	@echo "$(BLUE)📦 Packaging publist skill bundle...$(NC)"
 	@command -v zip >/dev/null 2>&1 || { echo "$(RED)❌ zip not found (install zip).$(NC)"; exit 1; }
@@ -203,15 +234,8 @@ package-publist-skill:
 		docs/SETUP_COMPLETE.md \
 		docs/SCRIPTS_CHANGELOG.md; \
 	if [ $$? -ne 0 ]; then exit 1; fi; \
-	if [ -d publist ]; then \
-		echo "$(YELLOW)Including local publist/ (sources only: no .git, no LaTeX aux)$(NC)"; \
-		find publist \( -type d -name .git -prune \) -o \( -type f \
-			! -name '*.aux' ! -name '*.log' ! -name '*.bbl' ! -name '*.bcf' ! -name '*.blg' \
-			! -name '*.out' ! -name '*.run.xml' ! -name '*.synctex.gz' ! -name '*.pdf' \
-			! -name '*.bpx' \) -print | zip -r "$$ZIP" -@; \
-	else \
-		echo "$(YELLOW)publist/ not found — skipped (often gitignored). Clone template locally to include.$(NC)"; \
-	fi; \
+	zip "$$ZIP" $(PUBLIST_DIR)/main.tex $(PUBLIST_DIR)/README.md; \
+	if [ $$? -ne 0 ]; then exit 1; fi; \
 	echo "$(GREEN)✅ Bundle: $$ZIP$(NC)"
 
 # Sync the master bib from a Zotero saved search, then run the full page pipeline.
@@ -240,8 +264,8 @@ sync-pubs:
 	@echo "$(YELLOW)Step 4/5: Syncing role / year tags...$(NC)"
 	@$(PYTHON) $(AUTOTAG_SCRIPT)
 	@echo ""
-	@echo "$(YELLOW)Step 5/5: Rebuilding the publication list PDF...$(NC)"
-	@$(MAKE) update-publist
+	@echo "$(YELLOW)Step 5/5: Rebuilding the publication list and CV PDFs...$(NC)"
+	@$(MAKE) update-pdfs
 	@echo ""
 	@echo "$(GREEN)╔════════════════════════════════════════════════════════════════╗$(NC)"
 	@echo "$(GREEN)║              ✅ Zotero Sync Completed!                        ║$(NC)"
@@ -316,8 +340,8 @@ full-update:
 		echo "$(YELLOW)Step 5/6: Skipped abstract extraction$(NC)"; \
 	fi
 	@echo ""
-	@echo "$(YELLOW)Step 6/6: Updating publication list...$(NC)"
-	@$(MAKE) update-publist
+	@echo "$(YELLOW)Step 6/6: Updating publication list and CV...$(NC)"
+	@$(MAKE) update-pdfs
 	@echo ""
 	@echo "$(GREEN)╔════════════════════════════════════════════════════════════════╗$(NC)"
 	@echo "$(GREEN)║              ✅ Full Update Completed!                        ║$(NC)"
@@ -354,7 +378,10 @@ test-full: build
 clean:
 	@echo "$(BLUE)🧹 Cleaning generated files...$(NC)"
 	@rm -rf public resources .hugo_build.lock
-	@rm -f $(PUBLIST_DIR)/*.aux $(PUBLIST_DIR)/*.log $(PUBLIST_DIR)/*.out $(PUBLIST_DIR)/*.pdf
+	@for d in $(PUBLIST_DIR) $(CV_DIR); do \
+		rm -f $$d/*.aux $$d/*.bbl $$d/*.bcf $$d/*.blg $$d/*.bpx \
+			$$d/*.log $$d/*.out $$d/*.run.xml $$d/*.pdf $$d/$(notdir $(BIB_FILE)); \
+	done
 	@echo "$(GREEN)✅ Cleaned!$(NC)"
 
 # Show recent logs

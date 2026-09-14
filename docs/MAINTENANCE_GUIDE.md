@@ -214,7 +214,12 @@ main:
 
 **常见文件**:
 - `assets/media/icon.png`: 网站图标
-- `static/uploads/resume.pdf`: 简历 PDF
+- `static/uploads/pubs.pdf`: 完整发表列表（由 `make update-publist` 生成，勿手工替换）
+- `static/uploads/SongshGeo_fullCV.pdf`: 完整学术简历（由 `make update-cv` 生成，勿手工替换）
+- `static/uploads/Song_CV_2pages.pdf`: 两页精简版简历（手工维护，仓库内没有源文件）
+
+前两个 PDF 的 LaTeX 源码分别在 `publist/` 和 `cv/`，共用根目录的 `My-Publications.bib`。
+要改内容请改 `.tex` 再重新编译，直接替换 PDF 会在下次编译时被覆盖。
 
 **更新频率**: 根据需要
 

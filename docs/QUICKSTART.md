@@ -76,8 +76,8 @@ make rename
 # 5. 提取摘要（可选）
 make extract-abstracts
 
-# 6. 更新发表列表
-make update-publist
+# 6. 更新生成的 PDF（发表列表 + 完整简历）
+make update-pdfs
 ```
 
 ### 查看结果
@@ -174,7 +174,7 @@ CONTENT_DIR := content             # 内容目录
 - [ ] ✅ 已导出最新的 BibTeX 文件
 - [ ] ✅ 新论文的 PDF 已上传
 - [ ] ✅ 设置了 OpenAI API Key（如需摘要提取）
-- [ ] ✅ publist 目录可访问（如需更新列表）
+- [ ] ✅ 已安装 xelatex、pdflatex 和 biber（分别编译 `publist/` 和 `cv/`）
 
 ## 💡 提示
 
@@ -236,9 +236,13 @@ poetry run python scripts/extract_abstract_from_pdf.py --key test --dry-run
 
 **Q: XeLaTeX 编译失败**
 ```bash
-# 手动编译查看错误
-cd publist
-xelatex main.tex
+# 看完整编译输出（发表列表 / 简历）
+make update-publist-verbose
+make update-cv-verbose
+
+# 或手动编译（注意两者引擎不同）
+cd publist && xelatex main.tex
+cd cv      && pdflatex main.tex
 ```
 
 查看完整故障排查：[`WORKFLOW.md#故障排查`](WORKFLOW.md#🐛-故障排查)

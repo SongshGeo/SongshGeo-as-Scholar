@@ -1,0 +1,130 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[T1]{fontenc}
+
+% 设置字体为 Times New Roman
+% https://tex.stackexchange.com/questions/603184/how-to-set-a-times-new-roman-in-latex
+\usepackage{times}
+\usepackage{csquotes}
+
+% Times (ptmr8t) 下 XeLaTeX 不认识裸的 Unicode 破折号，会被静默丢弃
+% （如 "Human–Water" 变成 "HumanWater"），这里显式映射回 LaTeX 的连字符写法
+\usepackage{newunicodechar}
+\newunicodechar{–}{--}
+\newunicodechar{—}{---}
+
+% 作者信息
+\title{Complete list of publications of Shuang Song}
+\author{Shuang Song}
+
+% 设定页边距
+\usepackage[
+    top=1.5cm,
+    left=2cm,
+    bottom=1.5cm,
+    right=1.5cm,
+]{geometry}
+
+% 设定行距
+\usepackage{setspace}
+\linespread{1.15}
+
+% 使用publist包可以直接很方便的打印参考文献列表，突出自己作品
+\usepackage[
+   style=publist,
+   plauthorhandling=highlight,
+   minnames=5,
+   maxnames=50,
+   isbn=false,
+   url=false,
+   % fixyear=false,  % 强调年份
+   marginyear=true,  % 在侧边打印年份
+   giveninits=true,  % 名仅首字母
+   % hlyear=false,
+   labeldateparts=false,
+   plnumbering=local,
+   % pubstateextra=true,
+]{biblatex}
+
+% 强调作者
+\plauthorname[Shuang]{Song}
+
+% 未发表条目按投稿状态分组
+% ydnt 模板的排序键是 presort → year(降序) → 作者名。year={submitted} /
+% {under review} 都不是合法日期，biber 解析不出年份，会一起回落到占位值 9999，
+% 于是所有未发表条目在年份这一级完全并列，只能由作者姓氏决定先后 —— 两种状态
+% 就被交错开了。这里按状态改写 presort（排序第一级）把它们各自聚成一块。
+% 用 sourcemap 在编译时注入而不是直接改 bib：bib 由 Zotero 同步生成，改了会被覆盖。
+% 前缀取 a*，保证未发表条目仍排在已发表条目（默认 presort=mm）之前。
+% 未覆盖的状态串会保留默认 mm，落到已发表条目之首，不会散开。
+\DeclareSourcemap{
+  \maps[datatype=bibtex]{
+    \map[overwrite]{
+      \step[fieldsource=year, match=\regexp{(?i)under\s*review}, final]
+      \step[fieldset=presort, fieldvalue={aa}]
+    }
+    \map[overwrite]{
+      \step[fieldsource=year, match=\regexp{(?i)submitted}, final]
+      \step[fieldset=presort, fieldvalue={ab}]
+    }
+    \map[overwrite]{
+      \step[fieldsource=year, match=\regexp{(?i)in\s*prep}, final]
+      \step[fieldset=presort, fieldvalue={ac}]
+    }
+  }
+}
+
+\addbibresource{My-Publications.bib}
+
+% 打印姓名注释
+\renewcommand*{\mkbibnamefamily}[1]{%
+	\ifitemannotation{corresponding}
+	   {\textsuperscript{*}}
+	   {}%
+	\ifitemannotation{main}
+	   {\textsuperscript{\textdaggerdbl}}%
+	   {}%
+	#1
+}
+
+% 根据包作者推荐的方式
+\usepackage{xpatch}
+\xpatchbibmacro{bpl:date:makedate}{\iffieldundef{year}}{\unspace\iffieldundef{year}}
+% 重新定义如何强调时间
+\renewcommand*\plyearhl[1]{%
+    (#1)%
+}
+% 忽略月份和日期，只显示年份
+\AtEveryBibitem{
+  \clearfield{month}
+  \clearfield{day}
+}
+
+\begin{document}
+
+\maketitle
+\nocite{*}
+\printbibliography[
+    type=article,
+    title={A) Publications with peer review process},
+    notkeyword={to-read},
+    % 中文原文条目（已有英译版本在列）不重复列出，见 bib 中的 duplicate-zh 关键词
+    notkeyword={duplicate-zh},
+]
+
+\newrefsection
+\nocite{*}
+\printbibliography[
+    type=inproceedings,
+    title={B) Publications without peer review process},
+]
+
+\textbf{* = Corresponding author} 
+
+\textbf{The following above-mentioned publications have evolved from my doctoral dissertation}: 
+\begin{itemize}
+    \item \citetitle{song2023a} (\citeyear{song2023a})
+    \item \citetitle{song2023b} (\citeyear{song2023b})
+    \item \citetitle{song2019} (\citeyear{song2019})
+\end{itemize}
+
+\end{document}

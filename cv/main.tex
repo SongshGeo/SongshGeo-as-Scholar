@@ -1,0 +1,495 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Medium Length Professional CV
+\documentclass{resume} % Use the custom resume.cls style
+
+\usepackage[
+  a4paper,
+  top=15mm,
+  bottom=15mm,
+  left=15mm,
+  right=15mm,
+  includeheadfoot=false,
+  footskip=8mm,
+  headheight=15mm,
+  headsep=5mm,
+]{geometry}
+
+% 本文档用 pdfLaTeX 编译（见 Makefile 的 CV_ENGINE）。fontawesome v4 和 times 在
+% pdfTeX 下走 Type 1 / NFSS，开箱即用；换成 xelatex 会让 fontspec 接管，times 被静默
+% 忽略（正文字体退回 Latin Modern），且 fontawesome 找不到自己的 OTF。
+\usepackage{fontawesome}
+\usepackage{times}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{xurl}
+\urlstyle{same}
+
+\newcommand{\tab}[1]{\hspace{.2667\textwidth}\rlap{#1}}
+\newcommand{\itab}[1]{\hspace{0em}\rlap{#1}}
+
+% 标题设置
+% 在导言区定义 @maketitle
+\makeatletter
+\def\@maketitle{
+    \begin{center}
+        \normalfont \normalsize
+        \vspace{0.3cm}
+        \underline{\LARGE \bfseries \@title \par}
+        \vspace{-0.5cm}  % 调整标题和正文之间的垂直间距
+    \end{center}
+}
+\makeatother
+
+\title{Dr. Shuang Song}  % 设置标题
+\author{}
+\date{}
+
+
+% 定义重复使用的格式设置宏
+\newcommand{\employmententry}[3]{\textbf{\textit{#1}} \hfill {\em #2} \\ \textnormal{\em #3}}
+\newcommand{\projectentry}[4]{\textit{[#1]} {\bf #2} \\ \textnormal{\em #3} \hfill {\em #4}}
+\newcommand{\addressinfo}[2]{\address{\faGithub{ #1} \faEnvelope{ #2}}}
+\newcommand{\awardentry}[3]{\textnormal{ \textit {#1}  \hfill {\em #2} #3}}
+
+
+% 使用publist包可以直接很方便的打印参考文献列表，突出自己作品
+\usepackage[
+   style=publist,
+   plauthorhandling=highlight,
+   minnames=5,
+   maxnames=5,
+   isbn=false,
+   url=false,
+   % fixyear=false,  % 强调年份
+   % marginyear=true,  % 在侧边打印年份
+   giveninits=true,
+   % hlyear=false,
+   % labeldateparts=false,
+   plnumbering=local,
+   % doi=false,
+]{biblatex}
+% 标记"尚未被接收"的条目，CV 只展示已发表 / 已接收的成果，把它们排除掉
+% （见下面 \printbibliography 的 notkeyword={cv-unpublished}）。
+% 判定看 year 字段的状态串：submitted / under review / in prep 会被排除；
+% 合法年份和 accepted 都不匹配这三条，所以会正常保留。
+%
+% 每条同时还改写 presort。当前这些条目根本不会被打印，presort 看似多余，但保留
+% 有两个理由：一是把"状态"和"排序"的规则放在一起，将来放宽过滤时排序直接是对的；
+% 二是和 publist/main.tex 的同一段逻辑保持一致。原因如下：
+% ydnt 模板的排序键是 presort → year(降序) → 作者名。year={submitted} /
+% {under review} 都不是合法日期，biber 解析不出年份，会一起回落到占位值 9999，
+% 于是所有未发表条目在年份这一级完全并列，只能由作者姓氏决定先后 —— 两种状态
+% 就被交错开了。按状态改写 presort（排序第一级）把它们各自聚成一块。
+% 用 sourcemap 在编译时注入而不是直接改 bib：bib 由 Zotero 同步生成，改了会被覆盖。
+% 前缀取 a*，保证未发表条目仍排在已发表条目（默认 presort=mm）之前。
+\DeclareSourcemap{
+  \maps[datatype=bibtex]{
+    \map[overwrite]{
+      \step[fieldsource=year, match=\regexp{(?i)under\s*review}, final]
+      \step[fieldset=presort, fieldvalue={aa}]
+      \step[fieldset=keywords, fieldvalue={,cv-unpublished}, append]
+    }
+    \map[overwrite]{
+      \step[fieldsource=year, match=\regexp{(?i)submitted}, final]
+      \step[fieldset=presort, fieldvalue={ab}]
+      \step[fieldset=keywords, fieldvalue={,cv-unpublished}, append]
+    }
+    \map[overwrite]{
+      \step[fieldsource=year, match=\regexp{(?i)in\s*prep}, final]
+      \step[fieldset=presort, fieldvalue={ac}]
+      \step[fieldset=keywords, fieldvalue={,cv-unpublished}, append]
+    }
+    % 只保留一作 / 通讯作者的论文：给符合条件的条目打上 cv-selected 关键词。
+    % 判定规则和实现上的坑都写在 author-filter.tex 里。
+    \input{author-filter}
+  }
+}
+
+% 参考文献源：仓库根目录的主 bib（由 Zotero 同步维护）。
+% `make update-cv` 会把它拷进本目录，不要在这里直接编辑副本。
+\addbibresource{My-Publications.bib}
+\AtEveryBibitem{
+  \clearfield{month}
+  \clearfield{day}
+}
+
+\usepackage{csquotes}  % 正确使用引号
+% 通讯作者标星号。挂在 \mkbibnamegiven 而不是 \mkbibnamefamily 上：名字按
+% "Song, S." 排印（姓在前、名缩写在后），所以星号要跟在名的后面才得到惯例的
+% "Song, S.*"；挂在 family 上会变成 "*Song, S."（publist/main.tex 就是这样）。
+% 标注来自 bib 的 Author+an 字段（由 Zotero 维护）。
+\renewcommand*{\mkbibnamegiven}[1]{%
+  #1%
+  \ifitemannotation{corresponding}{\textsuperscript{*}}{}%
+}
+
+% 设定行距
+\usepackage{setspace}
+
+% 强调作者
+\plauthorname[Shuang]{Song}
+
+
+% \name{Shuang Song} % Your name
+
+\address{\faGithub{ github.com/SongshGeo} \faGlobe{ https://songshgeo.com/ } \faBook{ https://www.gea.mpg.de/person/137764 } } 
+
+\address{ \faEnvelope{ song@gea.mpg.de} \faPhone{+49 1784979062} }
+\address{\faMapMarker{ Max Planck Institute of Geoanthropology, Kahlaische Strasse 10, 07745 Jena, Germany}}
+
+\begin{document}
+\vspace{-8.8em}
+% https://tex.stackexchange.com/questions/86249/maketitle-text-before-title
+
+{\let\newpage\relax\maketitle}
+\maketitle
+
+\vspace{7em}
+% \section*{4. Curriculum Vitae of Shuang Song}
+
+%----------------------------------------------------------------------------------------
+%	EDUCATION SECTION
+%----------------------------------------------------------------------------------------
+
+\begin{rSection}{Education Background}
+\employmententry
+{Ph.D. in Physical Geography}{01/09/2018 - 30/06/2023}
+{Beijing Normal University, Beijing, China, 100875.}
+
+\employmententry
+{Study of History (Double Major)}{01/09/2014 - 30/06/2018}
+{Sun Yat-sen University, Guangdong, China, 510275.}
+
+\employmententry
+{B.S. of Science, Physical Geography}{01/09/2014 - 30/06/2018}
+{Sun Yat-sen University, Guangdong, China, 510275.}
+\end{rSection}
+
+\begin{rSection}{PROFESSIONAL EXPERIENCE}
+\employmententry{Postdoctoral Researcher}{01/01/2026 - present}{Department of Co-evolution of Land Use and Urbanisation, Max Planck Institute of Geoanthropology, Jena, Germany, 07745.}
+
+% Working closely with Prof. Patrick Roberts at the Max Planck Institute of Geoanthropology. I use a method that combines agent-based models and biophysical models to explore how past land use has affected the hydrosphere and interacted with urban development.
+
+\employmententry{Postdoctoral Researcher}{01/10/2024 - 31/12/2025}{Department of Co-evolution of Land Use and Urbanisation \& Department Structural Changes of the Technosphere, Max Planck Institute of Geoanthropology, Jena, Germany, 07745.}
+
+% Working closely with Prof. Patrick Roberts and Prof. Jürgen Renn at the Max Planck Institute of Geoanthropology, my research primarily uses water as a link to study the interaction and co-evolution between human society and hydrosphere. Based on my interdisciplinary background in Physical Geography and the Study of History, I currently focus on the long-term evolution of water management and its impact on human society in major river basins. I also examine how institutions can influence human-water interaction by changing human society's adaptation and resilience to environmental changes, thereby contributing to sustainable development.
+
+
+\employmententry{Postdoctoral Researcher}{01/07/2023 - 31/03/2025}
+{School of Environment \& RDC for Watershed Environmental Eco-Engineering, Beijing Normal University, Beijing, China, 100875.}
+
+% % 和王帅教授、刘世梁教授、李琰教授紧密合作，开发流域农业灌溉决策的多主体模型，并和研究团队的CWatM流域水文模型、系统动力学模型进行耦合，发展黄河流域人地系统耦合模型。我们使用高性能计算机，对农民主体在不同水资源分配制度、不同气候变化情景下的灌溉决策进行了模拟。模型模拟结果支持了相关决策部门（黄河水利委员会）的应用。
+% In collaboration with Professors Shuai Wang, Shiliang Liu, I developed an agent-based model (ABM) aimed at simulating agricultural irrigation decision-making within the Yellow River Basin. This model was integrated with our research team’s hydrological (CWatM) and system dynamics models to create a coupled human-environment framework, providing a comprehensive understanding of water resource allocation. Using high-performance computing, we simulated farmers’ irrigation decisions under varying climate change scenarios and water resource management systems. The outcomes of these simulations have directly informed decision-making processes at the Yellow River Water Resources Commission, showcasing the model's practical application in real-world water management. This project closely aligns with my ongoing work in socio-hydrological modelling, further refining ABM techniques to simulate human-environment interactions over time.
+
+\employmententry{Doctoral Researcher}{07/10/2017 - 30/06/2023}
+{State Key Laboratory of Earth Surface Processes and Resource Ecology, Faculty of Geography, Beijing Normal University, Beijing, China, 100875.}
+
+% 在实验室首席科学家 Bojie Fu 和实验室研究小组长王帅教授的指导下工作。对黄河流域的统计数据、气候数据、水文资料、问卷调研数据进行 GIS、遥感、机器学习、复杂网络建模等手段数据分析。改进并使用社会-水文模型模拟了黄河流域的堤防效应现象；使用历史记录、沉积数据等代分析资料量化黄河流域人水关系的历史演变稳态转换。参与编制了黄河流域国家重大专项的人水关系数据集。
+% Under the guidance of Chief Scientist Bojie Fu and Professor Shuai Wang, I conducted advanced analysis of climate, hydrological, and socio-economic data from the Yellow River Basin. Using GIS, remote sensing, machine learning, and complex network modeling, I improved and applied a socio-hydrological model to investigate the "levee effect" and its long-term impact on flood risks and urban resilience. I also utilized historical records and sediment data to reconstruct historical human-water interactions and identify regime shifts in the basin's socio-ecological system. As part of a National Major Research Plan (NSFC, 17 million CNY), I helped compile a human-water system dataset, contributing significantly to our understanding of sustainable water management in the region. My role included organizing and conducting extensive field research within the Yellow River Basin, providing me with deep practical insights into the region's environmental and socio-hydrological challenges.
+
+\employmententry{Teaching Assistant of Landscape Ecology}{01/09/2019 - 10/01/2020}
+{Faculty of Geography, Beijing Normal University, Beijing, China, 100875.}
+
+% % 在傅伯杰教授，王帅教授，赵文武教授，刘焱序博士的指导下，协助约50名研究生的景观生态学课程，包括准备讲座，协调讨论，布置与收集作业等。
+% Under the mentorship of Professors Bojie Fu, Shuai Wang, and Wenwu Zhao, I served as a teaching assistant for a graduate-level Landscape Ecology course. I was responsible for preparing lectures, facilitating discussions, and coordinating coursework for approximately 50 students. This role strengthened my ability to communicate complex environmental science topics and fostered my teaching and academic mentoring skills.
+
+\end{rSection}
+
+%--------------------------------------------------------------------------------
+%    Projects And Seminars
+%-----------------------------------------------------------------------------------------------
+
+
+\begin{rSection}{Funded Scientific Projects}
+
+\textit{[Co-PI]} {\bf Water - food - energy - ecosystem nexus in the Yellow River Basin from the perspective of reservoir operation}
+
+\textnormal{\em NSFC General Fund (Grantee: Xutong Wu, \textbf{Shuang Song}, 450,000 CNY)} \hfill {\em 2025-2028}
+
+This project aims to reveal the water-food-energy-ecosystem nexus in the Yellow River Basin, centering on the chain of "ecological restoration - water and sediment changes - reservoir operations - downstream food production", and to explore optimized operation strategies for the Xiaolangdi Reservoir under various scenarios that balance the needs for sediment reduction, hydropower generation,
+and irrigation. The findings will provide new insights into the 
+water-food-energy-ecosystem nexus and offer a scientific basis for ecological conservation and high-quality development of the Yellow River Basin, thereby holding significant scientific and practical value.
+
+\textit{[Principal Investigator]} {\bf Simulation and Optimization of Agricultural Irrigation Water Use in the Yellow River Basin by Agent-based Modeling}
+
+\textnormal{\em NSFC Young Scientists Fund (Grantee: \textbf{Shuang Song}, 300,000 CNY)} \hfill {\em 2024-2027}
+
+This project focuses on developing an agent-based model to simulate agricultural irrigation under various climate and policy scenarios. By integrating agent adaptability with public goods theory, we aim to identify the key drivers of changes in water use and predict future irrigation demand in response to climate shifts. This work builds on my previous experience with human-environment system modelling, directly contributing to future water management strategies in the river basin.
+
+\textit{[Participate]} {\bf Human Management of the Water Cycle in a Global Comparative Perspective}
+
+\textnormal{\em Joint Funded by Max-Planck Society (Grantee: Jürgen Renn, 200,000 ERU)} \hfill {\em 2024-2025}
+
+The research plan operates across three integrated focus areas: Geoanthropology, 
+real-time data integration, and water scarcity. This project aims to establish a global network of partners for global comparative studies. In this project, I collect water resource management case studies from around the world, create data visualisations, and network international partners.
+
+\textit{[Participate]} {\bf Coordination mechanism and regulation strategy of multiple processes of water-sediment-ecology-economy system in the Yellow River Basin}
+
+\textnormal{\em NSFC Joint Funds \& Yellow River Water Science Funds (Grantee: Enhui Jiang, 11,720,000 CNY)} \hfill {\em 2023-2026}
+
+As a key participant in this interdisciplinary project, I contributed to the development of a coordinated strategy to manage the interconnected water-sediment-ecology-economy system of the Yellow River Basin. My role included research design, data collection, data analysis, and report drafting. The project explores the feedback mechanisms between environmental changes and socio-economic dynamics, with implications for long-term sustainability.
+
+\textit{[Participate]} {\bf Mechanisms of human-natural system coupling and optimization of the Yellow River Basin}
+
+\textnormal{\em NSFC National Major Research Plan (Grantee: Bojie Fu, 17,000,000 CNY)} \hfill {\em 2021-2025}
+
+This large-scale project investigates the coupling mechanisms between human and natural systems, focusing on optimization strategies for sustainable development in the Yellow River Basin. My contributions spanned data analysis, report writing, and project coordination. The research outcomes have been instrumental in improving socio-hydrological models and enhancing our understanding of long-term water resource management.
+
+\textit{[Participate]} {\bf Sustainability of the socio-hydrological system}
+
+\textnormal{\em NSFC Excellent Young Scientists Fund (Grantee: Shuai Wang, 1,300,000 CNY)} \hfill {\em 2017-2020}
+
+This project aimed to improve mathematical models of socio-hydrology by examining the dynamic interactions between human activities and water systems in the Yellow River Basin. I was involved in the project's theoretical and empirical aspects, including data collection, model development, and the publication of findings. This experience directly supports my current research on the long-term resilience of human-environment systems.
+
+\end{rSection}
+
+\begin{rSection}{Publications}
+% \GetTotalCount 统计的是本文档"实际排印出来"的条目数，过滤之后它等于下面列出的
+% 篇数（而不是全部发表数）—— 句子里的说法必须和这个含义一致，别改成"总共发表"。
+\textnormal{Dr. Shuang Song has published in the leading journals, such as \textit{Nature Communications}, \textit{Water Resources Research}, \textit{Journal of Hydrology}, \textit{Hydrology and Earth System Science}, and \textit{Nature Sustainability}. Listed below are the \GetTotalCount~published or accepted articles with Dr. Song as \textbf{first or corresponding author}; for the complete list, including manuscripts under review, please visit \url{https://cv.songshgeo.com/publication/}.}
+
+\newrefsection
+\nocite{*}
+% cv-selected    由 author-filter.tex 打上：一作，或 Song 的位次恰好是
+%                Author+an 标注的 corresponding 位次。
+% cv-unpublished 由本文件开头的状态 sourcemap 打上：submitted / under review /
+%                in prep。CV 只展示已发表和已接收的成果，所以排除掉。
+\printbibliography[
+    type=article,
+    heading=none,
+    keyword={cv-selected},
+    notkeyword={cv-unpublished},
+    % 下面两个是预留开关，当前 bib 里都没有出现过（各 0 次），所以是空转。
+    % 和 publist/main.tex 保持一致：给 Zotero 里将来可能打的标签留好位置。
+    % to-read      = 只是想读、并非自己的成果
+    % duplicate-zh = 中文原文条目，已有英译版本在列，不重复列出
+    notkeyword={to-read},
+    notkeyword={duplicate-zh},
+]
+\endrefsection
+
+\vspace{0.4em}
+\textnormal{\textsuperscript{*}~= Corresponding author}
+
+\end{rSection}
+
+\begin{rSection}{Outreach Project Experience}
+
+    \projectentry{Co-PI}{Ecosystem services in Inner Mongolia}{Inner Mongolia Key Scientific Project (Grantee: \textbf{Joint sources})}{2021-present}
+
+    % 在这个项目中，我们深入内蒙草原民众，为讲解生态退化的危险.
+    In this project, we examine Inner Mongolian grassland communities to explain the dangers posed by ecological degradation. I have gone deep into the grasslands four times to conduct interviews and research with local herders to understand ecological issues.
+
+    \projectentry{Personal Project}{Popular Blogs: A geographer who also travels}{Monthly publish articles on \textit{https://songshgeo.com/}}{2018-present}
+
+    % 在这个系列写作中，我将自己定位为“A Geographer who also travels”。我使用中文写作，将自然地理知识结合自己旅行的见闻，用通俗易懂的语言传递给公众。已经获得收入 4,688 CNY，最高单篇文章阅读。网页有近4000访客。
+    In this series of writings, I position myself as "A Geographer who also travels." I write in Chinese, combining geographic knowledge, academic concepts, and travel experiences, and convey them to the public in an easy-to-understand language. I have earned 4,688 CNY tips for this blog, with 812 subscriptions and readership. The webpage has around 4,000 visitors.
+
+\end{rSection}
+
+% ============ 演讲 ============ %
+
+\begin{rSection}{PROFESSIONAL PRESENTATIONS}
+
+    % 社会-水文学大会
+    \projectentry{Oral Presentation}{Millennial-scale data reveals a collective memory of extreme drought and flood events.}{University of Tokyo, Tokyo, Japan}{20/07/2025}
+
+    % 陕师大
+    \projectentry{Invited Presentation}{Research on the Long-term Co-evolution of Human Ecology and Water Environment Based on Model Simulation.}{Shanxi Normal University, Xi'an, China}{31/03/2025}
+
+    % 哈工大
+    \projectentry{Invited Presentation}{Co-evolution between Hydro-system and Historical cities.}{Harbin Institute of Technology (Shenzhen Campus), Shenzhen, China}{17/03/2025}
+
+    % 宁夏大学
+    \projectentry{Oral Presentation}{The Evolution Process and Driving Mechanisms of the Human-Water Relationship in the Yellow River from the Perspective of Watershed Governance.}{Ningxia University, Ningxia, China}{19/07/2024}
+
+    % 水文过程论坛
+    \projectentry{Oral Presentation}{The Evolution Process and Driving Mechanisms of the Human-Water Relationship in the Yellow River from the Perspective of Water Governance. (In Chinese)}{1st Hydrological Process Forum, Shenzhen, China}{26/04/2024}
+
+    % EGU 2024
+    \projectentry{Oral Presentation}{Empowering Human-Water System Analysis through ABSESpy: An Agent-Based Modeling Framework of SES.}{European Geosciences Union Assembly 2024, Vienna, Austria}{19/04/2024}
+
+    % EGU  2023
+    \projectentry{Oral Presentation}{Research on a coupling model of Human-Earth system -A case study of agent-based model}{EGU General Assembly 2023, Vienna, Austria}{25/04/2023}
+
+    % 生态文明与可持续发展论坛 2021
+    \projectentry{Oral Presentation}{Analysis of the Complexity of Virtual Water Transfer in the Yellow River Basin}{Academic Forum on Ecological Civilization and Sustainable Development, China}{22/11/2021}
+
+    % 国重实验室论坛 2021
+    \projectentry{Oral Presentation}{Study on human-water relationship change in the Yellow River Basin}{Conference of State Key Laboratory of Earth Surface Processes and Resource Ecology, Beijing, China}{19/06/2021}
+
+    % ÅGU 2019
+    \projectentry{Oral Presentation}{Sediment Transport under Increasing Anthropogenic Stress: Regime Shifts Within the Yellow River, China.}{AGU Fall Meeting 2019, San Francisco, USA}{10/12/2019}
+\end{rSection}
+
+% ====== 获奖 ======== %
+
+\begin{rSection}{HONORS AND AWARDS} \itemsep -3pt
+
+% 2025研究生学术创新奖
+\awardentry{Academic Innovation Award at Beijing Normal University}{05/2025}{}
+
+% 最佳博士论文
+\awardentry{Beijing Excellent Doctoral Thesis}{07/2024}{}
+
+\awardentry{Excellent Doctoral Thesis (Top 1 in Geography)}{04/2024}{}
+
+\awardentry{2nd in the 8th National Disaster Reduction and Emergency Management Academic Competition} {05/2020}{}
+
+\awardentry{1st \& Best Lecturer in the Third Academic Speech Competition of Beijing Normal University} {05/2019}{}
+
+\awardentry{1st in the 10th Experimental Science Championship of Systems Science} {11/2018}{}
+
+\awardentry{Outstanding graduate thesis (Top 1 in Physical Geography)} {06/2018}{}
+
+\awardentry{Outstanding Project in National College Student Innovation Funding} {04/2017}{}
+
+\awardentry{1st \& Best Lecturer in the 3rd China University Geography Science Presentation Competition} {09/2017}{}
+
+\awardentry{1st \& Most Novel Topic in the 2nd China University Geography Science Presentation Competition} {11/2016}{}
+
+\end{rSection}
+
+
+% ========== 奖学金和奖金 =======
+
+\begin{rSection}{Grants and Scholarships}
+
+    \awardentry{Seal of Excellence (95.6 points), MSCA Action, Horizon Europe}{02/2026}{}
+
+    \awardentry{Visiting Scholarship from Max-Planck Society (15,000 EUR)}{10/2024 - 03/2025}{}
+
+    \awardentry{Young Scientist Fund of NSFC (300,000 CNY)}{08/2024}{}
+
+    \awardentry{Beijing Normal University Scholarships (Four-time 1st \& once 2nd prize, 58,000 CNY)}{12/2018 - 12/2022}{} 
+
+    \awardentry{Graduate Student Academic Ability Competition (Twice 1st \& Once 2nd, 8,000 CNY)}{12/2018 - 12/2022}{}
+
+    \awardentry{Chinese National Scholarship (Top 5\%, 20,000 CNY)}{12/2020}{}
+
+    \awardentry{Sun Yat-sen University Scholarships. (Twice 1st, 10,000 CNY)}{12/2014 - 12/2018}{}
+
+    \awardentry{``1987'' Economic Geography Scholarship (1,500 CNY)}{12/2018}{}
+
+    \awardentry{Guanghua Education Scholarship (3,000 CNY)}{12/2017}{}
+
+    \awardentry{Chinese National Scholarship (Top 5\%, 8,000 CNY)}{11/2016}{}
+
+    \awardentry{National College Student Innovation Funding (10,000 CNY, Excellent enclosed)}{11/2016}{}
+
+\end{rSection}
+
+% ========== 审稿服务 =========== %
+\begin{rSection}{Academic Services}
+    Reviewer for Academic Journals:
+    \begin{itemize}
+        % \item \awardentry{Frontiers in Water}{01/2026}{}
+        \item \awardentry{Regional Ecology and Management}{12/2025}{}
+        \item \awardentry{Earth System Governance}{12/2025}{}
+        \item \awardentry{Journal of Arid Environments}{11/2025}{}
+        % \item \awardentry{Utilities Policy}{11/2025}{}
+        \item \awardentry{Agricultural Water Management}{10/2025}{}
+        \item \awardentry{Journal of Hydrology Regional Study}{10/2025}{}
+        \item \awardentry{Progress in Disaster Science}{09/2025}{}
+        \item \awardentry{Regional Science Policy \& Practice}{07/2025}{}
+        \item \awardentry{Global and Planetary Change}{07/2025}{}
+        \item \awardentry{Quaternary International}{09/2024}{}
+        \item \awardentry{Hydrology and Earth System Science}{05/2024}{}
+        \item \awardentry{Journal of Hydrology}{03/2024}{}
+        \item \awardentry{Journal of Environmental Management}{11/2023}{}
+        \item \awardentry{Geography and Sustainability}{06/2023}{}
+        \item \awardentry{People and Nature}{05/2021}{}
+        \item \awardentry{Water Research}{07/2021}{}
+        \item \awardentry{AMBIO: A Journal of the Human Environment}{05/2020}{}
+        \item \awardentry{Journal of Clean Production}{12/2019}{}
+    \end{itemize}
+
+    Professional consultations for:
+\begin{itemize}
+    % 乌拉特中旗草原生态研究会
+    \item \awardentry{Urat Center banner Grassland Ecological Research Association}{03/2024-Present}{}
+
+    % 黄河水利委员会
+    \item \awardentry{Yellow River Institute of Hydraulic Research, Yellow River Conservancy Commission}{08/2022}{}
+
+\end{itemize}
+    Teaching experience:
+\begin{itemize}
+    % IMPRS 教员
+    \item \awardentry{Extended Teaching Faculty International Max Planck Research School (IMPRS ModA).}{12/2025-Present}{}
+
+    % 多主体模型
+    \item \awardentry{Agent-based model Seminar Series Teaching Faculty at MPI-GEA}{09/2025-Present}{}
+
+\end{itemize}
+\end{rSection}
+
+%  ============ Outreach 宣传演讲 ===============
+\begin{rSection}{Outreach Speech}
+
+    % 峰会 summit
+    \projectentry{Lecture}{Water Management in Decision Theater - Learning from Others. (Chinese Case)}{Falling Walls Science Summit, Berlin, Germany}{08/11/2025}
+
+    % 北京师范大学上课2024年
+    \projectentry{Lecture}{Research on coupling model of Human-Earth system - A case study of agent-based model}{Graduate course, Faculty of Geography, Beijing Normal University, Beijing, China}{23/04/2024}
+
+
+    % 北京师范大学2024年年会
+    \projectentry{Invited Presentation}{Coupled human and water in the Anthropocene: Social-ecological system (SES) modeling approach}{Annual Academic Conference of Faculty of Geography, Beijing Normal University, Beijing, China}{24/12/2023}
+
+    % 中山大学 ABSESpy 宣讲
+    \projectentry{Invited Lecture}{ABSESpy, Agent-Based Social-ecological systems Modelling Framework in Python}{Sun Yat-sen University, Guangzhou, China}{20/11/2023}
+
+    % 基多讲座
+    \projectentry{Invited Lecture}{Coupled human and water in the Anthropocene: Social-ecological system (SES) modeling approach}{Universidad San Francisco de Quito, Quito, Ecuador}{15/09/2023}
+
+    % 2023年黄河水利委员会讲座
+    \projectentry{Invited Lecture}{Experience sharing in scientific data visualization}{Yellow River Conservancy Research Institute, Zhengzhou, China}{17/07/2023}
+
+    % 2023年上课
+    \projectentry{Seminar}{Evolution and driving mechanisms of human-water relationship in the Yellow River from the perspective of basin governance}{Graduate course, Faculty of Geography, Beijing Normal University, Beijing, China}{23/04/2023}
+
+    % 2023年IIASA讨论
+    \projectentry{Seminar}{Flooding Collective Memory Resilience}{International Institute for Applied Systems Analysis: IIASA, Vienna, Austria}{04/04/2023}
+
+    % 2022年受邀演讲
+    \projectentry{Invited Lecture}{Look for interdisciplinary imagination}{Outstanding Student Research Experience Sharing Conference, Beijing Normal University}{25/05/2022}
+
+    % 集智俱乐部
+    \projectentry{Invited Lecture}{Research Methods for Complex System Management: Application of Agent-based Modeling in Groundwater Resource Management}{Virtual Lecture at Seminar of Wisdom Lab, 100+ Audiences, China}{22/12/2021}
+
+    % % 河套学院
+    % \projectentry{Invited Lecture}{Moderation is the philosophy of ecology}{Hetao University, 150+ Audiences, China}{19/10/2021}
+
+    % 中国人民大学
+    \projectentry{Invited Lecture}{Interdisciplinary and Problem-Oriented Sustainability Science}{Renmin University of China, Beijing, China}{22/05/2021}
+
+\end{rSection}
+
+% ==== 软件 ======
+\begin{rSection}{Software Developed}
+    \projectentry{Leading developer}{ABSESpy: An agent-based modeling framework for social-ecological systems}{Open-sourced software on GitHub: https://github.com/ABSESpy/ABSESpy}{23/12/2022-Present}
+
+% ABSESpy 是我主导开发的多主体建模框架。它基于流行的Python语言和通用的Mesa框架，但在地理数据的支持上和做了极大的改进。它的架构基于社会-生态系统理论框架进行设计，能够模拟复杂的主体-环境间互动。该软件能够极大缩短基于地理栅格状空间的多主体模型开发速度。
+
+It is based on the popular Python language and the general Mesa framework, enabling it to simulate complex interactions between agents and their environment. It has significantly improved in supporting real-world simulations. 
+
+\projectentry{Team Leader}{PaperBell: Research, to be connected.}{Open-sourced software on GitHub: https://github.com/PaperBell-Org/Obsidian-PaperBell}{2024-present}
+
+I developed this ecosystem that provides researchers with an automatic academic note-taking workflow. This open-source project currently has 216 stars on GitHub and an active community.
+
+\end{rSection}
+
+\begin{rSection}{Other Explorations}
+
+    \projectentry{Participated}{Zambezi River Basin Water Resources Management Survey}{NSFC funded exploration}{06/04/2025-15/04/2025}
+
+    \projectentry{Organized}{Andes Mountains, Amazon Rainforest, and Galápagos Islands}{Personal exploration}{08/2023-10/2023}
+
+    \projectentry{Participated}{The Second Chinese Scientific Expedition to the Qinghai-Tibet Plateau}{National funded exploration}{07/2021-09/2021}
+
+    \projectentry{Participated}{Investigation of Grassland Ecological Degradation in Inner Mongolia}{Inner Mongolia Government funded exploration}{Four times from 07/2020 to 09/2022}
+
+\end{rSection}
+\end{document}

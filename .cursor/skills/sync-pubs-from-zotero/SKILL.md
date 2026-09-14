@@ -6,7 +6,7 @@ description: >-
   Zotero via Better BibTeX: resolves the saved search read-only from
   zotero.sqlite, keeps journal/conference articles, and merges them add-only into
   My-Publications.bib, then drives the existing create-pages / auto-tag /
-  update-publist steps. Use when updating publications from Zotero, pulling new
+  update-pdfs steps. Use when updating publications from Zotero, pulling new
   papers into the site, running make sync-pubs, or auto-maintaining the pub list.
 ---
 
@@ -36,7 +36,7 @@ locale only (`content/en/publication/`).
 2. A **saved search** exists in Zotero (default name `#00.English my-pubs`).
 3. `My-Publications.bib` exists at the repo root (the master bib).
 4. For the page/PDF steps: the normal toolchain (`poetry`, `xelatex`, `biber`)
-   as used by `make full-update` / `make update-publist`.
+   as used by `make full-update` / `make update-pdfs`.
 
 ## Primary workflow (this repository)
 
@@ -58,7 +58,9 @@ This runs, in order:
    publication-dated entries (drafts/submitted are skipped).
 5. **Tag** — `auto_tag_publications.py` regenerates `my-role` + `role-*`/`year-*`
    tags so the home Publications widget filters pick up new pages.
-6. **PDF** — `make update-publist` rebuilds `static/uploads/pubs.pdf`.
+6. **PDFs** — `make update-pdfs` rebuilds both documents that read the master bib:
+   `static/uploads/pubs.pdf` (from `publist/`) and
+   `static/uploads/SongshGeo_fullCV.pdf` (from `cv/`).
 
 Then curate the new pages (set `featured:`, topical `tags`, drop in a PDF),
 `make server` to preview, and `make deploy`.

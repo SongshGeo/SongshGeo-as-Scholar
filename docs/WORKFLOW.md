@@ -76,10 +76,10 @@ mkdir missing_pub_key
 
 **注意**：需要 OpenAI API Key，会产生少量费用
 
-#### Step 6/6: 更新发表列表
-- 用 XeLaTeX 编译 `publist/main.tex`
-- 生成 PDF
-- 复制到 `static/uploads/pubs.pdf`
+#### Step 6/6: 更新发表列表和简历
+- 用 XeLaTeX 编译 `publist/main.tex` → `static/uploads/pubs.pdf`
+- 用 pdfLaTeX 编译 `cv/main.tex` → `static/uploads/SongshGeo_fullCV.pdf`
+- 两者读同一份根目录 `My-Publications.bib`，所以新论文会同时进入发表列表和简历
 
 ### 3. 审查更改
 
@@ -163,17 +163,32 @@ make extract-abstracts
 - 默认每次处理：10 篇
 - 成本：约 $0.002/篇
 
-### 更新发表列表
+### 更新发表列表和简历
 
 ```bash
-# 编译并更新 pubs.pdf
+# 只编译发表列表 → static/uploads/pubs.pdf
 make update-publist
+
+# 只编译完整简历 → static/uploads/SongshGeo_fullCV.pdf
+make update-cv
+
+# 两个一起编译
+make update-pdfs
 ```
 
 **要求**：
-- `publist/` 目录存在
-- XeLaTeX 已安装
+- `publist/` 和 `cv/` 目录存在（源码在仓库里，clone 下来就有）
+- `xelatex`、`pdflatex`、`biber` 已安装
 - `My-Publications.bib` 可访问
+
+两个文档用的引擎不一样，且不能互换：`publist/` 用 XeLaTeX，`cv/` 用 pdfLaTeX
+（简历依赖 `times` 和 fontawesome v4，换 XeLaTeX 会让正文字体悄悄退回 Latin Modern）。
+详见 `cv/README.md`。
+
+两个文档共用同一份 bib，编译时会各自拷一份副本进目录 —— 那些副本是构建产物，
+不要直接编辑，改了会在下次编译时被覆盖。
+
+`static/uploads/Song_CV_2pages.pdf`（两页精简版）不在这条流水线里，仍然手工维护。
 
 ## 📊 日志系统
 
@@ -296,13 +311,17 @@ poetry run python scripts/extract_abstract_from_pdf.py --max-publications 5
 
 ### 问题 1: XeLaTeX 编译失败
 
-**症状**：`make update-publist` 失败
+**症状**：`make update-publist` 或 `make update-cv` 失败
 
 **解决**：
 ```bash
-# 手动编译检查错误
-cd publist
-xelatex main.tex
+# 先看完整编译输出，静默模式会把错误藏起来
+make update-publist-verbose
+make update-cv-verbose
+
+# 或手动编译（注意两者引擎不同）
+cd publist && xelatex main.tex
+cd cv      && pdflatex main.tex
 
 # 查看 main.log 获取详细错误
 ```
