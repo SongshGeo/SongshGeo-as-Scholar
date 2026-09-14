@@ -46,6 +46,7 @@ EXTRACT_SCRIPT := $(SCRIPT_DIR)/extract_abstract_from_pdf.py
 SYNC_SCRIPT := $(SCRIPT_DIR)/sync_pubs_from_zotero.py
 AUTOTAG_SCRIPT := $(SCRIPT_DIR)/auto_tag_publications.py
 INTEGRITY_SCRIPT := $(SCRIPT_DIR)/check_site_integrity.py
+PDF_SYNC_SCRIPT := $(SCRIPT_DIR)/check_generated_pdfs.py
 
 # Colors for output
 BLUE := \033[0;34m
@@ -55,7 +56,7 @@ RED := \033[0;31m
 NC := \033[0m # No Color
 
 .PHONY: help check check-pdf check-pdf-interactive preview-rename rename extract-abstracts update-publist \
-		update-publist-verbose update-cv update-cv-verbose update-pdfs \
+		update-publist-verbose update-cv update-cv-verbose update-pdfs verify-pdfs install-hooks \
 		package-publist-skill sync-pubs package-sync-pubs-skill full-update install server build test test-full clean status commit push deploy \
 		docs-serve docs-build
 
@@ -88,6 +89,8 @@ help:
 	@echo "  $(YELLOW)make build$(NC)              Build the site"
 	@echo "  $(YELLOW)make test$(NC)               Integrity checks on our own code"
 	@echo "  $(YELLOW)make test-full$(NC)          Build, then also check rendered output"
+	@echo "  $(YELLOW)make install-hooks$(NC)      Install the pre-commit hooks (once per clone)"
+	@echo "  $(YELLOW)make verify-pdfs$(NC)        Rebuild both PDFs and diff against the committed ones"
 	@echo "  $(YELLOW)make clean$(NC)              Clean generated files"
 	@echo ""
 	@echo "$(GREEN)🚀 Deployment:$(NC)"
@@ -109,6 +112,7 @@ help:
 install:
 	@echo "$(BLUE)📦 Installing dependencies...$(NC)"
 	@poetry install --extras pdf-extraction
+	@$(MAKE) install-hooks
 	@echo "$(GREEN)✅ Dependencies installed$(NC)"
 
 # Check for missing publications
@@ -352,6 +356,24 @@ full-update:
 	@echo "  2. Test locally:   $(YELLOW)make server$(NC)"
 	@echo "  3. Commit:         $(YELLOW)make commit$(NC)"
 	@echo "  4. Deploy:         $(YELLOW)make push$(NC)"
+
+# Install the pre-commit hooks. Needed once per clone; `make install` runs it too.
+install-hooks:
+	@echo "$(BLUE)🪝 Installing pre-commit hooks...$(NC)"
+	@command -v pre-commit >/dev/null 2>&1 || { \
+		echo "$(RED)❌ pre-commit not found — install it with: pipx install pre-commit$(NC)"; \
+		exit 1; \
+	}
+	@pre-commit install
+	@echo "$(GREEN)✅ Hooks installed$(NC)"
+	@echo "$(YELLOW)   One-time sweep of the whole repo: pre-commit run --all-files$(NC)"
+
+# The thorough version of the PDF sync check: recompile both documents and diff
+# them against what is committed. Slower than the pre-commit hook, which only
+# checks that the PDFs were staged alongside their sources.
+verify-pdfs:
+	@echo "$(BLUE)🔍 Verifying the generated PDFs match their sources...$(NC)"
+	@$(PYTHON) $(PDF_SYNC_SCRIPT) --rebuild
 
 # Start Hugo development server
 server:

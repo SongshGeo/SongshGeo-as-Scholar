@@ -190,6 +190,49 @@ make update-pdfs
 
 `static/uploads/Song_CV_2pages.pdf`（两页精简版）不在这条流水线里，仍然手工维护。
 
+## 🪝 提交前检查（pre-commit）
+
+每次 `git commit` 前自动跑一遍，确保各处同步、格式干净。克隆后装一次：
+
+```bash
+make install-hooks     # 等价于 pre-commit install；make install 也会顺带装
+```
+
+配置在 `.pre-commit-config.yaml`，分两类：
+
+**同步检查**
+- `generated-pdfs-in-sync` —— 如果这次提交动了 `cv/` 或 `publist/` 的源文件、或动了
+  `My-Publications.bib`，那么对应的 PDF 必须一起提交。这是最常见的失误：改了内容忘了
+  重新编译，网站上挂的还是旧简历。它只查 git 索引，很快。
+- `site-integrity` —— 复用 `scripts/check_site_integrity.py` 的 6 项检查
+  （发表页能否追溯到 bib、中英 i18n 键是否一致、有无未解析的 wikilink 等）。
+
+**格式检查**：尾随空格、文件末尾换行、行尾符统一为 LF、冲突标记、YAML/TOML 语法、大文件。
+
+两个刻意的例外：
+- Markdown 里**两个尾随空格是硬换行**，用 `--markdown-linebreak-ext=md` 保留，不会被剥
+- 所有 `.bib` 以及 `public/`、`resources/`、`static/`、`assets/media/` 都排除在外
+  —— 前者由 Zotero 生成，后者是构建产物和二进制资源
+
+pre-commit 默认只作用于暂存文件，所以不会一次性重写整个仓库。想主动全扫一遍：
+
+```bash
+pre-commit run --all-files
+```
+
+### 更彻底的 PDF 校验
+
+提交钩子只检查「PDF 有没有跟着源文件一起提交」，不会真的重编译（太慢）。要确认
+PDF 内容确实是当前源文件编出来的：
+
+```bash
+make verify-pdfs
+```
+
+它会重新编译两份文档，和已提交的版本逐字比对（忽略 LaTeX 每次写入的日期）。
+能抓到「PDF 提交了，但是用旧源文件编的」这种钩子看不见的情况。需要 TeX 和
+`pdftotext`，约半分钟。
+
 ## 📊 日志系统
 
 ### 查看日志
@@ -372,4 +415,3 @@ make preview-rename
 # 一键完成所有步骤
 make full-update
 ```
-

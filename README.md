@@ -102,6 +102,8 @@ Before starting, ensure:
 | `make package-publist-skill` | Zip skill + Makefile + docs + `publist/` sources for sharing |
 | `make package-sync-pubs-skill` | Zip the sync-pubs-from-zotero skill bundle for sharing |
 | `make full-update` | Complete automated workflow |
+| `make verify-pdfs` | Rebuild both PDFs and diff them against the committed ones |
+| `make install-hooks` | Install the pre-commit hooks (once per clone) |
 
 ### Development
 

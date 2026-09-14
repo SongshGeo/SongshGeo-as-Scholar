@@ -4,7 +4,7 @@
 % This template has been downloaded from:
 % http://www.LaTeXTemplates.com
 %
-% This class file defines the structure and design of the template. 
+% This class file defines the structure and design of the template.
 %
 % Original header:
 % Copyright (C) 2010 by Trey Hunner
@@ -23,8 +23,6 @@
 \LoadClass[11pt,a4paper,notitlepage]{article} % Font size and paper type
 
 \usepackage[parfill]{parskip} % Remove paragraph indentation
-\usepackage{array} % Required for boldface (\bf and \bfseries) tabular columns
-\usepackage{ifthen} % Required for ifthenelse statements
 \usepackage{scrlayer-scrpage} % 用于页眉和页脚设置
 \usepackage{lastpage} % 页脚总页数，随发表列表增长自动变化
 \usepackage{xcolor} % 定义颜色
@@ -40,10 +38,6 @@
 \cfoot[\pagefooter]{\pagefooter}
 \ohead[\draftheader]{\draftheader}
 \ihead[\callheader]{\callheader}
-\newcount\timehh\newcount\timemm
-\timehh=\time \divide\timehh by 60
-\timemm=\time \count255=\timehh \multiply\count255 by -60
-    \advance\timemm by \count255
 \newcommand{\draftheader}{\footnotesize \textcolor{MSCATagGray}{\textit{Full CV of Shuang Song -- \today}}}
 
 
@@ -58,7 +52,7 @@
 
 \def \addressSep {$\diamond$} % Set default address separator to a diamond
 
-% One, two or three address lines can be specified 
+% One, two or three address lines can be specified
 \let \@addressone \relax
 \let \@addresstwo \relax
 \let \@addressthree \relax
@@ -127,27 +121,10 @@
   \end{list}
 }
 
-%----------------------------------------------------------------------------------------
-%	WORK EXPERIENCE FORMATTING
-%----------------------------------------------------------------------------------------
-
-\newenvironment{rSubsection}[4]{ % 4 input arguments - company name, year(s) employed, job title and location
- {\bf #1} \hfill {#2} % Bold company name and date on the right
- \ifthenelse{\equal{#3}{}}{}{ % If the third argument is not specified, don't print the job title and location line
-  \\
-  {\em #3} \hfill {\em #4} % Italic job title and location
-  }\smallskip
-  \begin{list}{$\cdot$}{\leftmargin=0em} % \cdot used for bullets, no indentation
-   \itemsep -0.5em \vspace{-0.5em} % Compress items in list together for aesthetics
-  }{
-  \end{list}
-  \vspace{0.5em} % Some space after the list of bullet points
-}
-
 % The below commands define the whitespace after certain things in the document - they can be \smallskip, \medskip or \bigskip
 \def\namesize{\huge} % Size of the name at the top of the document
 \def\addressskip{\smallskip} % The space between the two address (or phone/email) lines
-\def\sectionlineskip{\medskip} % The space above the horizontal line for each section 
+\def\sectionlineskip{\medskip} % The space above the horizontal line for each section
 \def\nameskip{\bigskip} % The space after your name at the top
 \def\sectionskip{\medskip} % The space after the heading section
 

@@ -1,0 +1,55 @@
+# Pre-commit gate: everything is in sync, and the formatting is clean.
+#
+# Install once per clone:  make install-hooks
+# Run against everything:  poetry run pre-commit run --all-files
+#
+# By default pre-commit only looks at staged files, so adopting it does not
+# rewrite the whole repo at once — files get tidied as they are touched.
+
+# Generated or vendored trees: not ours to reformat. `public/` and `resources/`
+# are Hugo build output, `static/` and `assets/media/` are binary assets, and
+# every .bib is written by Zotero via `make sync-pubs`.
+exclude: |
+  (?x)^(
+      public/
+    | resources/
+    | static/
+    | assets/media/
+    | dist/
+    | .*\.bib$
+  )
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+        # Two trailing spaces are a hard line break in Markdown — stripping them
+        # silently changes how a page renders, so leave them alone in .md.
+        args: [--markdown-linebreak-ext=md]
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+        args: [--fix=lf]
+      - id: check-merge-conflict
+      - id: check-case-conflict
+      - id: check-yaml
+      - id: check-toml
+      - id: check-added-large-files
+        # The two generated PDFs are ~40-110 KB; this only catches an accident.
+        args: [--maxkb=2048]
+
+  - repo: local
+    hooks:
+      - id: generated-pdfs-in-sync
+        name: generated PDFs are staged with their LaTeX sources
+        entry: python3 scripts/check_generated_pdfs.py
+        language: system
+        pass_filenames: false
+        # Cheap (git only). `--rebuild` is the thorough version; it needs TeX and
+        # takes ~30s, so it is left to `make verify-pdfs` rather than every commit.
+
+      - id: site-integrity
+        name: site integrity (bib trace, i18n keys, wikilinks, one bib parser)
+        entry: python3 scripts/check_site_integrity.py
+        language: system
+        pass_filenames: false
