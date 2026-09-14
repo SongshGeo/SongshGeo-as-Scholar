@@ -12,7 +12,7 @@ go.sum
 #MacOS
 .DS_Store
 
-#Obsidian 
+#Obsidian
 .obsidian/
 .vercel
 __pycache__/

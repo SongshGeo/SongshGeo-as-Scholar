@@ -24,60 +24,60 @@ date_format: Jan 2006
 #   Leave other parameters empty if not required.
 #   Begin multi-line descriptions with YAML's `|2-` multi-line prefix.
 item:
-  - certificate_url: 
+  - certificate_url:
     date_end: ''
     date_start: '2016-11-30'
     description: ''
     organization: Sun Yat-Sen University
-    organization_url: 
+    organization_url:
     title: Chinese National Scholarship （Top 5%）
     url: ''
-  - certificate_url: 
+  - certificate_url:
     date_end: ''
     date_start: '2017-11-15'
     description: ''
     organization: Sun Yat-Sen University
-    organization_url: 
+    organization_url:
     title: First-class Scholarships for Outstanding Students
     url: ''
-  - certificate_url: 
+  - certificate_url:
     date_end: ''
     date_start: '2018-06-15'
     description: ''
     organization: Sun Yat-Sen University
-    organization_url: 
+    organization_url:
     title: Guanghua Education Scholarship
     url: ''
-  - certificate_url: 
+  - certificate_url:
     date_end: ''
     date_start: '2021-06-19'
     description: ''
     organization: Beijing Normal University
-    organization_url: 
+    organization_url:
     title: Youth Academic Forum 'Graduate Excellent Academic Report Award'
     url: ''
-  - certificate_url: 
+  - certificate_url:
     date_end: ''
     date_start: '2018-06-19'
     description: ''
     organization: Beijing Normal University
-    organization_url: 
+    organization_url:
     title: Excellent graduation thesis & excellent graduates
     url: ''
-  - certificate_url: 
+  - certificate_url:
     date_end: ''
     date_start: '2019-11-15'
     description: ''
     organization: Beijing Normal University
-    organization_url: 
+    organization_url:
     title: First prize for academic speech contest & best popularity prize
     url: ''
-  - certificate_url: 
+  - certificate_url:
     date_end: ''
     date_start: '2020-11-15'
     description: ''
     organization: Beijing Normal University
-    organization_url: 
+    organization_url:
     title: Chinese National Scholarship （Top 5%）
     url: ''
 

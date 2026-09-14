@@ -35,14 +35,14 @@ jobs:
         run: |
           # Create a build directory
           mkdir -p _site
-          
+
           # Copy docs content
           cp -r docs/* _site/
-          
+
           # Copy scripts README for reference
           mkdir -p _site/scripts
           cp scripts/README.md _site/scripts/
-          
+
           # Create a simple redirect in root README
           cat > _site/scripts/index.html << 'EOF'
           <!DOCTYPE html>
@@ -57,7 +57,7 @@ jobs:
           </body>
           </html>
           EOF
-          
+
           echo "Documentation site built successfully"
           ls -la _site/
 
@@ -75,4 +75,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-

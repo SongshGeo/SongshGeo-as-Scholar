@@ -40,7 +40,7 @@ abstract: 'Riverscapes are coupled social-ecological systems (SESs), in which th
 summary: Our study demonstrated that network analysis could be one promising direction to untangle the complex SES and understand the relationship between SES structure and outcomes. We suggest comanaging the cross-boundary river and lands to further match the SES for basin sustainability.
 my-role:
   - co-authored
-tags: 
+tags:
   - network analysis
   - social-ecological system
   - social-hydrology

@@ -155,7 +155,7 @@ Docsify 有丰富的插件生态。在 `index.html` 中添加：
 <script>
   window.$docsify = {
     // ... 其他配置
-    
+
     plugins: [
       function(hook) {
         var footer = [
@@ -218,7 +218,7 @@ Docsify 有丰富的插件生态。在 `index.html` 中添加：
 
 项目使用 GitHub Actions workflow (`.github/workflows/docs.yml`) 自动部署：
 
-1. **监听文件变化**: 
+1. **监听文件变化**:
    - `docs/**`
    - `scripts/README.md`
    - `.github/workflows/docs.yml`
@@ -298,7 +298,7 @@ A: 可能原因：
 
 ### Q: 如何查看部署日志？
 
-A: 
+A:
 1. 进入 GitHub 仓库的 Actions 标签
 2. 找到最近的 "Deploy Documentation" workflow
 3. 点击查看详细日志
@@ -382,4 +382,3 @@ git push origin docs-update
 ---
 
 **提示**: 如果有任何问题，请查看 [MAINTENANCE_GUIDE.md](MAINTENANCE_GUIDE.md) 或提交 Issue。
-

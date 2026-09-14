@@ -20,4 +20,3 @@
   * [🛠️ 脚本详细文档](../scripts/README.md)
   * [🏠 返回主页](../README.md)
   * [💻 GitHub 仓库](https://github.com/SongshGeo/SongshGeo-as-Scholar)
-

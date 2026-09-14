@@ -27,7 +27,7 @@ url_video: ''
 #   Otherwise, set `slides = ""`.
 # slides: example
 ---
-<!-- 
+<!--
 [![license](https://img.shields.io/github/license/songshgeo/absespy)](http://www.apache.org/licenses/) ![downloads](https://img.shields.io/github/downloads/songshgeo/absespy/total) ![codesize](https://img.shields.io/github/languages/code-size/songshgeo/absespy) ![tag](https://img.shields.io/github/v/tag/songshgeo/absespy)
 [![github](https://img.shields.io/badge/Website-SongshGeo-brightgreen.svg)](https://cv.songshgeo.com/) ![stars](https://img.shields.io/github/stars/songshgeo/absespy?style=social) [![twitter](https://img.shields.io/twitter/follow/shuangsong11?style=social)](https://twitter.com/shuangsong11) -->
 

@@ -256,4 +256,3 @@ make full-update
 ```
 
 就这么简单！🚀
-

@@ -101,7 +101,7 @@ Full biography here...
 - `projects.md`: 研究项目展示
 - `contact.md`: 联系方式
 
-**更新频率**: 
+**更新频率**:
 - 工作经历: 职位变动时
 - 荣誉奖项: 获奖时
 - 其他: 根据需要
@@ -208,7 +208,7 @@ main:
 
 ### 7. 静态资源
 
-**位置**: 
+**位置**:
 - `assets/media/`: 网站图片（图标、背景等）
 - `static/uploads/`: 用户上传的文件（PDF、数据等）
 
@@ -594,7 +594,7 @@ A: 编辑 `content/*/home/publications.md`，修改 `count` 参数。
 
 ### Q: 网站构建失败怎么办？
 
-A: 
+A:
 1. 检查 Hugo 版本: `hugo version`
 2. 查看错误信息: `hugo server --verbose`
 3. 检查 YAML 格式是否正确
@@ -640,4 +640,3 @@ A:
 ---
 
 **最后更新**: 2025-10-19
-

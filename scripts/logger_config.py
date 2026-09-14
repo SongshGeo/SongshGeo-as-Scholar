@@ -21,17 +21,17 @@ LOG_FILE = LOG_DIR / "publications.log"
 def setup_logger(script_name: str, verbose: bool = False):
     """
     Setup logger for a script.
-    
+
     Args:
         script_name: Name of the script calling this function
         verbose: If True, also output to console
-    
+
     Returns:
         Configured logger instance
     """
     # Remove default handler
     logger.remove()
-    
+
     # Add console handler if verbose
     if verbose:
         logger.add(
@@ -40,7 +40,7 @@ def setup_logger(script_name: str, verbose: bool = False):
             level="INFO",
             colorize=True
         )
-    
+
     # Add file handler with rotation and retention
     logger.add(
         LOG_FILE,
@@ -51,7 +51,7 @@ def setup_logger(script_name: str, verbose: bool = False):
         compression="zip",  # Compress rotated logs
         enqueue=True,  # Thread-safe
     )
-    
+
     # Bind script name to all log records
     return logger.bind(script=script_name)
 
@@ -80,4 +80,3 @@ def log_info(log: logger, message: str, indent: int = 0):
     """Log an info message with optional indentation."""
     prefix = "   " * indent
     log.info(f"{prefix}{message}")
-

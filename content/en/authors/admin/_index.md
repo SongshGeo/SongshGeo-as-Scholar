@@ -20,7 +20,7 @@ bio: A geographer who also travels.
 
 # Interests to show in About widget
 interests:
-  - social-ecological system 
+  - social-ecological system
   - social-hydrology
   - agent-based model
   - historical geography

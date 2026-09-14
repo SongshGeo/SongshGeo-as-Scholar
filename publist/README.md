@@ -73,7 +73,7 @@ This will:
      `main.tex`. Without that mapping XeLaTeX **silently drops** them under Times, turning
      "Human–Water" into "HumanWater" — do not remove it.
 
-3. **Bibliography Errors**: 
+3. **Bibliography Errors**:
    - Ensure `My-Publications.bib` is up to date
    - Check that all cited references exist in the bibliography
 

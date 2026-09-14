@@ -43,7 +43,7 @@ All notable changes to the publication management scripts.
   - 3-month retention policy
   - Compressed archives
   - Thread-safe logging
-  
+
 - **Automated Workflow** via Makefile
   - `make full-update`: Complete publication update workflow
   - `make check-pdf`: Check PDF coverage
@@ -58,7 +58,7 @@ All notable changes to the publication management scripts.
   - Rename cite.bib citation keys to match folder names
   - Rename PDF files to citation_key.pdf
   - Dry-run mode for safe preview
-  
+
 - **PDF Extraction Enhancements**
   - `--override`: Completely override index.md with minimal template
   - Better error handling
@@ -137,4 +137,3 @@ make full-update
 - `content/My-Publications.bib` location is deprecated, move to root
 - Direct Python script calls are still supported but `make` commands are preferred
 - Print-based output is replaced with logged output (use `--verbose` for console output)
-
