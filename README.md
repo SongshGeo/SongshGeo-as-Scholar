@@ -98,6 +98,7 @@ Before starting, ensure:
 | `make update-publist-verbose` | Same as above, show XeLaTeX/biber output (debug) |
 | `make update-cv` | Compile the full CV PDF (same master bib) |
 | `make update-cv-verbose` | Same as above, show pdfLaTeX/biber output (debug) |
+| `make update-reviews` | Rebuild the CV's peer-review list from `REVIEWER_DIR` |
 | `make update-pdfs` | Rebuild both generated PDFs |
 | `make package-publist-skill` | Zip skill + Makefile + docs + `publist/` sources for sharing |
 | `make package-sync-pubs-skill` | Zip the sync-pubs-from-zotero skill bundle for sharing |

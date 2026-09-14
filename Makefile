@@ -13,6 +13,12 @@ PUBLIST_OUTPUT_PDF := $(UPLOADS_DIR)/pubs.pdf
 # Final full-CV PDF path. The filename is linked from content/*/authors/admin/_index.md,
 # so changing it means updating those links too.
 CV_OUTPUT_PDF := $(UPLOADS_DIR)/SongshGeo_fullCV.pdf
+# Peer-review archive that feeds the CV's Academic Services section. It lives
+# outside the repo, so cv/review-service.tex is committed and any clone without
+# this directory still builds the CV. Override with an env var or on the command
+# line: make update-cv REVIEWER_DIR=/path/to/archive
+REVIEWER_DIR ?= $(HOME)/Documents/Community/Reviewer
+
 # TeX engine per document — see the latex_build comment; do not swap these.
 PUBLIST_ENGINE := xelatex
 CV_ENGINE := pdflatex
@@ -47,6 +53,7 @@ SYNC_SCRIPT := $(SCRIPT_DIR)/sync_pubs_from_zotero.py
 AUTOTAG_SCRIPT := $(SCRIPT_DIR)/auto_tag_publications.py
 INTEGRITY_SCRIPT := $(SCRIPT_DIR)/check_site_integrity.py
 PDF_SYNC_SCRIPT := $(SCRIPT_DIR)/check_generated_pdfs.py
+REVIEW_SCRIPT := $(SCRIPT_DIR)/build_review_service.py
 
 # Colors for output
 BLUE := \033[0;34m
@@ -56,7 +63,7 @@ RED := \033[0;31m
 NC := \033[0m # No Color
 
 .PHONY: help check check-pdf check-pdf-interactive preview-rename rename extract-abstracts update-publist \
-		update-publist-verbose update-cv update-cv-verbose update-pdfs verify-pdfs install-hooks \
+		update-publist-verbose update-cv update-cv-verbose update-reviews update-pdfs verify-pdfs install-hooks \
 		package-publist-skill sync-pubs package-sync-pubs-skill full-update install server build test test-full clean status commit push deploy \
 		docs-serve docs-build
 
@@ -78,6 +85,7 @@ help:
 	@echo "  $(YELLOW)make update-publist-verbose$(NC) Same, show XeLaTeX/biber output (debug)"
 	@echo "  $(YELLOW)make update-cv$(NC)          Compile full CV PDF (same master bib)"
 	@echo "  $(YELLOW)make update-cv-verbose$(NC)  Same, show pdfLaTeX/biber output (debug)"
+	@echo "  $(YELLOW)make update-reviews$(NC)     Rebuild the CV peer-review list from REVIEWER_DIR"
 	@echo "  $(YELLOW)make update-pdfs$(NC)        Rebuild both PDFs (publist + CV)"
 	@echo "  $(YELLOW)make package-publist-skill$(NC) Zip skill + Makefile + docs for sharing"
 	@echo "  $(YELLOW)make package-sync-pubs-skill$(NC) Zip the Zotero-sync skill for sharing"
@@ -201,14 +209,21 @@ update-publist-verbose:
 	@echo "$(BLUE)📄 Compiling publication list (verbose)...$(NC)"
 	$(call latex_build,$(PUBLIST_DIR),$(PUBLIST_OUTPUT_PDF),Publication list,$(PUBLIST_ENGINE))
 
+# Regenerate cv/review-service.tex from the peer-review archive. Fails when a
+# newly reviewed journal is missing its field/quartile in cv/journals.yaml;
+# skips quietly (exit 0) when REVIEWER_DIR does not exist on this machine.
+update-reviews:
+	@echo "$(BLUE)📋 Refreshing the peer-review list...$(NC)"
+	@$(PYTHON) $(REVIEW_SCRIPT) --reviewer-dir "$(REVIEWER_DIR)"
+
 # Compile the full academic CV and move to uploads
-update-cv:
+update-cv: update-reviews
 	@echo "$(BLUE)📄 Compiling full CV...$(NC)"
 	$(call latex_build,$(CV_DIR),$(CV_OUTPUT_PDF),Full CV,$(CV_ENGINE))
 
 # Same as update-cv but prints pdfLaTeX/biber output (for debugging)
 update-cv-verbose: LATEX_QUIET :=
-update-cv-verbose:
+update-cv-verbose: update-reviews
 	@echo "$(BLUE)📄 Compiling full CV (verbose)...$(NC)"
 	$(call latex_build,$(CV_DIR),$(CV_OUTPUT_PDF),Full CV,$(CV_ENGINE))
 

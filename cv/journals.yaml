@@ -1,0 +1,237 @@
+# Journal registry for the CV's Academic Services section.
+#
+# Keys are folder names under $REVIEWER_DIR (default ~/Documents/Community/Reviewer).
+# scripts/build_review_service.py joins this with the review archive and writes
+# cv/review-service.tex. Review a new journal and the next `make update-cv`
+# fails until you add it here — that is deliberate, it is the only moment anyone
+# remembers to look a quartile up.
+#
+# ── WHERE THESE QUARTILES CAME FROM, AND WHAT THAT MEANS ────────────────────
+# JCR is a paywalled Clarivate product. Every publisher page that would state a
+# quartile refuses automated access (ScienceDirect, Wiley, SCImago and
+# wos-journal.info all answer 403; Copernicus publishes CiteScore and SJR but
+# deliberately not JCR). So the values below were assembled from public
+# secondary sources — the `source` URL on each entry — and they are NOT
+# confirmed against Clarivate.
+#
+# They are not interchangeable with SJR. Aggregators routinely print a SCImago
+# SJR quartile under a "JCR" heading, and the two genuinely differ: Geomorphology
+# is SJR Q1 but JCR Q2, and Frontiers in Water is SJR Q1 but JCR Q2 (Water
+# Resources, 50/131). Where sources disagreed, the one naming an actual JCR
+# category and rank was taken; entries where that was impossible carry a `note`.
+#
+# Confirm these against institutional JCR access before relying on the CV, and
+# re-check after each June JCR release. `checked` below is what the script
+# reminds you with.
+checked: 2026-09-14
+
+# Print order of the field groups on the CV.
+field_order:
+  - Water Resources & Hydrology
+  - Sustainability & Human-Environment Systems
+  - Environmental Policy & Governance
+  - Earth & Environmental Change
+  - Multidisciplinary & Modelling
+
+# Individual records that are filed in the archive but are not peer reviews.
+exclude_records:
+  - Geography and Sustainability/2021-12_公众号校编   # WeChat article copy-edit
+
+# Per-journal fields:
+#   field     required — must appear in field_order above
+#   quartile  required — Q1/Q2/Q3/Q4, or n/a to print no quartile at all
+#   source    the page the quartile was taken from (for humans; not read)
+#   note      why this entry is unusual or uncertain
+#   name      only when the folder name *cannot* be the journal's real name;
+#             macOS forbids ":" in a directory name, which is the sole reason
+#             any entry needs this
+#   skip      a reason string; excludes a folder that is not a journal at all
+journals:
+
+  # ── Water Resources & Hydrology ──────────────────────────────────────────
+  Water Resources Research:
+    field: Water Resources & Hydrology
+    quartile: Q1
+    source: https://www.journalmetrics.org/journal/water-resources-research-2
+  Water Research:
+    field: Water Resources & Hydrology
+    quartile: Q1
+    source: https://www.journalmetrics.org/journal/water-research-3
+  Journal of Hydrology:
+    field: Water Resources & Hydrology
+    quartile: Q1
+    source: https://wos-journal.info/journalid/2789
+  Journal of Hydrology Regional Study:
+    name: "Journal of Hydrology: Regional Studies"   # ":" is illegal in a folder name
+    field: Water Resources & Hydrology
+    quartile: Q1
+    source: https://wos-journal.info/journalid/11494
+    note: >-
+      JIF 5.6, 84.1st percentile in WATER RESOURCES, which is Q1.
+      journalmetrics.org says "Q2" but that is their own composite score, not JCR.
+  Hydrology and Earth System Sciences:
+    field: Water Resources & Hydrology
+    quartile: Q1
+    source: https://wos-journal.info/journalid/4825
+  Agricultural Water Management:
+    field: Water Resources & Hydrology
+    quartile: Q1
+    source: https://wos-journal.info/journalid/4830
+  Groundwater for Sustainable Development:
+    field: Water Resources & Hydrology
+    quartile: Q1
+    source: https://www.journalmetrics.org/journal/groundwater-for-sustainable-development-2
+    note: >-
+      Lower confidence. ESCI-indexed; no source gave a JCR category rank. JIF 5.6
+      would be Q1 in WATER RESOURCES, but confirm before relying on it.
+  Frontiers in Water:
+    field: Water Resources & Hydrology
+    quartile: Q2
+    source: https://wos-journal.info/journalid/11143
+    note: >-
+      Q2, not Q1: WATER RESOURCES 50/131, 61.8th percentile, JIF 2.8. Several
+      aggregators report "Q1" for this journal — that is its SJR quartile.
+  Frontier of Freshwater:
+    field: Water Resources & Hydrology
+    quartile: n/a
+    source: https://research.com/journal/frontiers-in-freshwater-science
+    note: >-
+      This is *Frontiers in Freshwater Science*. Launched 2023, not yet in the
+      Web of Science Core Collection, so there is no quartile to print. The
+      folder can hold the real name — rename it and this key together.
+
+  # ── Sustainability & Human-Environment Systems ───────────────────────────
+  Geography and Sustainability:
+    field: Sustainability & Human-Environment Systems
+    quartile: Q1
+    source: https://journalsearches.com/journal.php?title=geography+and+sustainability
+  AMBIO- A Journal of the Human Environment:
+    name: "AMBIO: A Journal of the Human Environment"   # ":" is illegal in a folder name
+    field: Sustainability & Human-Environment Systems
+    quartile: Q1
+    source: https://wos-journal.info/journalid/2711
+  People and Nature:
+    field: Sustainability & Human-Environment Systems
+    quartile: Q1
+    source: https://www.journalmetrics.org/journal/people-and-nature
+  World Development Sustainability:
+    field: Sustainability & Human-Environment Systems
+    quartile: Q1
+    source: https://www.resurchify.com/impact/details/21101226899
+    note: >-
+      Lower confidence. Young journal (first issue 2022); no source gave a JCR
+      category rank, only "best quartile Q1" alongside JIF 6.1.
+  Journal of Cleaner Production:
+    field: Sustainability & Human-Environment Systems
+    quartile: Q1
+    source: https://wos-journal.info/journalid/15164
+  Sustainable Cities and Society:
+    field: Sustainability & Human-Environment Systems
+    quartile: Q1
+    source: https://wos-journal.info/journalid/15206
+  Ecological Economics:
+    field: Sustainability & Human-Environment Systems
+    quartile: Q1
+    source: https://wos-journal.info/journalid/4864
+  Energy Nexus:
+    field: Sustainability & Human-Environment Systems
+    quartile: Q1
+    source: https://wos-journal.info/journalid/23808
+    note: >-
+      Lower confidence. ESCI-indexed in ENERGY & FUELS and ENVIRONMENTAL
+      SCIENCES; sources give "best quartile Q1" with JIF 8.2 but no category rank.
+
+  # ── Environmental Policy & Governance ────────────────────────────────────
+  Earth System Governance:
+    field: Environmental Policy & Governance
+    quartile: Q1
+    source: https://www.journalmetrics.org/journal/earth-system-governance
+    note: >-
+      The publisher's own announcement claims Q1 on JCI, which is a different
+      Clarivate metric from the impact-factor quartile. The JIF-based Q1 here
+      comes from the source above; worth confirming which one you want to claim.
+  Environmental Science & Policy:
+    field: Environmental Policy & Governance
+    quartile: Q1
+    source: https://www.journalmetrics.org/journal/environmental-science-and-policy
+  Regional Science Policy & Practice:
+    field: Environmental Policy & Governance
+    quartile: Q2
+    source: https://www.resurchify.com/impact/details/21100435556
+  Utilities Policy:
+    field: Environmental Policy & Governance
+    quartile: Q2
+    source: https://wos-journal.info/journalid/15837
+    note: >-
+      Q2 in ECONOMICS (JIF 4.4). resurchify's "best quartile Q1" for this journal
+      is its SJR quartile, not JCR.
+  Journal of Environmental Management:
+    field: Environmental Policy & Governance
+    quartile: Q1
+    source: https://wos-journal.info/journalid/19452
+  Progress in Disaster Science:
+    field: Environmental Policy & Governance
+    quartile: Q1
+    source: https://wos-journal.info/journalid/8812
+
+  # ── Earth & Environmental Change ─────────────────────────────────────────
+  Global and Planetary Change:
+    field: Earth & Environmental Change
+    quartile: Q1
+    source: https://wos-journal.info/journalid/13318
+    note: 82.1st percentile in GEOSCIENCES, MULTIDISCIPLINARY.
+  Physics and Chemistry of the Earth:
+    field: Earth & Environmental Change
+    quartile: Q1
+    source: https://wos-journal.info/journalid/15709
+    note: >-
+      Lower confidence. Indexed in three categories (GEOSCIENCES MULTIDISCIPLINARY,
+      WATER RESOURCES, METEOROLOGY); "Q1" is the best of them, and reported JIFs
+      for the Parts A/B/C series vary noticeably between sources.
+  Quaternary International:
+    field: Earth & Environmental Change
+    quartile: Q2
+    source: https://wos-journal.info/journalid/17898
+  Journal of Arid Environments:
+    field: Earth & Environmental Change
+    quartile: Q2
+    source: https://wos-journal.info/journalid/16905
+  Geomorphology:
+    field: Earth & Environmental Change
+    quartile: Q2
+    source: https://www.journalmetrics.org/journal/geomorphology-2
+    note: JCR Q2 (JIF 3.3). Its SJR quartile is Q1 — do not mix the two up.
+  Regional Ecology and Management:
+    field: Earth & Environmental Change
+    quartile: n/a
+    note: >-
+      Journal not identified — the folder name matches no journal I could find,
+      and the record is "中尼铁路 LUCC". No quartile is printed until it is
+      named. The field above is a guess; revisit both together.
+
+  # ── Multidisciplinary & Modelling ────────────────────────────────────────
+  Nature Communications:
+    field: Multidisciplinary & Modelling
+    quartile: Q1
+    source: https://impactfactorforjournal.com/nature-communications-impact-factor/
+  Scientific Reports:
+    field: Multidisciplinary & Modelling
+    quartile: Q1
+    source: https://manusights.com/blog/scientific-reports-impact-factor
+    note: MULTIDISCIPLINARY SCIENCES 25/135.
+  iScience:
+    field: Multidisciplinary & Modelling
+    quartile: Q1
+    source: https://impactfactorforjournal.com/iscience-impact-factor/
+  Environmental Modelling & Software:
+    field: Multidisciplinary & Modelling
+    quartile: Q1
+    source: https://wos-journal.info/journalid/11476
+
+  # ── Not journals ─────────────────────────────────────────────────────────
+  Reviewed in 2025:
+    skip: an archive folder, not a journal
+  Under reviewing:
+    skip: an archive folder, not a journal
+  Digital Humanity:
+    skip: holds a .nlogo file, not a review record

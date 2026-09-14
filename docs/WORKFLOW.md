@@ -188,6 +188,26 @@ make update-pdfs
 两个文档共用同一份 bib，编译时会各自拷一份副本进目录 —— 那些副本是构建产物，
 不要直接编辑，改了会在下次编译时被覆盖。
 
+#### 简历里的审稿服务列表
+
+`make update-cv` 会先跑 `make update-reviews`，从审稿归档目录重算简历上的期刊审稿
+列表，所以平时不用单独执行。归档目录由 `REVIEWER_DIR` 指定（默认
+`~/Documents/Community/Reviewer`），可以用环境变量或命令行覆盖：
+
+```bash
+make update-cv REVIEWER_DIR=/path/to/archive
+```
+
+两件事值得知道：
+
+- **审了一本新刊会让构建失败**，直到你在 `cv/journals.yaml` 里补上它的领域和 JCR
+  分区。这是故意的 —— 刚审完是唯一会记得去查分区的时刻。报错会打出可直接粘贴的
+  YAML 片段。
+- **归档目录不存在不算错误**。脚本打印 `skip` 后退出 0，用已提交的
+  `cv/review-service.tex` 编译，所以别人 clone 下来照样能出简历。
+
+细节见 `cv/README.md`。
+
 `static/uploads/Song_CV_2pages.pdf`（两页精简版）不在这条流水线里，仍然手工维护。
 
 ## 🪝 提交前检查（pre-commit）
