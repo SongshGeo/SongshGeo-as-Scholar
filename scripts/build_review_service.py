@@ -98,17 +98,10 @@ class Journal:
 
     @property
     def sort_key(self) -> tuple:
-        # Quartile first, then how often this journal was reviewed for, then
-        # alphabetical. Journals with no printed quartile sort last in a field.
-        #
-        # Alphabetical is a deliberate tie-break, not a default. Ordering by most
-        # recent review reads as a ranking to anyone scanning the line, and it is
-        # not one: it buried Nature Communications at the end of its group merely
-        # because that review was in 2025. There is no prestige signal here finer
-        # than the quartile — impact factors are not recorded, by choice — so the
-        # tie-break should carry no meaning at all rather than a misleading one.
-        rank = QUARTILES.index(self.quartile) if self.quartile in QUARTILES else len(QUARTILES)
-        return (rank, -self.count, self.name.lower())
+        # Most recently reviewed first, within each field. The year is printed
+        # alongside each journal precisely because of this: an order the reader
+        # cannot see gets read as a ranking, and this one is not a ranking.
+        return (tuple(-n for n in self.latest), self.name.lower())
 
 
 class Report:
@@ -290,8 +283,13 @@ def render(journals: list[Journal], field_order: list[str]) -> str:
             # Every name here is far shorter than the measure, and the "·"
             # separators leave plenty of legal break points between them.
             item = f"\\mbox{{\\textit{{{tex(journal.name)}}}}}"
+            # The parenthetical carries the quartile and the year of the most
+            # recent review; a journal with no quartile still shows its year.
+            year = journal.latest[0]
             if journal.quartile != UNRANKED:
-                item += f" ({journal.quartile})"
+                item += f" ({journal.quartile}, {year})"
+            else:
+                item += f" ({year})"
             if journal.count > 1:
                 item += f"~$\\times${journal.count}"
             items.append(item)
