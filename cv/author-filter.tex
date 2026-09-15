@@ -16,6 +16,13 @@
 %   2. bib 里几乎每条都已经有 keywords 字段，所以必须 \map[overwrite] 配合
 %      append，否则 fieldset 会被整个跳过，一条也选不中。
 %
+% Author+an 的分隔符为什么是 [,;]
+%   biblatex 的名字标注里，`;` 分隔不同作者的标注、`,` 分隔同一个作者的多个标注，
+%   所以两位通讯作者写作 {1=corresponding;3=corresponding}。目前 bib 里每条最多
+%   只有一位通讯、分隔符根本不出现，但一旦出现两位，只认 `,` 的旧正则会漏掉后一位
+%   —— 而这个过滤器是 fail-closed 的，漏掉不会报错，只会让论文从 CV 里消失。
+%   scripts/zotero-bbt-postscript.js 生成的就是 `;`，两边必须对得上。
+%
 % 位次正则为什么是精确的
 %   BibTeX 源里每个作者都是 "Family, Given" —— 恰好一个逗号。因为 [^,] 跨不过
 %   逗号，([^,]+,[^,]+\s+and\s+){n} 只能不多不少地跨过 n 个作者，所以判定是
@@ -33,115 +40,115 @@
 
 % —— 通讯：Song 的位次 == 被标注 corresponding 的位次 ——
 \map[overwrite]{
-  \step[fieldsource=author+an, match=\regexp{(^|,)\s*2=corresponding}, final]
+  \step[fieldsource=author+an, match=\regexp{(^|[,;])\s*2=corresponding}, final]
   \step[fieldsource=author, match=\regexp{^([^,]+,[^,]+\s+and\s+){1}Song,\s*Shuang}, final]
   \step[fieldset=keywords, fieldvalue={,cv-selected}, append]
 }
 
 \map[overwrite]{
-  \step[fieldsource=author+an, match=\regexp{(^|,)\s*3=corresponding}, final]
+  \step[fieldsource=author+an, match=\regexp{(^|[,;])\s*3=corresponding}, final]
   \step[fieldsource=author, match=\regexp{^([^,]+,[^,]+\s+and\s+){2}Song,\s*Shuang}, final]
   \step[fieldset=keywords, fieldvalue={,cv-selected}, append]
 }
 
 \map[overwrite]{
-  \step[fieldsource=author+an, match=\regexp{(^|,)\s*4=corresponding}, final]
+  \step[fieldsource=author+an, match=\regexp{(^|[,;])\s*4=corresponding}, final]
   \step[fieldsource=author, match=\regexp{^([^,]+,[^,]+\s+and\s+){3}Song,\s*Shuang}, final]
   \step[fieldset=keywords, fieldvalue={,cv-selected}, append]
 }
 
 \map[overwrite]{
-  \step[fieldsource=author+an, match=\regexp{(^|,)\s*5=corresponding}, final]
+  \step[fieldsource=author+an, match=\regexp{(^|[,;])\s*5=corresponding}, final]
   \step[fieldsource=author, match=\regexp{^([^,]+,[^,]+\s+and\s+){4}Song,\s*Shuang}, final]
   \step[fieldset=keywords, fieldvalue={,cv-selected}, append]
 }
 
 \map[overwrite]{
-  \step[fieldsource=author+an, match=\regexp{(^|,)\s*6=corresponding}, final]
+  \step[fieldsource=author+an, match=\regexp{(^|[,;])\s*6=corresponding}, final]
   \step[fieldsource=author, match=\regexp{^([^,]+,[^,]+\s+and\s+){5}Song,\s*Shuang}, final]
   \step[fieldset=keywords, fieldvalue={,cv-selected}, append]
 }
 
 \map[overwrite]{
-  \step[fieldsource=author+an, match=\regexp{(^|,)\s*7=corresponding}, final]
+  \step[fieldsource=author+an, match=\regexp{(^|[,;])\s*7=corresponding}, final]
   \step[fieldsource=author, match=\regexp{^([^,]+,[^,]+\s+and\s+){6}Song,\s*Shuang}, final]
   \step[fieldset=keywords, fieldvalue={,cv-selected}, append]
 }
 
 \map[overwrite]{
-  \step[fieldsource=author+an, match=\regexp{(^|,)\s*8=corresponding}, final]
+  \step[fieldsource=author+an, match=\regexp{(^|[,;])\s*8=corresponding}, final]
   \step[fieldsource=author, match=\regexp{^([^,]+,[^,]+\s+and\s+){7}Song,\s*Shuang}, final]
   \step[fieldset=keywords, fieldvalue={,cv-selected}, append]
 }
 
 \map[overwrite]{
-  \step[fieldsource=author+an, match=\regexp{(^|,)\s*9=corresponding}, final]
+  \step[fieldsource=author+an, match=\regexp{(^|[,;])\s*9=corresponding}, final]
   \step[fieldsource=author, match=\regexp{^([^,]+,[^,]+\s+and\s+){8}Song,\s*Shuang}, final]
   \step[fieldset=keywords, fieldvalue={,cv-selected}, append]
 }
 
 \map[overwrite]{
-  \step[fieldsource=author+an, match=\regexp{(^|,)\s*10=corresponding}, final]
+  \step[fieldsource=author+an, match=\regexp{(^|[,;])\s*10=corresponding}, final]
   \step[fieldsource=author, match=\regexp{^([^,]+,[^,]+\s+and\s+){9}Song,\s*Shuang}, final]
   \step[fieldset=keywords, fieldvalue={,cv-selected}, append]
 }
 
 \map[overwrite]{
-  \step[fieldsource=author+an, match=\regexp{(^|,)\s*11=corresponding}, final]
+  \step[fieldsource=author+an, match=\regexp{(^|[,;])\s*11=corresponding}, final]
   \step[fieldsource=author, match=\regexp{^([^,]+,[^,]+\s+and\s+){10}Song,\s*Shuang}, final]
   \step[fieldset=keywords, fieldvalue={,cv-selected}, append]
 }
 
 \map[overwrite]{
-  \step[fieldsource=author+an, match=\regexp{(^|,)\s*12=corresponding}, final]
+  \step[fieldsource=author+an, match=\regexp{(^|[,;])\s*12=corresponding}, final]
   \step[fieldsource=author, match=\regexp{^([^,]+,[^,]+\s+and\s+){11}Song,\s*Shuang}, final]
   \step[fieldset=keywords, fieldvalue={,cv-selected}, append]
 }
 
 \map[overwrite]{
-  \step[fieldsource=author+an, match=\regexp{(^|,)\s*13=corresponding}, final]
+  \step[fieldsource=author+an, match=\regexp{(^|[,;])\s*13=corresponding}, final]
   \step[fieldsource=author, match=\regexp{^([^,]+,[^,]+\s+and\s+){12}Song,\s*Shuang}, final]
   \step[fieldset=keywords, fieldvalue={,cv-selected}, append]
 }
 
 \map[overwrite]{
-  \step[fieldsource=author+an, match=\regexp{(^|,)\s*14=corresponding}, final]
+  \step[fieldsource=author+an, match=\regexp{(^|[,;])\s*14=corresponding}, final]
   \step[fieldsource=author, match=\regexp{^([^,]+,[^,]+\s+and\s+){13}Song,\s*Shuang}, final]
   \step[fieldset=keywords, fieldvalue={,cv-selected}, append]
 }
 
 \map[overwrite]{
-  \step[fieldsource=author+an, match=\regexp{(^|,)\s*15=corresponding}, final]
+  \step[fieldsource=author+an, match=\regexp{(^|[,;])\s*15=corresponding}, final]
   \step[fieldsource=author, match=\regexp{^([^,]+,[^,]+\s+and\s+){14}Song,\s*Shuang}, final]
   \step[fieldset=keywords, fieldvalue={,cv-selected}, append]
 }
 
 \map[overwrite]{
-  \step[fieldsource=author+an, match=\regexp{(^|,)\s*16=corresponding}, final]
+  \step[fieldsource=author+an, match=\regexp{(^|[,;])\s*16=corresponding}, final]
   \step[fieldsource=author, match=\regexp{^([^,]+,[^,]+\s+and\s+){15}Song,\s*Shuang}, final]
   \step[fieldset=keywords, fieldvalue={,cv-selected}, append]
 }
 
 \map[overwrite]{
-  \step[fieldsource=author+an, match=\regexp{(^|,)\s*17=corresponding}, final]
+  \step[fieldsource=author+an, match=\regexp{(^|[,;])\s*17=corresponding}, final]
   \step[fieldsource=author, match=\regexp{^([^,]+,[^,]+\s+and\s+){16}Song,\s*Shuang}, final]
   \step[fieldset=keywords, fieldvalue={,cv-selected}, append]
 }
 
 \map[overwrite]{
-  \step[fieldsource=author+an, match=\regexp{(^|,)\s*18=corresponding}, final]
+  \step[fieldsource=author+an, match=\regexp{(^|[,;])\s*18=corresponding}, final]
   \step[fieldsource=author, match=\regexp{^([^,]+,[^,]+\s+and\s+){17}Song,\s*Shuang}, final]
   \step[fieldset=keywords, fieldvalue={,cv-selected}, append]
 }
 
 \map[overwrite]{
-  \step[fieldsource=author+an, match=\regexp{(^|,)\s*19=corresponding}, final]
+  \step[fieldsource=author+an, match=\regexp{(^|[,;])\s*19=corresponding}, final]
   \step[fieldsource=author, match=\regexp{^([^,]+,[^,]+\s+and\s+){18}Song,\s*Shuang}, final]
   \step[fieldset=keywords, fieldvalue={,cv-selected}, append]
 }
 
 \map[overwrite]{
-  \step[fieldsource=author+an, match=\regexp{(^|,)\s*20=corresponding}, final]
+  \step[fieldsource=author+an, match=\regexp{(^|[,;])\s*20=corresponding}, final]
   \step[fieldsource=author, match=\regexp{^([^,]+,[^,]+\s+and\s+){19}Song,\s*Shuang}, final]
   \step[fieldset=keywords, fieldvalue={,cv-selected}, append]
 }

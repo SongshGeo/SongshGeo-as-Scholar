@@ -106,8 +106,11 @@
 \printbibliography[
     type=article,
     title={A) Publications with peer review process},
-    notkeyword={to-read},
     % 中文原文条目（已有英译版本在列）不重复列出，见 bib 中的 duplicate-zh 关键词
+    %
+    % 这里曾经还有一条 notkeyword={to-read}。to-read 是 Zotero 里真实在用的"待读"
+    % 标签，2026-09 同步后它出现在 5 篇自己的在投/在审论文上，于是这份"完整列表"
+    % 会静默漏掉它们。见 cv/main.tex 同处的说明。
     notkeyword={duplicate-zh},
 ]
 

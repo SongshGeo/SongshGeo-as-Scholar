@@ -46,15 +46,14 @@ driven by the shared `latex_build` macro in the `Makefile`.
 ## How the Publications section works
 
 The CV lists **only published or accepted articles where Song is first or corresponding
-author** — currently 10 of the 36 articles in the master bib — and points readers to
+author** — currently 11 of the 41 articles in the master bib — and points readers to
 <https://cv.songshgeo.com/publication/> for the complete list. `publist/` remains the formal
 complete list and still carries everything, including work under review.
 
 ```latex
 \nocite{*}
 \printbibliography[type=article, heading=none, keyword={cv-selected},
-                   notkeyword={cv-unpublished}, notkeyword={to-read},
-                   notkeyword={duplicate-zh}]
+                   notkeyword={cv-unpublished}, notkeyword={duplicate-zh}]
 ```
 
 Two build-time keywords do the filtering. Neither exists in the bib; both are attached by
@@ -65,9 +64,16 @@ sourcemaps so that the Zotero-generated bib is never edited.
 | `cv-selected` | `author-filter.tex` | Song is first author, or Song's position is the corresponding position |
 | `cv-unpublished` | the status maps at the top of `main.tex` | `year` is `submitted`, `under review` or `in prep` |
 
-The `notkeyword={to-read}` and `notkeyword={duplicate-zh}` filters alongside them are
-**inert today** — neither keyword appears in the bib. They are kept for parity with
-`publist/main.tex`, as ready-made switches for tags that may later be added in Zotero.
+`notkeyword={duplicate-zh}` alongside them is **inert today** — the keyword appears 0
+times in the bib. It is kept for parity with `publist/main.tex`.
+
+There used to be a `notkeyword={to-read}` beside it, added on the same "inert switch"
+reasoning. It was removed in 2026-09: `to-read` is a tag actually in use in Zotero as a
+personal reading marker, and the moment it landed on five of Song's own submitted papers
+the switch started hiding them from both documents — silently, because these filters do
+not report what they drop. **Do not add filters on keywords that Zotero may legitimately
+attach to Song's own papers**; a build-time keyword (like `cv-selected`) is the safe kind,
+because nothing outside this repo can set it.
 
 `cv-unpublished` keys off the `year` field's status string. A legal year passes, and so does
 `accepted` — it matches none of the three patterns, so accepted-but-not-yet-published papers
@@ -93,7 +99,7 @@ Other details:
 - Only `@article` entries appear. The three `@inproceedings` (conference) entries in the
   master bib are deliberately left out of the CV; they do appear in `publist/`.
 - `\GetTotalCount` counts the entries this document actually **prints** — so after filtering
-  it equals the number listed (10), not the number published. The intro sentence is worded to
+  it equals the number listed (11), not the number published. The intro sentence is worded to
   match that meaning; do not reword it as a total without changing how the count is obtained.
 - `maxnames=5` keeps author lists short. `publist/` uses `maxnames=50` because it is the
   formal complete list.
@@ -110,9 +116,17 @@ All three fail **closed** — a paper gets left out, never wrongly claimed. That
 direction for an authorship claim, but it does mean a missing paper is worth investigating
 rather than shrugging at.
 
-1. **Zotero must carry the annotation.** A paper where Song is corresponding but the Zotero
-   item has no `Author+an` is not selected. Fix it in Zotero and re-run `make sync-pubs` —
-   never by editing the bib or hardcoding the key here.
+1. **Zotero must carry the annotation, and the export postscript must be installed.**
+   `Author+an` does not exist in Zotero; it is produced at export time by
+   `scripts/zotero-bbt-postscript.js` from the item's `corr:N` tag (see scripts/README.md).
+   Two ways this fails, both silent:
+   - the item has no `corr:N` tag → tag it in Zotero, re-run `make sync-pubs`;
+   - the postscript is not installed in Better BibTeX → **every** annotation disappears at
+     once, and the CV quietly shrinks. A Better BibTeX reinstall resets that pref, which is
+     exactly what happened in 2026-09. Check with `grep -c 'Author+an' My-Publications.bib`
+     (expect ~30, never 0) before trusting a freshly synced CV.
+
+   Fix it in Zotero either way — never by editing the bib or hardcoding the key here.
 2. **Author names must be `Family, Given`.** The position regex counts authors with
    `([^,]+,[^,]+\s+and\s+){n}`, which assumes exactly one comma per author. A braced
    institutional author (`{World Bank}`, no comma) or a suffixed name (`King, Jr., M.`, two

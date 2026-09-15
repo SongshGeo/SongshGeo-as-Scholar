@@ -253,11 +253,14 @@ This project aimed to improve mathematical models of socio-hydrology by examinin
     heading=none,
     keyword={cv-selected},
     notkeyword={cv-unpublished},
-    % 下面两个是预留开关，当前 bib 里都没有出现过（各 0 次），所以是空转。
-    % 和 publist/main.tex 保持一致：给 Zotero 里将来可能打的标签留好位置。
-    % to-read      = 只是想读、并非自己的成果
-    % duplicate-zh = 中文原文条目，已有英译版本在列，不重复列出
-    notkeyword={to-read},
+    % duplicate-zh = 中文原文条目，已有英译版本在列，不重复列出。预留开关，
+    % 当前 bib 里 0 次，空转；和 publist/main.tex 保持一致。
+    %
+    % 这里曾经还有一条 notkeyword={to-read}，同样按"空转的预留开关"写的。
+    % 但 to-read 是 Zotero 里真实在用的"待读"标签，2026-09 同步后它出现在 5 篇
+    % 自己的在投/在审论文上，于是这个开关真的生效、把它们静默隐藏了。语义对不上
+    % —— 自己没读完的论文不等于不该列出 —— 所以删掉。别再以"反正是空转"为由加回来：
+    % 凡是 Zotero 里可能真的打在自己论文上的标签，都不能拿来当过滤开关。
     notkeyword={duplicate-zh},
 ]
 \endrefsection

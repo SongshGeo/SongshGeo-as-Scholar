@@ -33,9 +33,19 @@ locale only (`content/en/publication/`).
 
 1. **Zotero is running** with the **Better BibTeX** plugin installed. It is
    required to resolve citation keys and export BibTeX (`http://localhost:23119`).
-2. A **saved search** exists in Zotero (default name `#00.English my-pubs`).
-3. `My-Publications.bib` exists at the repo root (the master bib).
-4. For the page/PDF steps: the normal toolchain (`poetry`, `xelatex`, `biber`)
+2. **The BBT export postscript is installed.** Better BibTeX ▸ Advanced ▸ Export ▸
+   Postscript must hold the contents of `scripts/zotero-bbt-postscript.js`, which
+   turns the Zotero tag `corr:N` into `Author+an = {N=corresponding}`. Without it
+   the export is *silently* missing every corresponding-author annotation and the
+   CV under-reports authorship (the filters fail closed). The pref is reset by a
+   Better BibTeX reinstall, so re-check it after one. Verify with:
+
+   ```bash
+   grep -c 'Author+an' My-Publications.bib   # expect ~24, not 0
+   ```
+3. A **saved search** exists in Zotero (default name `#00.English my-pubs`).
+4. `My-Publications.bib` exists at the repo root (the master bib).
+5. For the page/PDF steps: the normal toolchain (`poetry`, `xelatex`, `biber`)
    as used by `make full-update` / `make update-pdfs`.
 
 ## Primary workflow (this repository)

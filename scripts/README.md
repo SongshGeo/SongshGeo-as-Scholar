@@ -10,6 +10,42 @@
 6. **`auto_tag_publications.py`** - 为出版物页面推导主题标签
 7. **`bibtex_entries.py`** - 共享的 BibTeX 条目解析器（其他脚本一律 import 它，不要自己写正则）
 8. **`check_site_integrity.py`** - 本仓库自有代码的完整性检查（不测主题）
+9. **`zotero-bbt-postscript.js`** - Better BibTeX 的导出后处理脚本（**不在本仓库里运行**，见下）
+
+## Zotero 侧：安装导出 postscript
+
+Zotero 没有"通讯作者"这个字段，本库是用**标签**记的：`corr:2` 表示第 2 作者是通讯。
+`scripts/zotero-bbt-postscript.js` 负责在导出时把它翻译成 biblatex 的
+
+```bibtex
+Author+an = {2=corresponding}
+```
+
+这个字段是下游唯一的通讯作者信息来源：`cv/author-filter.tex` 用它决定 CV 到底列哪些
+论文，`publist/main.tex` 和 `cv/main.tex` 用它打星号，`create_publication_template.py`
+用它生成新页面的 `author_notes`。**它们全都是 fail-closed 的** —— 缺了标注不会报错，
+只会让论文悄悄从 CV 里消失。
+
+安装（每台机器一次；**重装 Better BibTeX 会把这个偏好清空，必须重做**）：
+
+1. 复制脚本内容：`pbcopy < scripts/zotero-bbt-postscript.js`
+2. Zotero ▸ 设置 ▸ Better BibTeX ▸ Advanced ▸ Export ▸ Postscript，粘贴、关掉设置窗口。
+3. 验证：
+
+   ```bash
+   curl -s -X POST http://localhost:23119/better-bibtex/json-rpc \
+     -H 'Content-Type: application/json' \
+     -d '{"jsonrpc":"2.0","method":"item.export","params":[["song2026"],"Better BibLaTeX"],"id":1}' \
+     | grep -o 'Author+an[^,]*'
+   ```
+
+   应当打印 `Author+an = {1=corresponding}`。什么都不输出就是没装上。
+
+改脚本的时候改**仓库里这份**，然后重新粘贴一遍 —— Zotero 里那份是副本，不是源。
+
+导出用 **Better BibLaTeX**，不要用 Better BibTeX：本仓库的 bib 是 biblatex 格式
+（`date` / `journaltitle`），而且 BibTeX 会把 emoji 标签 ASCII 折叠成空字符串，
+`keywords` 里会多出一堆空项。`make sync-pubs` 已经写死了用前者。
 
 ## 安装依赖
 
