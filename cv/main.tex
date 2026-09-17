@@ -44,6 +44,9 @@
 \newcommand{\employmententry}[3]{\textbf{\textit{#1}} \hfill {\em #2} \\ \textnormal{\em #3}}
 \newcommand{\projectentry}[4]{\textit{[#1]} {\bf #2} \\ \textnormal{\em #3} \hfill {\em #4}}
 \newcommand{\awardentry}[3]{\textnormal{ \textit {#1}  \hfill {\em #2} #3}}
+% 学生：姓名靠左、学位阶段靠右，第二行是专业与学校 —— 和 \employmententry 同一套
+% 排版，但单独起一个名字，免得 .tex 里读起来像是把学生写进了任职经历。
+\newcommand{\superviseeentry}[4]{\textbf{\textit{#1}} \hfill {\em #2} \\ \textnormal{\em #3, #4}}
 
 
 % 使用publist包可以直接很方便的打印参考文献列表，突出自己作品
@@ -267,6 +270,25 @@ This project aimed to improve mathematical models of socio-hydrology by examinin
 
 \vspace{0.4em}
 \textnormal{\textsuperscript{*}~= Corresponding author}
+
+\end{rSection}
+
+% ============ 共同指导的学生 ============ %
+% 手写维护，没有数据源 —— 学生名单不在 bib 里，也不在 Zotero 里。
+% 按学位阶段排（博士在前），同一阶段内不排先后。
+% 目前都没有起止年份；补的话在第二个参数里写成 "PhD Candidate, 2024--present"。
+
+\begin{rSection}{Student Co-Supervision}
+
+\superviseeentry{Bo Hu}{PhD Candidate}{Social Psychology}{Nanjing University}
+
+\superviseeentry{Chentai Jiao}{PhD Student}{Physical Geography}{Beijing Normal University}
+
+\superviseeentry{Yueman Hou}{PhD Student}{Physical Geography}{Beijing Normal University}
+
+\superviseeentry{Shihao Li}{Master's Student}{Archaeology}{Shandong University}
+
+\superviseeentry{Jiayi Que}{Master's Student}{Historical Geography}{Renmin University of China}
 
 \end{rSection}
 
