@@ -1,0 +1,12 @@
+# Navbar brand identity switcher (assets/js/brand-roles.js).
+# Structure and destinations live here; the visible labels live in
+# i18n/<lang>.yaml under `brand_role_<id>` and `brand_role_<id>_sub`.
+- id: scientist
+  url: /
+  current: true
+- id: explorer
+  url: https://songshgeo.com/
+  external: true
+- id: developer
+  url: https://github.com/SongshGeo
+  external: true

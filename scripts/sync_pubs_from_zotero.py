@@ -48,6 +48,8 @@ import urllib.error
 import urllib.parse
 import urllib.request
 
+from bibtex_entries import entry_year, field, iter_entries
+
 # ── Config (env-overridable, mirrors the zotero-search skill) ──────────────── #
 DATA_DIR = os.path.expanduser(os.environ.get("ZOTERO_DATA_DIR", "~/Zotero"))
 API_BASE = os.environ.get("ZOTERO_LOCAL_API", "http://localhost:23119").rstrip("/")
@@ -243,21 +245,38 @@ def export_biblatex(citekeys: list) -> str:
 
 
 # ── BibTeX parsing / merge ─────────────────────────────────────────────────── #
-_ENTRY_RE = re.compile(r"@(\w+)\s*\{\s*([^,\s]+)\s*,(.*?)(?=\n@|\Z)", re.DOTALL)
 
 
-def parse_entries(text: str) -> list:
-    """Return [{key, type, raw, title, normalized_title, doi}] preserving source order."""
+# Fields Better BibTeX emits by default that this bib deliberately does not carry.
+# `file` is the one that matters: it is an absolute path into the local Zotero
+# storage, so leaving it in commits one machine's directory layout to a public
+# repo. The rest is bulk — abstracts are filled in on the publication *pages* by
+# extract_abstract_from_pdf.py, not taken from here.
+NOISE_FIELDS = ("abstract", "file", "copyright", "urldate")
+
+
+def strip_noise(raw: str) -> str:
+    """Drop NOISE_FIELDS from one entry's source text, last-field case included."""
+    for name in NOISE_FIELDS:
+        raw = re.sub(r"\n  %s = \{.*?\},(?=\n  [A-Za-z+]+ = |\n\})" % name, "", raw, flags=re.S)
+        raw = re.sub(r"\n  %s = \{.*?\}(?=\n\})" % name, "", raw, flags=re.S)
+    return raw
+
+
+def parse_entries(text: str, strip: bool = False) -> list:
+    """Return [{key, type, raw, title, normalized_title, doi}] preserving source order.
+
+    ``strip`` applies strip_noise to each entry and is for *exported* text only:
+    an existing entry's ``raw`` has to stay byte-identical to what is in the bib,
+    because --update-existing rewrites it by string replacement.
+    """
     out = []
-    for m in _ENTRY_RE.finditer(text):
-        etype, key, body = m.group(1), m.group(2), m.group(3)
-        title = re.search(r"title\s*=\s*[{\"'](.*?)[}\"']", body, re.DOTALL)
-        doi = re.search(r"doi\s*=\s*[{\"'](.*?)[}\"']", body)
-        title = (title.group(1).strip() if title else "")
+    for e in iter_entries(text):
+        title = field(e.body, "title")
         out.append({
-            "key": key, "type": etype, "raw": m.group(0).strip(),
+            "key": e.key, "type": e.type, "raw": strip_noise(e.raw) if strip else e.raw,
             "title": title, "normalized_title": normalize_title(title),
-            "doi": norm_doi(doi.group(1) if doi else ""),
+            "doi": norm_doi(field(e.body, "doi")),
         })
     return out
 
@@ -287,11 +306,6 @@ def classify(exported: list, existing: list) -> dict:
             else:
                 result["new"].append(e)
     return result
-
-
-def entry_year(raw: str) -> str:
-    m = re.search(r"\b(?:date|year)\s*=\s*\{?\D*(\d{4})", raw)
-    return m.group(1) if m else ""
 
 
 def is_placeholder_key(key: str) -> bool:
@@ -337,7 +351,7 @@ def main() -> int:
 
     # 3) Export those citekeys as biblatex.
     exported_text = export_biblatex(list(ck.values()))
-    exported = parse_entries(exported_text)
+    exported = parse_entries(exported_text, strip=True)
     if args.since:
         kept = [e for e in exported if not entry_year(e["raw"]) or int(entry_year(e["raw"])) >= args.since]
         dropped = len(exported) - len(kept)

@@ -76,10 +76,10 @@ mkdir missing_pub_key
 
 **注意**：需要 OpenAI API Key，会产生少量费用
 
-#### Step 6/6: 更新发表列表
-- 用 XeLaTeX 编译 `publist/main.tex`
-- 生成 PDF
-- 复制到 `static/uploads/pubs.pdf`
+#### Step 6/6: 更新发表列表和简历
+- 用 XeLaTeX 编译 `publist/main.tex` → `static/uploads/pubs.pdf`
+- 用 pdfLaTeX 编译 `cv/main.tex` → `static/uploads/SongshGeo_fullCV.pdf`
+- 两者读同一份根目录 `My-Publications.bib`，所以新论文会同时进入发表列表和简历
 
 ### 3. 审查更改
 
@@ -97,6 +97,10 @@ make show-log
 ### 4. 测试
 
 ```bash
+# 完整性检查（只查我们自己写的代码，不测主题）
+make test          # 只查源码，秒级
+make test-full     # 先构建，再连渲染结果一起查
+
 # 启动本地服务器
 make server
 
@@ -159,17 +163,95 @@ make extract-abstracts
 - 默认每次处理：10 篇
 - 成本：约 $0.002/篇
 
-### 更新发表列表
+### 更新发表列表和简历
 
 ```bash
-# 编译并更新 pubs.pdf
+# 只编译发表列表 → static/uploads/pubs.pdf
 make update-publist
+
+# 只编译完整简历 → static/uploads/SongshGeo_fullCV.pdf
+make update-cv
+
+# 两个一起编译
+make update-pdfs
 ```
 
 **要求**：
-- `publist/` 目录存在
-- XeLaTeX 已安装
+- `publist/` 和 `cv/` 目录存在（源码在仓库里，clone 下来就有）
+- `xelatex`、`pdflatex`、`biber` 已安装
 - `My-Publications.bib` 可访问
+
+两个文档用的引擎不一样，且不能互换：`publist/` 用 XeLaTeX，`cv/` 用 pdfLaTeX
+（简历依赖 `times` 和 fontawesome v4，换 XeLaTeX 会让正文字体悄悄退回 Latin Modern）。
+详见 `cv/README.md`。
+
+两个文档共用同一份 bib，编译时会各自拷一份副本进目录 —— 那些副本是构建产物，
+不要直接编辑，改了会在下次编译时被覆盖。
+
+#### 简历里的审稿服务列表
+
+`make update-cv` 会先跑 `make update-reviews`，从审稿归档目录重算简历上的期刊审稿
+列表，所以平时不用单独执行。归档目录由 `REVIEWER_DIR` 指定（默认
+`~/Documents/Community/Reviewer`），可以用环境变量或命令行覆盖：
+
+```bash
+make update-cv REVIEWER_DIR=/path/to/archive
+```
+
+两件事值得知道：
+
+- **审了一本新刊会让构建失败**，直到你在 `cv/journals.yaml` 里补上它的领域和 JCR
+  分区。这是故意的 —— 刚审完是唯一会记得去查分区的时刻。报错会打出可直接粘贴的
+  YAML 片段。
+- **归档目录不存在不算错误**。脚本打印 `skip` 后退出 0，用已提交的
+  `cv/review-service.tex` 编译，所以别人 clone 下来照样能出简历。
+
+细节见 `cv/README.md`。
+
+`static/uploads/Song_CV_2pages.pdf`（两页精简版）不在这条流水线里，仍然手工维护。
+
+## 🪝 提交前检查（pre-commit）
+
+每次 `git commit` 前自动跑一遍，确保各处同步、格式干净。克隆后装一次：
+
+```bash
+make install-hooks     # 等价于 pre-commit install；make install 也会顺带装
+```
+
+配置在 `.pre-commit-config.yaml`，分两类：
+
+**同步检查**
+- `generated-pdfs-in-sync` —— 如果这次提交动了 `cv/` 或 `publist/` 的源文件、或动了
+  `My-Publications.bib`，那么对应的 PDF 必须一起提交。这是最常见的失误：改了内容忘了
+  重新编译，网站上挂的还是旧简历。它只查 git 索引，很快。
+- `site-integrity` —— 复用 `scripts/check_site_integrity.py` 的 6 项检查
+  （发表页能否追溯到 bib、中英 i18n 键是否一致、有无未解析的 wikilink 等）。
+
+**格式检查**：尾随空格、文件末尾换行、行尾符统一为 LF、冲突标记、YAML/TOML 语法、大文件。
+
+两个刻意的例外：
+- Markdown 里**两个尾随空格是硬换行**，用 `--markdown-linebreak-ext=md` 保留，不会被剥
+- 所有 `.bib` 以及 `public/`、`resources/`、`static/`、`assets/media/` 都排除在外
+  —— 前者由 Zotero 生成，后者是构建产物和二进制资源
+
+pre-commit 默认只作用于暂存文件，所以不会一次性重写整个仓库。想主动全扫一遍：
+
+```bash
+pre-commit run --all-files
+```
+
+### 更彻底的 PDF 校验
+
+提交钩子只检查「PDF 有没有跟着源文件一起提交」，不会真的重编译（太慢）。要确认
+PDF 内容确实是当前源文件编出来的：
+
+```bash
+make verify-pdfs
+```
+
+它会重新编译两份文档，和已提交的版本逐字比对（忽略 LaTeX 每次写入的日期）。
+能抓到「PDF 提交了，但是用旧源文件编的」这种钩子看不见的情况。需要 TeX 和
+`pdftotext`，约半分钟。
 
 ## 📊 日志系统
 
@@ -292,13 +374,17 @@ poetry run python scripts/extract_abstract_from_pdf.py --max-publications 5
 
 ### 问题 1: XeLaTeX 编译失败
 
-**症状**：`make update-publist` 失败
+**症状**：`make update-publist` 或 `make update-cv` 失败
 
 **解决**：
 ```bash
-# 手动编译检查错误
-cd publist
-xelatex main.tex
+# 先看完整编译输出，静默模式会把错误藏起来
+make update-publist-verbose
+make update-cv-verbose
+
+# 或手动编译（注意两者引擎不同）
+cd publist && xelatex main.tex
+cd cv      && pdflatex main.tex
 
 # 查看 main.log 获取详细错误
 ```
@@ -349,4 +435,3 @@ make preview-rename
 # 一键完成所有步骤
 make full-update
 ```
-

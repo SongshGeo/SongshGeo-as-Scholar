@@ -10,4 +10,3 @@
   * [🏠 项目主页](../README.md)
   * [💻 GitHub](https://github.com/SongshGeo/SongshGeo-as-Scholar)
   * [🌐 个人网站](https://songshgeo.github.io)
-

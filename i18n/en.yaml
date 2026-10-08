@@ -1,0 +1,29 @@
+# Custom UI strings for this site's own components.
+# Single source of truth: templates read these via `i18n "<key>"`, and the JS
+# in assets/js/ reads them from `window.__siteUI`, emitted by
+# layouts/partials/custom_js.html. Never hardcode display text in JS or SCSS.
+
+# assets/js/publications-filter.js
+pubfilter_year: Year
+pubfilter_topics: Topics
+pubfilter_clear: Clear
+pubfilter_show_all: Show all ({n})
+pubfilter_collapse: Collapse
+
+# assets/js/about-expand.js
+about_read_more: Read more
+about_show_less: Show less
+about_toggle_aria: Expand or collapse the full bio
+
+# assets/js/brand-roles.js
+brand_identity_eyebrow: Identity
+brand_switch_aria: Switch identity
+brand_role_scientist: As a Scientist
+brand_role_scientist_sub: Academic site
+brand_role_explorer: As an Explorer
+brand_role_explorer_sub: Essays & longform blog
+brand_role_developer: As a Developer
+brand_role_developer_sub: Open source on GitHub
+
+# layouts/shortcodes/project-publications.html
+project_publications_empty: 'No publications are tagged with <code>projects: {{ . }}</code> yet.'

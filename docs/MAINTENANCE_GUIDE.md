@@ -101,7 +101,7 @@ Full biography here...
 - `projects.md`: 研究项目展示
 - `contact.md`: 联系方式
 
-**更新频率**: 
+**更新频率**:
 - 工作经历: 职位变动时
 - 荣誉奖项: 获奖时
 - 其他: 根据需要
@@ -208,13 +208,18 @@ main:
 
 ### 7. 静态资源
 
-**位置**: 
+**位置**:
 - `assets/media/`: 网站图片（图标、背景等）
 - `static/uploads/`: 用户上传的文件（PDF、数据等）
 
 **常见文件**:
 - `assets/media/icon.png`: 网站图标
-- `static/uploads/resume.pdf`: 简历 PDF
+- `static/uploads/pubs.pdf`: 完整发表列表（由 `make update-publist` 生成，勿手工替换）
+- `static/uploads/SongshGeo_fullCV.pdf`: 完整学术简历（由 `make update-cv` 生成，勿手工替换）
+- `static/uploads/Song_CV_2pages.pdf`: 两页精简版简历（手工维护，仓库内没有源文件）
+
+前两个 PDF 的 LaTeX 源码分别在 `publist/` 和 `cv/`，共用根目录的 `My-Publications.bib`。
+要改内容请改 `.tex` 再重新编译，直接替换 PDF 会在下次编译时被覆盖。
 
 **更新频率**: 根据需要
 
@@ -246,6 +251,7 @@ pip install langchain langchain-community langchain-openai openai pypdf python-d
 | `create_publication_template.py` | 自动创建论文页面模板 | 添加新论文 |
 | `extract_abstract_from_pdf.py` | 从 PDF 自动提取摘要 | 批量补充摘要 |
 | `check_missing_publications.py` | 基础版检查脚本 | 快速检查 |
+| `check_site_integrity.py` | 本仓库自有代码的完整性检查 | `make test` / `make test-full`，CI 每个 PR 自动跑 |
 
 ### 详细使用方法
 
@@ -588,7 +594,7 @@ A: 编辑 `content/*/home/publications.md`，修改 `count` 参数。
 
 ### Q: 网站构建失败怎么办？
 
-A: 
+A:
 1. 检查 Hugo 版本: `hugo version`
 2. 查看错误信息: `hugo server --verbose`
 3. 检查 YAML 格式是否正确
@@ -634,4 +640,3 @@ A:
 ---
 
 **最后更新**: 2025-10-19
-

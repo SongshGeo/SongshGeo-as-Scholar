@@ -20,6 +20,8 @@
 - ✅ `make rename` - 执行重命名
 - ✅ `make extract-abstracts` - 提取摘要
 - ✅ `make update-publist` - 编译发表列表
+- ✅ `make update-cv` - 编译完整简历
+- ✅ `make update-pdfs` - 两个 PDF 一起编译
 - ✅ `make show-log` - 查看日志
 - ✅ `make clean-logs` - 清理旧日志
 
@@ -34,9 +36,10 @@
 - ✅ `--override` 选项完全覆盖
 - ✅ 批量处理支持
 
-### 5. 发表列表自动更新
+### 5. 发表列表和简历自动更新
 - ✅ XeLaTeX 自动编译
-- ✅ 同步到 `static/uploads/pubs.pdf`
+- ✅ 同步到 `static/uploads/pubs.pdf` 和 `static/uploads/SongshGeo_fullCV.pdf`
+- ✅ 两者共用根目录的 `My-Publications.bib`，Zotero 一同步就都跟着更新
 
 ### 6. 完整文档
 - ✅ [`README.md`](README.md) - 项目总览
@@ -79,10 +82,15 @@ SongshGeo-CV-site/
 ├── .env                         # ✅ 环境变量（gitignored）
 ├── logs/                        # ✅ 日志目录（自动创建）
 │   └── publications.log         # ✅ 操作日志
-├── publist/                     # ✅ LaTeX 发表列表（Overleaf 同步）
+├── publist/                     # ✅ LaTeX 源码：发表列表
 │   └── main.tex
+├── cv/                          # ✅ LaTeX 源码：完整学术简历
+│   ├── main.tex
+│   └── resume.cls
 ├── static/uploads/              # ✅ 上传文件
-│   └── pubs.pdf                 # ✅ 编译的发表列表
+│   ├── pubs.pdf                 # ✅ 编译的发表列表
+│   ├── SongshGeo_fullCV.pdf     # ✅ 编译的完整简历
+│   └── Song_CV_2pages.pdf       # ⚠️ 两页精简版，手工维护
 ├── scripts/                     # ✅ 管理脚本
 │   ├── logger_config.py         # ✅ NEW: 日志配置
 │   ├── check_missing_publications_enhanced.py  # ✅ 增强检查
@@ -271,4 +279,3 @@ make full-update
 ---
 
 **快乐写作，轻松发表！** 📚✨
-

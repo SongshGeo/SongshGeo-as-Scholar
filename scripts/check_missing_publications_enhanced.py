@@ -18,6 +18,7 @@ import sys
 from pathlib import Path
 from typing import Dict, Set, List, Tuple
 from difflib import SequenceMatcher
+from bibtex_entries import field, iter_entries
 from logger_config import setup_logger, log_section, log_success, log_warning, log_error, log_info
 
 
@@ -37,46 +38,35 @@ def normalize_title(title: str) -> str:
 def parse_bibtex_keys(bib_file: str) -> Dict[str, dict]:
     """
     Parse BibTeX file and extract citation keys with metadata.
-    
+
     Args:
         bib_file: Path to .bib file
-        
+
     Returns:
         Dictionary mapping citation keys to entry metadata
     """
     entries = {}
-    
+
     with open(bib_file, 'r', encoding='utf-8') as f:
         content = f.read()
-    
-    # Match BibTeX entries: @article{key, ...}
-    pattern = r'@(\w+)\s*\{\s*([^,\s]+)\s*,([^@]*?)(?=\n@|\Z)'
-    
-    for match in re.finditer(pattern, content, re.MULTILINE | re.DOTALL):
-        entry_type = match.group(1)
-        key = match.group(2)
-        fields = match.group(3)
-        
-        # Extract title if available
-        title_match = re.search(r'title\s*=\s*[{"\'](.*?)[}"\']', fields, re.DOTALL)
-        title = title_match.group(1).strip() if title_match else ''
-        
-        # Extract year if available (numeric only; "submitted" etc. are ignored)
+
+    for entry in iter_entries(content):
+        entry_type = entry.type
+        key = entry.key
+        fields = entry.body
+
+        title = field(fields, 'title')
+        authors = field(fields, 'author')
+        doi = field(fields, 'doi')
+
+        # Year is numeric-only on purpose: "submitted" etc. are not years.
         year_match = re.search(r'year\s*=\s*[{"\']*(\d{4})[}"\',]*', fields)
         year = year_match.group(1) if year_match else ''
 
-        # biblatex date (YYYY, YYYY-MM, YYYY-MM-DD, ...)
+        # biblatex date (YYYY, YYYY-MM, YYYY-MM-DD, ...) — brace-only, so field() does not fit
         date_match = re.search(r'\bdate\s*=\s*\{([^}]*)\}', fields, re.DOTALL)
         date_val = date_match.group(1).strip() if date_match else ''
 
-        # Extract authors
-        author_match = re.search(r'author\s*=\s*[{"\'](.*?)[}"\']', fields, re.DOTALL)
-        authors = author_match.group(1).strip() if author_match else ''
-        
-        # Extract DOI
-        doi_match = re.search(r'doi\s*=\s*[{"\'](.*?)[}"\']', fields)
-        doi = doi_match.group(1).strip() if doi_match else ''
-        
         entries[key] = {
             'type': entry_type,
             'title': title,
@@ -107,43 +97,43 @@ def has_publishable_bib_date(entry: dict) -> bool:
 def get_existing_publications(content_dir: str, lang: str = 'en') -> Dict[str, dict]:
     """
     Get existing publication folder names and their metadata.
-    
+
     Args:
         content_dir: Base content directory
         lang: Language code (en or zh)
-        
+
     Returns:
         Dictionary mapping folder names to their metadata
     """
     pub_dir = Path(content_dir) / lang / 'publication'
-    
+
     if not pub_dir.exists():
         return {}
-    
+
     existing = {}
     for item in pub_dir.iterdir():
         if item.is_dir() and (item / 'index.md').exists():
             # Check for PDF files in the folder
             has_pdf = bool(list(item.glob('*.pdf')))
             pdf_files = [f.name for f in item.glob('*.pdf')]
-            
+
             # Try to read metadata from index.md
             try:
                 with open(item / 'index.md', 'r', encoding='utf-8') as f:
                     content = f.read()
-                
+
                 # Extract title
                 title_match = re.search(r'title:\s*[\'"](.*?)[\'"]', content)
                 title = title_match.group(1) if title_match else ''
-                
+
                 # Extract year
                 year_match = re.search(r'date:\s*[\'"](\d{4})', content)
                 year = year_match.group(1) if year_match else ''
-                
+
                 # Extract DOI
                 doi_match = re.search(r'doi:\s*[\'"](.*?)[\'"]', content)
                 doi = doi_match.group(1) if doi_match else ''
-                
+
                 existing[item.name] = {
                     'title': title,
                     'normalized_title': normalize_title(title),
@@ -162,19 +152,19 @@ def get_existing_publications(content_dir: str, lang: str = 'en') -> Dict[str, d
                     'has_pdf': has_pdf,
                     'pdf_files': pdf_files
                 }
-    
+
     return existing
 
 
 def rename_files_in_folder(folder_path: Path, target_key: str, dry_run: bool = False) -> dict:
     """
     Rename cite.bib key and PDF files in a publication folder.
-    
+
     Args:
         folder_path: Path to publication folder
         target_key: Target citation key (folder name)
         dry_run: If True, only preview changes
-    
+
     Returns:
         Dict with rename results
     """
@@ -183,24 +173,24 @@ def rename_files_in_folder(folder_path: Path, target_key: str, dry_run: bool = F
         'pdfs_renamed': [],
         'errors': []
     }
-    
+
     # Rename cite.bib key
     cite_bib_path = folder_path / 'cite.bib'
     if cite_bib_path.exists():
         try:
             with open(cite_bib_path, 'r', encoding='utf-8') as f:
                 content = f.read()
-            
+
             # Find and replace the citation key in cite.bib
             # Match pattern: @article{oldkey, or @book{oldkey, etc.
             pattern = r'(@\w+\s*\{\s*)([^,\s]+)(\s*,)'
             match = re.search(pattern, content)
-            
+
             if match:
                 old_key = match.group(2)
                 if old_key != target_key:
                     new_content = re.sub(pattern, rf'\1{target_key}\3', content, count=1)
-                    
+
                     if dry_run:
                         results['cite_bib_renamed'] = f"Would rename: {old_key} -> {target_key}"
                     else:
@@ -209,17 +199,17 @@ def rename_files_in_folder(folder_path: Path, target_key: str, dry_run: bool = F
                         results['cite_bib_renamed'] = f"Renamed: {old_key} -> {target_key}"
         except Exception as e:
             results['errors'].append(f"Error renaming cite.bib: {e}")
-    
+
     # Rename PDF files
     pdf_files = list(folder_path.glob('*.pdf'))
     for pdf_file in pdf_files:
         old_name = pdf_file.name
         # Keep the extension, replace the name
         new_name = f"{target_key}.pdf"
-        
+
         if old_name != new_name:
             new_path = folder_path / new_name
-            
+
             if dry_run:
                 results['pdfs_renamed'].append(f"Would rename: {old_name} -> {new_name}")
             else:
@@ -228,15 +218,15 @@ def rename_files_in_folder(folder_path: Path, target_key: str, dry_run: bool = F
                     results['pdfs_renamed'].append(f"Renamed: {old_name} -> {new_name}")
                 except Exception as e:
                     results['errors'].append(f"Error renaming {old_name}: {e}")
-    
+
     return results
 
 
-def find_matches(bib_entries: Dict[str, dict], existing: Dict[str, dict], 
+def find_matches(bib_entries: Dict[str, dict], existing: Dict[str, dict],
                 title_threshold: float = 0.8) -> Tuple[Set[str], List[dict], List[dict]]:
     """
     Find matches between BibTeX entries and existing publications.
-    
+
     Returns:
         - exact_matches: Set of citation keys that have exact folder matches
         - title_matches: List of dicts with title-based matches
@@ -245,24 +235,24 @@ def find_matches(bib_entries: Dict[str, dict], existing: Dict[str, dict],
     exact_matches = set()
     title_matches = []
     truly_missing = []
-    
+
     for bib_key, bib_entry in bib_entries.items():
         # Check for exact match first
         if bib_key in existing:
             exact_matches.add(bib_key)
             continue
-        
+
         # Check for title-based matches
         best_match = None
         best_similarity = 0
-        
+
         for existing_key, existing_entry in existing.items():
             if existing_entry['normalized_title'] and bib_entry['normalized_title']:
                 sim = similarity(existing_entry['normalized_title'], bib_entry['normalized_title'])
                 if sim > best_similarity and sim >= title_threshold:
                     best_similarity = sim
                     best_match = existing_key
-        
+
         if best_match:
             title_matches.append({
                 'bib_key': bib_key,
@@ -285,7 +275,7 @@ def find_matches(bib_entries: Dict[str, dict], existing: Dict[str, dict],
                 'authors': bib_entry['authors'],
                 'doi': bib_entry['doi']
             })
-    
+
     return exact_matches, title_matches, truly_missing
 
 
@@ -349,10 +339,10 @@ def main():
     )
 
     args = parser.parse_args()
-    
+
     # Setup logging
     log = setup_logger("check_missing_publications", verbose=True)
-    
+
     # Parse BibTeX file
     log_section(log, "Parsing BibTeX file")
     log_info(log, f"File: {args.bib_file}")
@@ -365,21 +355,21 @@ def main():
     except Exception as e:
         log_error(log, f"Error parsing BibTeX file: {e}")
         return 1
-    
+
     # Get existing publications
     log_section(log, "Checking existing publications")
     log_info(log, f"Directory: {args.content_dir}/{args.lang}/publication/")
     existing = get_existing_publications(args.content_dir, args.lang)
     log_success(log, f"Found {len(existing)} existing publication folders")
-    
+
     # Find matches
     exact_matches, title_matches, truly_missing = find_matches(
         bib_entries, existing, args.title_threshold
     )
-    
+
     # Report results
     log_section(log, "RESULTS")
-    
+
     log_section(log, f"ON SITE — SAME CITATION KEY ({len(exact_matches)})")
     if exact_matches:
         for key in sorted(exact_matches):
@@ -387,7 +377,7 @@ def main():
             print(f"   • {key}: {entry['title'][:60]}...")
     else:
         print("   None")
-    
+
     print(f"\n🔍 SAME PAPER, DIFFERENT KEY? ({len(title_matches)})")
     print("   (Review these — may be duplicates or need a key rename)")
     if title_matches:
@@ -406,7 +396,7 @@ def main():
                     print(f"   DOI: ❌ Different ({match['bib_doi']} vs {match['existing_doi']})")
     else:
         print("   None")
-    
+
     print(f"\n📭 NOT ON THE SITE YET ({len(truly_missing)})")
     print("   (In your BibTeX but no folder under content/.../publication/)")
     if truly_missing:
@@ -440,14 +430,14 @@ def main():
         )
     else:
         print("   None")
-    
+
     # Check for missing PDFs if requested
     if args.check_pdf:
         print(f"\n" + "=" * 80)
         print(f"📄 PDF FILES IN EACH FOLDER")
         print("=" * 80)
         print("   (Add a .pdf next to index.md if you want downloads + abstract extraction.)")
-        
+
         publications_without_pdf = []
         for key, entry in existing.items():
             if not entry['has_pdf']:
@@ -456,7 +446,7 @@ def main():
                     'title': entry['title'],
                     'year': entry['year']
                 })
-        
+
         print(f"\n📂 FOLDERS WITHOUT A PDF ({len(publications_without_pdf)}):")
         if publications_without_pdf:
             for i, pub in enumerate(publications_without_pdf, 1):
@@ -470,53 +460,53 @@ def main():
                     print(f"      Title: {title}")
         else:
             print("   None — every folder has at least one PDF. 🎉")
-        
+
         # Summary for PDFs
         publications_with_pdf = len(existing) - len(publications_without_pdf)
         print(f"\n   With PDF:    {publications_with_pdf}")
         print(f"   Without PDF: {len(publications_without_pdf)}")
-        
+
         if publications_without_pdf:
             print(f"\n💡 Add PDFs when you can, then run: make extract-abstracts")
-    
+
     # Rename files if requested
     if args.renaming:
         print(f"\n" + "=" * 80)
         print(f"📝 FILE RENAMING")
         print("=" * 80)
-        
+
         if args.dry_run:
             print("\n⚠️  DRY RUN MODE - No files will be changed\n")
-        
+
         pub_dir = Path(args.content_dir) / args.lang / 'publication'
         renamed_count = 0
         error_count = 0
-        
+
         for key in sorted(exact_matches):
             folder_path = pub_dir / key
             if not folder_path.exists():
                 continue
-            
+
             results = rename_files_in_folder(folder_path, key, args.dry_run)
-            
+
             # Only show output if something was renamed or errors occurred
             if results['cite_bib_renamed'] or results['pdfs_renamed'] or results['errors']:
                 print(f"\n📁 [{key}]")
-                
+
                 if results['cite_bib_renamed']:
                     print(f"   📄 cite.bib: {results['cite_bib_renamed']}")
                     if not args.dry_run:
                         renamed_count += 1
-                
+
                 for pdf_rename in results['pdfs_renamed']:
                     print(f"   📄 PDF: {pdf_rename}")
                     if not args.dry_run:
                         renamed_count += 1
-                
+
                 for error in results['errors']:
                     print(f"   ❌ Error: {error}")
                     error_count += 1
-        
+
         # Summary for renaming
         print(f"\n📊 Renaming Summary:")
         if args.dry_run:
@@ -524,10 +514,10 @@ def main():
         else:
             print(f"   Files renamed:  {renamed_count}")
             print(f"   Errors:         {error_count}")
-        
+
         if args.dry_run:
             print(f"\n💡 Remove --dry-run to actually rename files")
-    
+
     # Summary
     print("\n" + "=" * 80)
     print(f"\n📊 SUMMARY")
@@ -536,16 +526,16 @@ def main():
     print(f"   Matched by citation key:  {len(exact_matches)}")
     print(f"   Possible key duplicates:  {len(title_matches)}")
     print(f"   No Hugo page yet:         {len(truly_missing)}")
-    
+
     if truly_missing and not args.prompt_create_missing:
         print(f"\n💡 Create missing pages (published entries only by default):")
         print(f"   poetry run python scripts/create_publication_template.py {args.bib_file}")
         print(f"   Add --include-unpublished for drafts (submitted, under review, …)")
-    
+
     if title_matches:
         print(f"\n🔧 Title-based matches need a human check:")
         print(f"   Same paper under two keys, or two different papers? Adjust BibTeX or folder names.")
-    
+
     if exact_matches and not args.renaming:
         print(f"\n🔧 Optional — align cite.bib / PDF filenames with folder names:")
         print(f"   poetry run python scripts/check_missing_publications_enhanced.py {args.bib_file} --renaming --dry-run")

@@ -63,8 +63,8 @@ make rename
 # 5. Extract abstracts from PDFs (requires OpenAI API key)
 make extract-abstracts
 
-# 6. Update publication list PDF
-make update-publist
+# 6. Update the generated PDFs (publication list + full CV)
+make update-pdfs
 ```
 
 ### Configuration
@@ -76,7 +76,10 @@ Before starting, ensure:
    ```bash
    echo 'OPENAI_API_KEY=sk-your-key' > .env
    ```
-3. **Publist Directory**: The `publist/` directory should be synced with Overleaf
+3. **LaTeX toolchain**: `xelatex`, `pdflatex` and `biber` on `PATH` (MacTeX / TeX Live). The
+   LaTeX sources for both generated PDFs live in this repo — `publist/` (publication list,
+   XeLaTeX) and `cv/` (full CV, pdfLaTeX) — and both read the same root `My-Publications.bib`.
+   The engines are per-document and not interchangeable; see `cv/README.md`.
 
 ## 🛠️ Available Make Targets
 
@@ -84,15 +87,24 @@ Before starting, ensure:
 
 | Command | Description |
 |---------|-------------|
+| `make sync-pubs` | Pull Zotero saved search → bib → pages → tags → PDFs |
 | `make check` | Check for duplicates/missing publications |
+| `make check-pdf-interactive` | Same as `check-pdf`, plus a prompt to create missing pages |
 | `make check-pdf` | Check which publications lack PDFs |
 | `make preview-rename` | Preview file renaming (cite.bib + PDFs) |
 | `make rename` | Rename files to match citation keys |
 | `make extract-abstracts` | Extract abstracts from PDFs using OpenAI |
 | `make update-publist` | Compile publication list PDF |
 | `make update-publist-verbose` | Same as above, show XeLaTeX/biber output (debug) |
-| `make package-publist-skill` | Zip skill + Makefile + docs (+ local `publist/` sources) for sharing |
+| `make update-cv` | Compile the full CV PDF (same master bib) |
+| `make update-cv-verbose` | Same as above, show pdfLaTeX/biber output (debug) |
+| `make update-reviews` | Rebuild the CV's peer-review list from `REVIEWER_DIR` |
+| `make update-pdfs` | Rebuild both generated PDFs |
+| `make package-publist-skill` | Zip skill + Makefile + docs + `publist/` sources for sharing |
+| `make package-sync-pubs-skill` | Zip the sync-pubs-from-zotero skill bundle for sharing |
 | `make full-update` | Complete automated workflow |
+| `make verify-pdfs` | Rebuild both PDFs and diff them against the committed ones |
+| `make install-hooks` | Install the pre-commit hooks (once per clone) |
 
 ### Development
 
@@ -101,6 +113,8 @@ Before starting, ensure:
 | `make install` | Install dependencies |
 | `make server` | Start Hugo development server |
 | `make build` | Build the site |
+| `make test` | Integrity checks on the code we wrote (not the theme) |
+| `make test-full` | Build, then also check the rendered output |
 | `make clean` | Clean generated files |
 
 ### Deployment
@@ -153,11 +167,15 @@ Before starting, ensure:
 │       ├── params.yaml     # Feature parameters
 │       ├── menus.yaml      # Navigation menus
 │       └── languages.yaml  # Multi-language settings
-├── publist/                # 📄 LaTeX publication list (Overleaf sync)
+├── publist/                # 📄 LaTeX source: publication list
+│   └── main.tex            # (My-Publications.bib is copied in at build time)
+├── cv/                     # 📄 LaTeX source: full academic CV
 │   ├── main.tex
-│   └── My-Publications.bib # Symlinked to root
+│   └── resume.cls
 ├── static/uploads/         # 📦 Uploaded files
-│   └── pubs.pdf           # Compiled publication list
+│   ├── pubs.pdf            # Compiled publication list (make update-publist)
+│   ├── SongshGeo_fullCV.pdf # Compiled full CV (make update-cv)
+│   └── Song_CV_2pages.pdf  # Short CV, maintained by hand
 ├── logs/                   # 📋 Operation logs (auto-cleaned after 3 months)
 ├── assets/                 # 🎨 Theme assets
 └── public/                 # 🌐 Generated site (not in Git)

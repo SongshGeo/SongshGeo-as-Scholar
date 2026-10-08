@@ -6,7 +6,7 @@ description: >-
   Zotero via Better BibTeX: resolves the saved search read-only from
   zotero.sqlite, keeps journal/conference articles, and merges them add-only into
   My-Publications.bib, then drives the existing create-pages / auto-tag /
-  update-publist steps. Use when updating publications from Zotero, pulling new
+  update-pdfs steps. Use when updating publications from Zotero, pulling new
   papers into the site, running make sync-pubs, or auto-maintaining the pub list.
 ---
 
@@ -33,10 +33,20 @@ locale only (`content/en/publication/`).
 
 1. **Zotero is running** with the **Better BibTeX** plugin installed. It is
    required to resolve citation keys and export BibTeX (`http://localhost:23119`).
-2. A **saved search** exists in Zotero (default name `#00.English my-pubs`).
-3. `My-Publications.bib` exists at the repo root (the master bib).
-4. For the page/PDF steps: the normal toolchain (`poetry`, `xelatex`, `biber`)
-   as used by `make full-update` / `make update-publist`.
+2. **The BBT export postscript is installed.** Better BibTeX ▸ Advanced ▸ Export ▸
+   Postscript must hold the contents of `scripts/zotero-bbt-postscript.js`, which
+   turns the Zotero tag `corr:N` into `Author+an = {N=corresponding}`. Without it
+   the export is *silently* missing every corresponding-author annotation and the
+   CV under-reports authorship (the filters fail closed). The pref is reset by a
+   Better BibTeX reinstall, so re-check it after one. Verify with:
+
+   ```bash
+   grep -c 'Author+an' My-Publications.bib   # expect ~24, not 0
+   ```
+3. A **saved search** exists in Zotero (default name `#00.English my-pubs`).
+4. `My-Publications.bib` exists at the repo root (the master bib).
+5. For the page/PDF steps: the normal toolchain (`poetry`, `xelatex`, `biber`)
+   as used by `make full-update` / `make update-pdfs`.
 
 ## Primary workflow (this repository)
 
@@ -58,7 +68,9 @@ This runs, in order:
    publication-dated entries (drafts/submitted are skipped).
 5. **Tag** — `auto_tag_publications.py` regenerates `my-role` + `role-*`/`year-*`
    tags so the home Publications widget filters pick up new pages.
-6. **PDF** — `make update-publist` rebuilds `static/uploads/pubs.pdf`.
+6. **PDFs** — `make update-pdfs` rebuilds both documents that read the master bib:
+   `static/uploads/pubs.pdf` (from `publist/`) and
+   `static/uploads/SongshGeo_fullCV.pdf` (from `cv/`).
 
 Then curate the new pages (set `featured:`, topical `tags`, drop in a PDF),
 `make server` to preview, and `make deploy`.

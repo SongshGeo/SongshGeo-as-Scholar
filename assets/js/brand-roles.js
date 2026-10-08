@@ -9,25 +9,13 @@
 (function () {
   'use strict';
 
-  var IS_ZH = (document.documentElement.lang || '').toLowerCase().indexOf('zh') === 0;
-
-  var ROLES = IS_ZH ? [
-    { label: '作为研究者', sub: '学术主页',          url: '/',                              current: true },
-    { label: '作为探索者', sub: '随笔与博客',        url: 'https://songshgeo.com/',         external: true },
-    { label: '作为开发者', sub: 'GitHub 开源仓库',   url: 'https://github.com/SongshGeo',   external: true },
-  ] : [
-    { label: 'As a Scientist', sub: 'Academic site',           url: '/',                            current: true },
-    { label: 'As an Explorer', sub: 'Essays & longform blog',  url: 'https://songshgeo.com/',       external: true },
-    { label: 'As a Developer', sub: 'Open source on GitHub',   url: 'https://github.com/SongshGeo', external: true },
-  ];
-
-  var L = {
-    eyebrow: IS_ZH ? '身份' : 'Identity',
-    aria:    IS_ZH ? '切换身份' : 'Switch identity',
-    // Display label shown in the navbar — deliberately decoupled from
-    // site.Title (which now reads "Shuang - Scientist" for the browser tab).
-    brand:   IS_ZH ? '宋爽' : 'Shuang Song',
-  };
+  // Everything visible here has a single source of truth outside this file:
+  // labels in i18n/<lang>.yaml, destinations in data/brand_roles.yaml, and the
+  // brand text from the author page (content/<lang>/authors/admin/_index.md).
+  // They arrive via window.__siteUI — see layouts/partials/custom_js.html.
+  var L = (window.__siteUI || {}).brand;
+  if (!L || !L.roles || !L.roles.length) return;
+  var ROLES = L.roles;
 
   if (document.readyState !== 'loading') init();
   else document.addEventListener('DOMContentLoaded', init);
@@ -58,7 +46,7 @@
     btn.setAttribute('aria-expanded', 'false');
     btn.setAttribute('aria-label', L.aria);
     btn.innerHTML =
-      '<span class="brand-roles-text">' + L.brand + '</span>' +
+      '<span class="brand-roles-text">' + L.text + '</span>' +
       '<span class="brand-roles-caret" aria-hidden="true"></span>';
     wrap.replaceChild(btn, brand);
 
