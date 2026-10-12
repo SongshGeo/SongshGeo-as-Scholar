@@ -196,6 +196,14 @@ journals:
     field: Earth & Environmental Change
     quartile: Q2
     source: https://wos-journal.info/journalid/16905
+  Journal of Environmental Sciences:
+    field: Earth & Environmental Change
+    quartile: Q1
+    source: https://www.journalmetrics.org/journal/journal-of-environmental-sciences
+    note: >-
+      Elsevier/RCEES journal (ISSN 1001-0742), manuscript prefix JESC. Q1 in
+      ENVIRONMENTAL SCIENCES (JIF 6.5). Aggregator figure, not confirmed against
+      Clarivate — same caveat as the rest of this file.
   Geomorphology:
     field: Earth & Environmental Change
     quartile: Q2
