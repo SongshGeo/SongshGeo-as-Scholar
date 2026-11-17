@@ -135,7 +135,7 @@
 
 \address{\faGithub{ github.com/SongshGeo} \faGlobe{ https://songshgeo.com/ } \faBook{ https://www.gea.mpg.de/person/137764 } }
 
-\address{ \faEnvelope{ song@gea.mpg.de} \faPhone{+49 1784979062}}
+\address{ \faEnvelope{ song@gea.mpg.de} \faPhone{+49 178 4979062}}
 \address{\faMapMarker{ Max Planck Institute of Geoanthropology, Kahlaische Strasse 10, 07745 Jena, Germany}}
 
 \begin{document}
@@ -157,12 +157,13 @@
 {Ph.D. in Physical Geography}{01/09/2018 - 30/06/2023}
 {Beijing Normal University, Beijing, China, 100875.}
 
+% 本科两条日期相同，倒序排不出先后，所以主修学位排在双专业之前。
 \employmententry
-{Study of History (Double Major)}{01/09/2014 - 30/06/2018}
+{B.S. of Science, Physical Geography}{01/09/2014 - 30/06/2018}
 {Sun Yat-sen University, Guangdong, China, 510275.}
 
 \employmententry
-{B.S. of Science, Physical Geography}{01/09/2014 - 30/06/2018}
+{Study of History (Double Major)}{01/09/2014 - 30/06/2018}
 {Sun Yat-sen University, Guangdong, China, 510275.}
 \end{rSection}
 
@@ -257,7 +258,9 @@ This project aimed to improve mathematical models of socio-hydrology by examinin
 \begin{rSection}{Publications}
 % \GetTotalCount 统计的是本文档"实际排印出来"的条目数，过滤之后它等于下面列出的
 % 篇数（而不是全部发表数）—— 句子里的说法必须和这个含义一致，别改成"总共发表"。
-\textnormal{Dr. Shuang Song has published in the leading journals, such as \textit{Nature Communications}, \textit{Water Resources Research}, \textit{Journal of Hydrology}, \textit{Hydrology and Earth System Science}, and \textit{Nature Sustainability}. Listed below are the \GetTotalCount~published or accepted articles with Dr. Song as \textbf{first or corresponding author}; for the complete list, including manuscripts under review, please visit \url{https://cv.songshgeo.com/publication/}.}
+% 同理，开头列举的刊名只能列下面表里真的出现的。Nature Sustainability（wu2022b）
+% 原来在这句里，但那篇是中间作者、不在"第一/通讯作者"的表里，读者一对就对不上，已删。
+\textnormal{Dr. Shuang Song has published in the leading journals, such as \textit{Nature Communications}, \textit{Water Resources Research}, \textit{Journal of Hydrology}, and \textit{Hydrology and Earth System Science}. Listed below are the \GetTotalCount~published or accepted articles with Dr. Song as \textbf{first or corresponding author}; for the complete list, including manuscripts under review, please visit \url{https://cv.songshgeo.com/publication/}.}
 
 \newrefsection
 \nocite{*}
@@ -305,6 +308,19 @@ This project aimed to improve mathematical models of socio-hydrology by examinin
     \projectentry{Guest Lecture}{Big Data and Computational Methods in Archaeology}{Department of Archaeology, Friedrich Schiller University Jena, Jena, Germany}{04/2026}
 
     One session, delivered on behalf of Prof. Patrick Roberts.
+
+    % 下面两条教职原本列在 Academic Services 的 "Teaching experience:" 小块里。
+    % 它们是持续的教职身份，上面两条是具体授课 —— 两种都是教学，没有理由分在
+    % 相隔三页的两节里，尤其 IMPRS ModA 两边都出现、日期还不一样。
+    \projectentry{Extended Teaching Faculty}{International Max Planck Research School (IMPRS ModA)}{Max Planck Institute of Geoanthropology, Jena, Germany}{12/2025-present}
+
+    \projectentry{Teaching Faculty}{Agent-based Model Seminar Series}{Max Planck Institute of Geoanthropology, Jena, Germany}{09/2025-present}
+
+    % 下面两条研究生课原本在 Outreach Speech 里。给研究生上课是教学，不是科普 ——
+    % 那一节留给面向公众和同行的演讲。
+    \projectentry{Lecture}{Research on coupling model of Human-Earth system - A case study of agent-based model}{Graduate course, Faculty of Geography, Beijing Normal University, Beijing, China}{23/04/2024}
+
+    \projectentry{Seminar}{Evolution and driving mechanisms of human-water relationship in the Yellow River from the perspective of basin governance}{Graduate course, Faculty of Geography, Beijing Normal University, Beijing, China}{23/04/2023}
 
     \projectentry{Teaching Assistant}{Landscape Ecology, a graduate course of about 50 students}{Faculty of Geography, Beijing Normal University, Beijing, China}{09/2019-01/2020}
 
@@ -420,6 +436,11 @@ This project aimed to improve mathematical models of socio-hydrology by examinin
 
 \begin{rSection}{HONORS AND AWARDS} \itemsep -3pt
 
+% MSCA 的 Seal of Excellence 原来放在 Grants and Scholarships 里。它的含义恰恰是
+% "评审达标但没有拿到资助"，和同节里 NSFC 30 万、各项奖学金的真实金额并列，会被
+% 读成已获资助。这是荣誉，不是经费，所以移到这里。
+\awardentry{Seal of Excellence (95.6 points), MSCA Action, Horizon Europe}{02/2026}{}
+
 % 2025研究生学术创新奖
 \awardentry{Academic Innovation Award at Beijing Normal University}{05/2025}{}
 
@@ -439,9 +460,9 @@ This project aimed to improve mathematical models of socio-hydrology by examinin
 
 \awardentry{Outstanding graduate thesis (Top 1 in Physical Geography)} {06/2018}{}
 
-\awardentry{Outstanding Project in National College Student Innovation Funding} {04/2017}{}
-
 \awardentry{1st \& Best Lecturer in the 3rd China University Geography Science Presentation Competition} {09/2017}{}
+
+\awardentry{Outstanding Project in National College Student Innovation Funding} {04/2017}{}
 
 \awardentry{1st \& Most Novel Topic in the 2nd China University Geography Science Presentation Competition} {11/2016}{}
 
@@ -450,9 +471,10 @@ This project aimed to improve mathematical models of socio-hydrology by examinin
 
 % ========== 奖学金和奖金 =======
 
+% 本节按结束日期倒序（区间条目按区间的结束时间排），单一日期的条目同理。
+% 看起来"乱"的几处（如 12/2018 的单项排在 12/2014-12/2018 的区间旁）正是这条规则
+% 的结果，不是排错了，别去"顺"它。
 \begin{rSection}{Grants and Scholarships}
-
-    \awardentry{Seal of Excellence (95.6 points), MSCA Action, Horizon Europe}{02/2026}{}
 
     \awardentry{Visiting Scholarship from Max-Planck Society (15,000 EUR)}{10/2024 - 03/2025}{}
 
@@ -494,15 +516,9 @@ This project aimed to improve mathematical models of socio-hydrology by examinin
     \item \awardentry{Yellow River Institute of Hydraulic Research, Yellow River Conservancy Commission}{08/2022}{}
 
 \end{itemize}
-    Teaching experience:
-\begin{itemize}
-    % IMPRS 教员
-    \item \awardentry{Extended Teaching Faculty International Max Planck Research School (IMPRS ModA).}{12/2025-Present}{}
-
-    % 多主体模型
-    \item \awardentry{Agent-based model Seminar Series Teaching Faculty at MPI-GEA}{09/2025-Present}{}
-
-\end{itemize}
+% 这里原来还有一个 "Teaching experience:" 小块（IMPRS 教员、ABM 研讨课教员）。
+% 教学的东西全部集中到上面的 Teaching Experience 一节了 —— 同一个 IMPRS ModA
+% 曾经在两节里以不同日期各出现一次，并排读像是自相矛盾。
 \end{rSection}
 
 %  ============ Outreach 宣传演讲 ===============
@@ -510,10 +526,6 @@ This project aimed to improve mathematical models of socio-hydrology by examinin
 
     % 峰会 summit
     \projectentry{Lecture}{Water Management in Decision Theater - Learning from Others. (Chinese Case)}{Falling Walls Science Summit, Berlin, Germany}{08/11/2025}
-
-    % 北京师范大学上课2024年
-    \projectentry{Lecture}{Research on coupling model of Human-Earth system - A case study of agent-based model}{Graduate course, Faculty of Geography, Beijing Normal University, Beijing, China}{23/04/2024}
-
 
     % 北京师范大学2024年年会
     \projectentry{Invited Presentation}{Coupled human and water in the Anthropocene: Social-ecological system (SES) modeling approach}{Annual Academic Conference of Faculty of Geography, Beijing Normal University, Beijing, China}{24/12/2023}
@@ -526,9 +538,6 @@ This project aimed to improve mathematical models of socio-hydrology by examinin
 
     % 2023年黄河水利委员会讲座
     \projectentry{Invited Lecture}{Experience sharing in scientific data visualization}{Yellow River Conservancy Research Institute, Zhengzhou, China}{17/07/2023}
-
-    % 2023年上课
-    \projectentry{Seminar}{Evolution and driving mechanisms of human-water relationship in the Yellow River from the perspective of basin governance}{Graduate course, Faculty of Geography, Beijing Normal University, Beijing, China}{23/04/2023}
 
     % 2023年IIASA讨论
     \projectentry{Seminar}{Flooding Collective Memory Resilience}{International Institute for Applied Systems Analysis: IIASA, Vienna, Austria}{04/04/2023}
@@ -557,7 +566,7 @@ It is based on the popular Python language and the general Mesa framework, enabl
 
 \projectentry{Team Leader}{PaperBell: Research, to be connected.}{Open-sourced software on GitHub: https://github.com/PaperBell-Org/Obsidian-PaperBell}{2024-present}
 
-I developed this ecosystem that provides researchers with an automatic academic note-taking workflow. This open-source project currently has 216 stars on GitHub and an active community.
+I developed this ecosystem that provides researchers with an automatic academic note-taking workflow. This open-source project has an active community and over 200 stars on GitHub as of 11/2026.
 
 \end{rSection}
 
