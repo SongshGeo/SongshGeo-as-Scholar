@@ -48,6 +48,10 @@
 % 排版，但单独起一个名字，免得 .tex 里读起来像是把学生写进了任职经历。
 \newcommand{\superviseeentry}[4]{\textbf{\textit{#1}} \hfill {\em #2} \\ \textnormal{\em #3, #4}}
 
+% 语言：语种加粗在左，水平跟在破折号后，证书（或考试日期）右对齐。
+% 第三个参数留空就只是一行"语种 — 水平"，没有悬空的右栏。
+\newcommand{\languageentry}[3]{\textbf{#1} \textnormal{--- #2} \hfill {\em #3}}
+
 
 % 使用publist包可以直接很方便的打印参考文献列表，突出自己作品
 \usepackage[
@@ -160,6 +164,21 @@
 \employmententry
 {B.S. of Science, Physical Geography}{01/09/2014 - 30/06/2018}
 {Sun Yat-sen University, Guangdong, China, 510275.}
+\end{rSection}
+
+% ============ 语言 ============ %
+% 放在学历之后、任职之前：读者在知道"在哪里受的训练"之后，紧接着就知道"能用哪些
+% 语言工作"，再往下才是职位。德语这一条写明发证机构 —— 只写 "B1" 在德国的申请里
+% 几乎没有份量，考试名称才是可核验的那部分。
+\begin{rSection}{Languages} \itemsep -3pt
+
+\languageentry{Chinese}{native speaker}{}
+
+\languageentry{English}{fluent; the working language of my research, teaching and supervision}{}
+
+% TODO 补考试日期：\languageentry{German}{B1, certified}{telc Deutsch B1, MM/YYYY}
+\languageentry{German}{B1, certified}{telc Deutsch B1}
+
 \end{rSection}
 
 \begin{rSection}{PROFESSIONAL EXPERIENCE}
@@ -316,10 +335,6 @@ This project aimed to improve mathematical models of socio-hydrology by examinin
 
 \begin{rSection}{Outreach Experience}
 
-    \projectentry{Media Interview}{How Does Generational Memory Distort Our Understanding of Climate Extremes?}{https://lt.org/publication-plus/how-does-generational-memory-distort-our-understanding-of-climate-extremes/}{11/2026}
-
-    I was interviewed by the editor of Latest Thinking on how generational memory distorts our understanding of climate extremes.
-
     \projectentry{Founder}{ABMind: a Chinese-language learning community for agent-based modelling}{Community website: https://abmind.cc/}{10/2024-present}
 
     I founded and run this community to make agent-based modelling approachable to Chinese-speaking researchers and students, who are otherwise served almost entirely by English-language material.
@@ -328,6 +343,21 @@ This project aimed to improve mathematical models of socio-hydrology by examinin
 
     % 在这个系列写作中，我将自己定位为“A Geographer who also travels”。我使用中文写作，将自然地理知识结合自己旅行的见闻，用通俗易懂的语言传递给公众。已经获得收入 4,688 CNY，最高单篇文章阅读。网页有近4000访客。
     In this series of writings, I position myself as "A Geographer who also travels." I write in Chinese, combining geographic knowledge, academic concepts, and travel experiences, and convey them to the public in an easy-to-understand language. I have earned 4,688 CNY tips for this blog, with 812 subscriptions and readership. The webpage has around 4,000 visitors.
+
+\end{rSection}
+
+% ============ 媒体报道 ============ %
+% 自己的研究被媒体采访/报道，和上面"自己去做科普"是两件事，所以单开一节：
+% Outreach Experience 记的是我主动发起的项目，这里记的是别人来报道我的工作。
+% 条目格式沿用 \projectentry{出处}{标题}{链接}{日期}，按时间倒序。
+% 同一篇论文可以有多条报道，重复出现是正常的，不要去重。
+\begin{rSection}{Media Coverage}
+
+    % Nature Communications 那篇（song2026c）出版后的采访
+    % Latest Thinking 同一个内容有两个页面：这里用的是文章版 publication-plus，
+    % 另有一个带 DOI 的视频版 https://lt.org/publication/how-does-generational-...
+    % （DOI 10.21036/LTPUB101257）。需要可引用的版本时用后者。
+    \projectentry{Latest Thinking}{How Does Generational Memory Distort Our Understanding of Climate Extremes?}{Interview, \url{https://lt.org/publication-plus/how-does-generational-memory-distort-our-understanding-of-climate-extremes}}{11/2026}
 
 \end{rSection}
 
