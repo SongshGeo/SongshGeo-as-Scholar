@@ -23,6 +23,13 @@
 # Confirm these against institutional JCR access before relying on the CV, and
 # re-check after each June JCR release. `checked` below is what the script
 # reminds you with.
+#
+# `checked` is the date of the last sweep over ALL entries — do not bump it when
+# only a few are looked up, or the build will vouch for 30-odd entries nobody
+# re-read. Entries added or re-sourced since that sweep carry their own `source:`
+# (and a `note:` where the quartile was not clean), which is the per-entry record.
+# Last partial pass: 2026-11-17 — Frontiers in Environmental Science, Journal of
+# Simulation and Simulation Transactions.
 checked: 2026-09-14
 
 # Print order of the field groups on the CV.
@@ -247,15 +254,27 @@ journals:
   Journal of Simulation:
     field: Multidisciplinary & Modelling
     quartile: Q2
-    source: https://www.journalmetrics.org/journal/journal-of-simulation
+    source: https://wos-journal.info/journalid/17661
     note: >-
-      Q2 in MANAGEMENT SCIENCE AND OPERATIONS RESEARCH (Taylor & Francis,
-      ISSN 1747-7778). The source URL first recorded here pointed at
-      Environmental Modelling & Software's record, not this journal's.
+      Taylor & Francis, ISSN 1747-7778. JIF 1.7, 31.2nd percentile in OPERATIONS
+      RESEARCH & MANAGEMENT SCIENCE, which is Q2. An earlier version of this
+      entry named "MANAGEMENT SCIENCE AND OPERATIONS RESEARCH" — that is the
+      Scopus subject area, not the JCR category, exactly the mix-up this file
+      warns about at the top.
   Simulation Transactions of the Society for Modeling and Simulation International:
+    name: "SIMULATION: Transactions of the Society for Modeling and Simulation International"
     field: Multidisciplinary & Modelling
-    quartile: Q3
-    source: https://services.sagepub.com/journal/simulation-transactions-of-the-society-for-modeling-and-simulation-international/
+    quartile: Q2
+    source: https://wos-journal.info/journalid/20184
+    note: >-
+      SAGE, ISSN 0037-5497. JIF 2.0, indexed in two JCR categories — COMPUTER
+      SCIENCE, SOFTWARE ENGINEERING 48/103 (Q2) and COMPUTER SCIENCE,
+      INTERDISCIPLINARY APPLICATIONS 67/102 (Q3). "Q2" is the best of them, the
+      same convention as Physics and Chemistry of the Earth above. Older tables
+      (LetPub) still show Q3/Q4 from an earlier release. The publisher page first
+      recorded here as the source states no quartile at all.
+      No folder in the review archive yet, so nothing prints from this entry and
+      the build says so on every run — that is expected until a review is filed.
 
   # ── Not journals ─────────────────────────────────────────────────────────
   Reviewed in 2025:
