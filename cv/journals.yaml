@@ -216,6 +216,15 @@ journals:
       Journal not identified — the folder name matches no journal I could find,
       and the record is "中尼铁路 LUCC". No quartile is printed until it is
       named. The field above is a guess; revisit both together.
+  Frontiers in Environmental Science:
+    field: Earth & Environmental Change
+    quartile: Q2
+    source: https://wos-journal.info/journalid/11520
+    note: >-
+      Q2, not Q1: ENVIRONMENTAL SCIENCES, 61.5th percentile, JIF 4.4. The "Q1"
+      aggregators show is its Scopus/SJR quartile in a different category
+      (Environmental Science, miscellaneous) — the same trap as Frontiers in
+      Water above. The journal's own homepage states no quartile at all.
 
   # ── Multidisciplinary & Modelling ────────────────────────────────────────
   Nature Communications:
@@ -235,6 +244,18 @@ journals:
     field: Multidisciplinary & Modelling
     quartile: Q1
     source: https://wos-journal.info/journalid/11476
+  Journal of Simulation:
+    field: Multidisciplinary & Modelling
+    quartile: Q2
+    source: https://www.journalmetrics.org/journal/journal-of-simulation
+    note: >-
+      Q2 in MANAGEMENT SCIENCE AND OPERATIONS RESEARCH (Taylor & Francis,
+      ISSN 1747-7778). The source URL first recorded here pointed at
+      Environmental Modelling & Software's record, not this journal's.
+  Simulation Transactions of the Society for Modeling and Simulation International:
+    field: Multidisciplinary & Modelling
+    quartile: Q3
+    source: https://services.sagepub.com/journal/simulation-transactions-of-the-society-for-modeling-and-simulation-international/
 
   # ── Not journals ─────────────────────────────────────────────────────────
   Reviewed in 2025:
